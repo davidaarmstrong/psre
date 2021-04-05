@@ -1,0 +1,36 @@
+Package: epsr
+Type: Package
+Title: Effective Presentation of Statistical Results
+Version: 0.1.0
+Authors@R: c(person("Dave", "Armstrong", role=c("aut", "cre"), email="dave@quantoid.net"), 
+             person("Andersen", "Bob", role="aut"))
+Description: Includes functions and data used in the book Effective Presentation of Statistical Results.  
+biocViews: 
+Imports: 
+    stats, 
+    MASS, 
+    metap, 
+    multtest, 
+    car, 
+    nortest, 
+    lawstat, 
+    normwhn.test, 
+    DAMisc, 
+    ggplot2, 
+    boot, 
+    grid, 
+    cowplot, 
+    fANCOVA, 
+    dplyr, 
+    tidyr, 
+    utils, 
+    magrittr, 
+    tibble,
+    sm, 
+    multcomp, 
+    rlang
+Depends: R (>= 3.5.0)
+License: GPL (>=2)
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.0
