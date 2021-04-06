@@ -58,9 +58,8 @@ letter_plot(gp, lmat) +
   labs(x="Fitted Values\n(95% Confidence Interval)")
 ```
 
-<center>
 ![](figs/letterplot.png)
-</center>
+
 
 In the above plot, we can see that the Islamic and Latin American civilizations are different from each other, the Western civilization is different from all others and there are no other significant pairwise differences among categories. 
 
