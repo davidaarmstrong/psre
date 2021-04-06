@@ -2,10 +2,6 @@
 ### Dave Armstrong
 ### 2-28-2021
 
-
-
-
-
 #' Kernel Density with Normal Density Overlay
 #'
 #' Calculates a kernel density estimate of the data along with confidence bounds.
