@@ -1,6 +1,6 @@
-# epsr
+# psre
 
-This R package supports a book Bob Andersen and I are writing - </em>Effective Presentation of Statistical Results</em>, which is currently under contract with Sage Press (anticipated publication in early 2022).  
+This R package supports a book Bob Andersen and I are writing - </em>Presenting Statistical Results Effectively</em>, which is currently under contract with Sage Press (anticipated publication in early 2022).  
 
 The package contains the data and will eventually contain a vignette that recreates all of the visualizations in the book (though that's not in the package yet).  Most of the functions in the package are helper functions that permit the construction of plots that are made automatically in either base R or lattice as ggplots.  That is, they return the data required to make the plot rather than making the plot itself.  The following functions do that: 
 
