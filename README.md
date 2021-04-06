@@ -28,4 +28,40 @@ lsa(formula = form,
 
 ![](figs/lsa.png)
 
+The other sort-of innovation is a plot that joins a compact letter display with a coefficient plot.  There is a similar plot in the `multcomp` package, but it plots box-plots rather than coefficient estimates.  Here is an example of the plot we produce.  
+
+```r
+wa1 <- wvs %>% 
+  ungroup %>% 
+  mutate(pct_sec_plus = pct_secondary + pct_some_univ + pct_univ_degree, 
+           civ = case_when(
+            civ == 4 ~ "Islamic", 
+            civ == 6 ~ "Latin American", 
+            civ == 7 ~ "Orthodox", 
+            civ == 8 ~ "Sinic", 
+            civ == 9 ~ "Western", 
+            TRUE ~ "Other"), 
+          civ = factor(civ, 
+                       levels=c("Western", "Sinic", "Islamic", 
+                                "Latin American", "Orthodox", "Other"))) %>% 
+  group_by(country) %>% 
+  slice(1) %>% 
+  filter(country != "Poland")
+mod <- lm(resemaval ~ I(gdp_cap/10000) + civ + pct_sec_plus, data=wa1)
+gp <- ggeffects::ggpredict(mod, terms="civ", typical="mean")
+pwc <- summary(multcomp::glht(mod, linfct=multcomp::mcp(civ = "Tukey")), 
+               test=multcomp::adjusted(type="none"))
+cld1 <- multcomp::cld(pwc)
+lmat <- cld1$mcletters$LetterMatrix
+
+letter_plot(gp, lmat) + 
+  labs(x="Fitted Values\n(95% Confidence Interval)")
+```
+
+<center>
+![](figs/letterplot.png)
+</center>
+
+In the above plot, we can see that the Islamic and Latin American civilizations are different from each other, the Western civilization is different from all others and there are no other significant pairwise differences among categories. 
+
 
