@@ -235,6 +235,7 @@ letter_plot <- function(fits, letters){
   }
   ldat <- as_tibble(lmat, rownames="x")
   dat <- left_join(fits, ldat)
+  dat$x <- fits$x
   out <- ggplot(dat, aes_string(y="x")) +
     geom_errorbarh(aes_string(xmin="conf.low", xmax="conf.high"), height=0) +
     geom_point(aes_string(x="predicted"))

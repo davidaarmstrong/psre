@@ -1,10 +1,10 @@
-Package: epsr
+Package: psre
 Type: Package
-Title: Effective Presentation of Statistical Results
+Title: Presenting Statistical Results Effectively
 Version: 0.1.0
 Authors@R: c(person("Dave", "Armstrong", role=c("aut", "cre"), email="dave@quantoid.net"), 
              person("Andersen", "Bob", role="aut"))
-Description: Includes functions and data used in the book Effective Presentation of Statistical Results.  
+Description: Includes functions and data used in the book Presenting Statistical Results Effectively.  
 biocViews: 
 Imports: 
     stats, 
