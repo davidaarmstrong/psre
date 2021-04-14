@@ -507,6 +507,10 @@ lsa <- function(formula, xlabels=NULL, ylab = NULL, data){
 #' @param ylab Character string giving y-variable label to be
 #' used instead of variable name.
 #' @param data A data frame that holds the variables to be plotted.
+#' @param return A string identify what to return.  If \sQuote{grid}, 
+#' then a \code{cowplot} object is returned with all plots printed.  
+#' If \sQuote{grobs} then a list with all of the individual ggplots/grobs
+#' is returned. 
 #'
 #' @importFrom ggplot2 geom_smooth facet_wrap theme_bw theme
 #' element_blank element_text geom_histogram element_line coord_flip
@@ -517,10 +521,11 @@ lsa <- function(formula, xlabels=NULL, ylab = NULL, data){
 #' @return A \code{cowplot} object.
 #'
 #' @export
-
-
-rrPlot <- function(formula, xlabels=NULL, ylab = NULL, data){
-  if (!attr(terms(as.formula(formula)), which = 'response'))
+rrPlot <- function(formula, xlabels=NULL, ylab = NULL, 
+                   data, return = c("grid", "grobs")){
+  ret <- match.arg(regturn)
+  if (!attr(terms(as.formula(formula)), which = 'response',
+            return ))
     stop("No DV in formula.\n")
   avf <- all.vars(formula)
   tmp <- data %>%
@@ -597,7 +602,11 @@ rrPlot <- function(formula, xlabels=NULL, ylab = NULL, data){
   l[["nrow"]] = 2
   l[["rel_heights"]] = rel_heights=c(1,5)
   l[["rel_widths"]] = rel_widths=c(1.25, rep(1, length(ivs)-1), .5)
-  do.call(plot_grid, l)
+  if(ret == "grid"){
+    do.call(plot_grid, l)
+  }else{
+    return(grobs=l, data=tmp, dv = dv, ivs=ivs)
+  }
 }
 
 
