@@ -495,6 +495,113 @@ lsa <- function(formula, xlabels=NULL, ylab = NULL, data){
   do.call(plot_grid, l)
 }
 
+
+#' Residual-Residual Plot
+#'
+#' Produces a linear scatterplot array with marginal histograms.
+#' The plots have OLS regression lines and a 45-degree line.
+#'
+#' @param formula Formula giving the variables to be plotted.
+#' @param xlabels Vector of character strings giving the labs of
+#' variables to be used in place of the variable names.
+#' @param ylab Character string giving y-variable label to be
+#' used instead of variable name.
+#' @param data A data frame that holds the variables to be plotted.
+#'
+#' @importFrom ggplot2 geom_smooth facet_wrap theme_bw theme
+#' element_blank element_text geom_histogram element_line coord_flip
+#' @importFrom grid rectGrob gpar
+#' @importFrom cowplot plot_grid
+#' @importFrom stats as.formula terms
+#'
+#' @return A \code{cowplot} object.
+#'
+#' @export
+
+
+rrPlot <- function(formula, xlabels=NULL, ylab = NULL, data){
+  if (!attr(terms(as.formula(formula)), which = 'response'))
+    stop("No DV in formula.\n")
+  avf <- all.vars(formula)
+  tmp <- data %>%
+    select(avf)
+  dv <- avf[1]
+  ivs <- avf[-1]
+  if(is.null(ylab))ylab <- dv
+  if(is.null(xlabels))xlabels <- ivs
+  if(length(ivs) != length(xlabels))stop("Labels and #IVs are not the same\n")
+  slist <- hlist <- list()
+  for(i in 1:length(ivs)){
+    if(i == 1){
+      slist[[i]] <- ggplot(tmp, aes_string(y=dv, x=ivs[i])) +
+        geom_point(size=.5, shape=1) +
+        geom_smooth(method="lm", size=.5, se=FALSE, col="black") +
+        geom_abline(slope=1, intercept=0, lty=3) +
+        facet_wrap(as.formula(paste0('~"', xlabels[i], '"')))+
+        theme_bw() +
+        theme(panel.grid=element_blank()) +
+        labs(x="", y=ylab[1])
+
+      hlist[[i]] <- ggplot(tmp, aes_string(x=ivs[i])) +
+        geom_histogram(fill="gray75", col="white", bins=15) +
+        theme(panel.grid=element_blank(),
+              panel.background = element_blank(),
+              axis.text.x = element_blank(),
+              axis.title.x=element_blank(),
+              axis.ticks.x = element_blank(),
+              axis.title.y = element_text(colour="transparent"),
+              axis.text.y=element_text(colour="transparent"),
+              axis.ticks.y = element_line(colour="transparent")) +
+        labs(y="Histogram")
+    }else{
+      slist[[i]] <- ggplot(tmp, aes_string(y=dv, x=ivs[i])) +
+        geom_point(size=.5, shape=1) +
+        geom_smooth(method="lm", size=.5, se=FALSE, col="black") +
+        geom_abline(slope=1, intercept=0, lty=3) +
+        facet_wrap(as.formula(paste0('~"', xlabels[i], '"')))+
+        theme_bw() +
+        theme(panel.grid=element_blank(),
+              axis.text.y=element_blank(),
+              axis.ticks.y = element_blank(),
+              axis.title.y = element_blank()) +
+        labs(x="", y="Y")
+      hlist[[i]] <- ggplot(tmp, aes_string(x=ivs[i])) +
+        geom_histogram(fill="gray75", col="white", bins=15) +
+        theme(panel.grid=element_blank(),
+              panel.background = element_blank(),
+              axis.text.x = element_blank(),
+              axis.title.x=element_blank(),
+              axis.ticks.x = element_blank(),
+              axis.title.y = element_blank(),
+              axis.text.y=element_blank(),
+              axis.ticks.y = element_blank())
+
+    }
+  }
+  hlist[[(length(ivs)+1)]] <- rectGrob(gp=gpar(col="white")) # make a white spacer grob
+  slist[[(length(ivs)+1)]] <- ggplot(tmp, aes_string(x=dv)) +
+    geom_histogram(fill="gray75", col="white", bins=15) +
+    theme(panel.grid=element_blank(),
+          panel.background = element_blank(),
+          axis.text.y = element_blank(),
+          axis.ticks.y = element_blank(),
+          axis.title.y=element_blank(),
+          axis.text.x=element_text(colour="transparent"),
+          axis.ticks.x = element_line(colour="transparent"),
+          axis.title.x=element_blank()
+    ) +
+    labs(x="", y="") +
+    coord_flip()
+
+  l <- c(hlist, slist)
+  l[["nrow"]] = 2
+  l[["rel_heights"]] = rel_heights=c(1,5)
+  l[["rel_widths"]] = rel_widths=c(1.25, rep(1, length(ivs)-1), .5)
+  do.call(plot_grid, l)
+}
+
+
+
 #' Caption Grob
 #'
 #' Create a caption grob
