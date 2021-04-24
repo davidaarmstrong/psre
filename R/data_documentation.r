@@ -318,3 +318,36 @@ NULL
 #'
 #' @keywords datasets
 NULL
+
+
+#' State Repression Dataset
+#' 
+#' These data consider the democracy-repression nexus.  While they are different data than used in previous
+#' studies, they are similar in spirit to the data used in Poe and Tate (1994) and in 
+#' Davenport and Armstrong (20040). 
+#' 
+#' @name repress
+#' @docType data
+#' @format A data frame with 1530 rows and 22 variables
+#' \describe{
+#'   \item{gwno}{Gleditsch and Ward numeric country code}
+#'   \item{year}{Year of observation}
+#'   \item{pts_s}{Political Terror Scale coding of State Department country reports.}
+#'   \item{rgdpe}{Penn World Tables measure of GDP in millions $USD.}
+#'   \item{pop}{Population in millions from the Penn World Tables.}
+#'   \item{pr}{Freedom House's Political Rights measure (0-40)}
+#'   \item{cwar}{Civil War indicator from the UCDP Armed Conflict Database.}
+#'   \item{iwar}{Interstate War indicator from the UCDP Armed Conflict Database.}
+#'}
+#'
+#'@references
+#' Feenstra, Robert C., Robert Inklaar and Marcel P. Timmer 2015. \sQuote{The Next Generation of the Penn World Table} American Economic Review, 105(10), 3150-3182, available for download at \url{www.ggdc.net/pwt}.
+#' 
+#' Freedom House.  (2020).  Freedom in the World 2020.  New York: Freedom House.
+#' 
+#' Gleditsch, Nils Petter; Peter Wallensteen, Mikael Eriksson, Margareta Sollenberg & Havard Strand, 2002. \sQuote{Armed Conflict 1946–2001: A New Dataset}, Journal of Peace Research 39(5): 615–637.
+#' 
+#' Gibney, Mark, Linda Cornett, Reed Wood, Peter Haschke, Daniel Arnon, Attilio Pisano, Gray Barrett, and Baekkwan Park. 2020. \sQuote{The Political Terror Scale 1976-2019.} Date Retrieved, from the Political Terror Scale website: \url{http://www.politicalterrorscale.org}.
+#'
+#' @keywords datasets
+NULL

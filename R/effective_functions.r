@@ -523,7 +523,7 @@ lsa <- function(formula, xlabels=NULL, ylab = NULL, data){
 #' @export
 rrPlot <- function(formula, xlabels=NULL, ylab = NULL, 
                    data, return = c("grid", "grobs")){
-  ret <- match.arg(regturn)
+  ret <- match.arg(return)
   if (!attr(terms(as.formula(formula)), which = 'response',
             return ))
     stop("No DV in formula.\n")
@@ -746,6 +746,193 @@ glmImp <- function(obj,
   }
   res <- data.frame(imp = e, lwr = outci[1], upr = outci[2])
   res
+}
+
+#'  Internal function to be used by optCL
+#'  
+#'  This is an internal function to be used with optCL, 
+#'  but is documented here for completeness. 
+#'  
+#'  @param b A vector of coefficients to be tested. 
+#'  @param v A variance-covariance matrix for \code{b}. 
+#'  @param vt An optional vector of variances (like quasi-variances)
+#'  that can be used to make the confidence intervals. 
+#'  @param eg A two-column matrix giving the index numbers of the 
+#'  simple contrasts.  It should be that \code{eg[,1]} is smaller than 
+#'  \code{eg[,2]}.  
+#'  @param resdf Residual degrees of freedom to be used to make t-statistics. 
+#'  @param alpha p-value used to reject the null hypothesis. 
+#'  @param clev Candidate confidence level for the optimised visual testing
+#'  search. 
+#'  
+#' @noRd
+#' 
+#' @importFrom dplyr filter 
+#' @importFrom stats model.matrix qt
+#' @importFrom ggplot2 geom_abline
+make_fdat <- function(b, v, vt, eg, resdf=Inf, alpha=.05, clev){
+  vi <- diag(v)
+  fdat <- tibble(
+    cat1 = eg[,1], 
+    cat2 = eg[,2], 
+    b1 = b[eg[,1]], 
+    b2 = b[eg[,2]], 
+    v1 = vi[eg[,1]], 
+    v2 = vi[eg[,2]], 
+    vt1 = vt[eg[,1]], 
+    vt2 = vt[eg[,2]], 
+    cov12 = v[cbind(eg[,1], eg[,2])])
+  fdat <- fdat %>% 
+    mutate( 
+      comp_var = .data$v1 + .data$v2 - 2*.data$cov12, 
+      diff = .data$b1-.data$b2) %>% 
+    mutate(
+    t = .data$diff/sqrt(.data$comp_var),
+    p = 2*pt(abs(.data$t), resdf, lower.tail=FALSE), 
+    sig = as.numeric(.data$p < alpha), 
+    lb1 = .data$b1-qt(1-((1-clev)/2), resdf)*sqrt(.data$vt1), 
+    ub1 = .data$b1+qt(1-((1-clev)/2), resdf)*sqrt(.data$vt1), 
+    lb2 = .data$b2-qt(1-((1-clev)/2), resdf)*sqrt(.data$vt2), 
+    ub2 = .data$b2+qt(1-((1-clev)/2), resdf)*sqrt(.data$vt2))
+  fdat <- fdat %>% 
+    rowwise %>% mutate(
+      olap = case_when(
+        .data$diff > 0 ~ as.numeric(.data$lb1 < .data$ub2), 
+        .data$diff < 0 ~ as.numeric(.data$ub1 > .data$lb2), 
+        TRUE ~ 0))
+  na.omit(fdat)
+}  
+
+#' Calculate the Optimal Visual Testing Confidence Level
+#' 
+#' Calculates the Optimal Visual Testing (OVT) confidence level.  The
+#' OVT level is a level you can use to make confidence intervals such that
+#' the overlapping (or non-overlapping) of confidence intervals preserves
+#' the pairwise testing results. That is, statistically different 
+#' estimates have confidence intervals that do not overlap and statistically
+#' indistinguishable intervals have confidence intervals that do overlap. 
+#' It does not always work perfectly, but it generally results in fewer
+#' inferential errors than the nominal level. 
+#' 
+#' @param obj A model object, on which \code{coef} and \code{vcov} can be called. 
+#' Either \code{obj} and \code{varname} or \code{b} and \code{v} must be specified.
+#' @param varname The name of a variable whose coefficients will be used. 
+#' @param b Optional vector of coefficients to be passed into the function.  
+#' it overrides the coefficients in \code{obj}. Either \code{obj} and 
+#' \code{varname} or \code{b} and \code{v} must be specified.
+#' @param v Optional variance-covariance matrix.  This can be specified 
+#' even if \code{obj} and \code{varname} are specified.  It replaces the
+#' variance-covaraince matrix from the model. 
+#' @param resdf If only \code{b} and \code{v} are passed in, this gives 
+#' the residual degrees of freedom for the t-statistics. 
+#' @param level The confidence level to use for testing. 
+#' @param quasi_vars An optional vector of quasi-variances that will be
+#' used to make the confidence intervals. 
+#' @param add_ref If \code{obj} and \code{varname} are passed in, 
+#' an optional 0 is added to the front of the vector of coefficients, 
+#' along with a leading row and column of zeros on the variance-covariance
+#' matrix to represent the reference category. 
+#' @param grid_range The range of values over which to do the grid search. 
+#' @param grid_length The number of values in the grid.  
+#' 
+#' @return A list with the following elements: 
+#' \describe{
+#'   \item{opt_levels}{The optimal confidence levels that all have 
+#'   identical minimal error rates. }
+#'   \item{opt_errors}{The proportion of errors across all simple contrasts.}
+#'   \item{lev_errors}{The proportion of errors made at the nominal 
+#'   significance level.}
+#'   \item{tot_comps}{The total number of comparisons}
+#'   \item{lev_dat}{If there are inferential errors at the nominal level, 
+#'   this is a data frame that has all of the information about which 
+#'   comparisons are not appropriately represented by the overlaps in 
+#'   confidence intervals.}
+#'   \item{err_dat}{If there are inferential errors at the optimal level, 
+#'   this is a data frame that has all of the information about which 
+#'   comparisons remain not appropriately represented by the overlaps in 
+#'   optimized confidence intervals.}
+#' }
+#' 
+#' @importFrom dplyr rowwise case_when ungroup summarise
+#' @export
+optCL <- function(obj=NULL, varname=NULL, b=NULL, v=NULL, 
+                  resdf = Inf, level=.95, 
+                  quasi_vars = NULL, 
+                  add_ref = TRUE, 
+                  grid_range = c(.75, .99), 
+                  grid_length=100){
+  if(is.null(obj) & is.null(varname)){
+    if(is.null(b) | is.null(v))stop("Both b and v must be provided if obj and varname are NULL.\n")
+  }
+  if(is.null(b) | is.null(v)){
+    if(is.null(obj) | is.null(varname))stop("Both obj and varname must be provided if b or v is NULL.\n")
+  }
+  resdf <- ifelse(is.null(obj), resdf, obj$df.residual)
+  res <- rep(NA, length=grid_length)
+  alpha <- 1-level
+  grid_pts <- seq(grid_range[1], grid_range[2], length=grid_length)
+  grid_pts <- sort(unique(c(level, grid_pts)))
+  if(is.null(b)){
+    X <- model.matrix(obj)
+    assgn <- attr(X, "assign")
+    tl <- attr(terms(obj), "term.labels")
+    varind <- which(tl == varname)
+    inds <- which(assgn == varind)
+    if(length(inds) == 0){
+      stop("varname not a term label in model matrix.\n")
+    }
+    if(add_ref){
+      b <- c(0, coef(obj)[inds])
+    }
+    if(is.null(v)){
+      v <- vcov(obj)[inds, inds]
+      if(add_ref){
+        v <- cbind(0, rbind(0, v))  
+      }
+    }
+  }
+  if(length(b) != ncol(v))stop("Length of b and dimension of v must be the same.\n")
+  if(nrow(v) != ncol(v))stop("v must be square.\n")
+  if(is.null(b) & !is.null(v))stop("If getting v from the model, you must also get v from the model.\n")
+  eg <- expand.grid(b1 = 1:length(b), b2 = 1:length(b))
+  eg <- eg %>% filter(.data$b1 < .data$b2)
+  vi <- diag(v)
+  vt <- {if(is.null(quasi_vars)){
+    vi
+  }else{
+    quasi_vars
+  }}
+  for(i in 1:length(grid_pts)){
+    fd <- make_fdat(b,v,vt, eg, resdf, alpha, grid_pts[i])  
+    fd <- fd %>% na.omit()
+    res[i] <- fd %>% 
+      ungroup %>% 
+      summarise(err = mean(.data$olap == .data$sig)) %>% 
+      pull()
+  }
+  w <- which(res == min(res))
+  if(min(res) > 0){
+    ret_dat <- make_fdat(b,v,vt, eg, resdf, alpha, grid_pts[w[1]])  
+    ret_dat <- ret_dat %>% 
+      filter(.data$olap == .data$sig)
+  }
+  else{
+    ret_dat <- NULL
+  }
+  if(res[which(grid_pts == level)] > 0){
+    lev_dat <- make_fdat(b,v,vt, eg, resdf, alpha, level)  
+    lev_dat <- lev_dat %>% 
+      filter(.data$olap == .data$sig)
+  }
+  else{
+    lev_dat <- NULL
+  }
+  return(list(opt_levels = grid_pts[w], 
+              opt_errors = min(res), 
+              lev_errors = res[which(grid_pts == level)], 
+              tot_comps = nrow(fd), 
+              lev_dat = lev_dat, 
+              err_dat = ret_dat))
 }
 
 
