@@ -205,6 +205,7 @@ transNorm <- function(x, start = .01, family=c("bc", "yj"), lams,
 #' compact letter display.  This is most often from a call to \code{cld} from the
 #' \pkg{multcomp} package.
 #'
+#' @export
 #' @importFrom ggplot2 geom_errorbarh ggplot_build aes_string geom_vline scale_x_continuous coord_cartesian ylab
 #' @importFrom tibble as_tibble
 #' @importFrom dplyr left_join
@@ -307,7 +308,7 @@ simple_slopes <- function(mod, quant_var, cat_var){
   df2 <- df2 %>% mutate(
     t = .data$diff/.data$se,
     p = 2*pt(abs(.data$t), mod$df.residual, lower.tail=FALSE))
-  res <- list(est = df1, comp=df2)
+  res <- list(est = df1, comp=df2, v=v.est)
   class(res) <- "ss"
   res
 }
