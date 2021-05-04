@@ -937,3 +937,124 @@ optCL <- function(obj=NULL, varname=NULL, b=NULL, v=NULL,
 }
 
 
+
+loess.aic <- function (x) {
+  ## Written by Michael Friendly, with help from John Fox
+  ## https://stat.ethz.ch/pipermail/r-help/2005-November/082853.html
+  
+  if (!(inherits(x,"loess"))) stop("Error: argument must be a loess object")
+  # extract values from loess object
+  span <- x$pars$span
+  n <- x$n
+  traceL <- x$trace.hat
+  sigma2 <- sum( x$residuals^2 ) / (n-1)
+  delta1 <- x$one.delta
+  delta2 <- x$two.delta
+  enp <- x$enp
+  
+  aicc <- log(sigma2) + 1 + 2* (2*(traceL+1)) / (n-traceL-2)
+  aicc1<- n*log(sigma2) + n* ((delta1/delta2)*(n+enp)/(delta1^2/delta2)-2 )
+  gcv  <- n*sigma2 / (n-traceL)^2
+  result <- list(span=span, aicc=aicc, aicc1=aicc1, gcv=gcv)
+  return(result)
+}
+
+#' Heatmap Fit Plot using GGplot
+#' 
+#' Makes a Heatmap Fit plot (Esary and Pierce, 2012) using
+#' GGPlot rather than lattice that the \code{heatmapFit} package
+#' uses. 
+#' 
+#' @param observed Vector of observe (0/1) values used in a 
+#' binary regression model. 
+#' @param prob Vector of predicted probabilities from the model 
+#' with \code{observed} as the dependent variable. 
+#' @param span Optional span parameter to be passed in.  If 
+#' \code{NULL}, AICc will be used to find the appropriate 
+#' span for the loess smooth. 
+#' @param nbin Number of bins for the histogram. 
+#' @param ... Currently unimplemented. 
+#' 
+#' @return Two ggplots - the main heatmap Fit plot and a 
+#' histogram that can be included as a marginal density. 
+#' 
+#' @importFrom stats loess rbinom
+#' @importFrom utils setTxtProgressBar txtProgressBar
+#' @importFrom ggplot2 geom_line
+#' @export
+#' 
+gg_hmf <- function(observed, prob, span=NULL, nbin=20, ...){
+  span.grid <- seq(.05, .95, length=500)
+  tmp <- data.frame(
+    yobs=observed, 
+    prob = prob)
+  if(is.null(span)){
+    lo_fit <- sapply(span.grid, function(x)loess.aic(loess(yobs ~ prob, data=tmp, span=x, degree=1))$aicc)
+    spn <- span.grid[which.min(lo_fit)]
+  }else{
+    spn <- span
+  }
+  lo <- loess(yobs ~ prob, data=tmp, span=spn)
+  pred <- predict(lo)
+  pred <- sapply(pred, function(x)max(0, min(x,1)))
+  boot.y <- t(sapply(1:1000, function(x)rbinom(length(pred), 1, pred)))
+  unx <- sort(unique(pred))
+  est.dat <- data.frame(
+    y=NA, 
+    prob=tmp$prob)
+  pred.dat <- data.frame(
+    y = 0, 
+    prob = unx
+  )
+  pred.y <- NULL
+  cat("Generating Bootstrap Predictions ...\n")
+  pb <- txtProgressBar(min = 0, max = nrow(boot.y), style = 3)
+  for(i in 1:nrow(boot.y)){
+    setTxtProgressBar(pb, i)
+    est.dat$y <- boot.y[i,]
+    lo <- loess(y ~ prob, data=est.dat, span=spn)
+    pred.y <- cbind(pred.y, predict(lo, newdata=pred.dat))
+  }
+  obsn <- sapply(unx, function(z)sum(pred == z))
+  
+  ci1 <- t(apply(pred.y, 1, function(x)quantile(x, c(.1,.9))))
+  lo <- loess(yobs ~ prob, data=tmp, span=spn)
+  
+  plot.hm <-tibble(
+    x=unx, 
+    n = obsn, 
+    fit=predict(lo, newdata=data.frame(prob=unx)), 
+    lwr = ci1[,1], 
+    upr = ci1[,2], 
+  )
+  
+  pct_out <- plot.hm %>% 
+    mutate(tot = sum(.data$n)) %>% 
+    filter(.data$x < .data$lwr | .data$x > .data$upr) %>% 
+    summarise(pct = sum(.data$n)/mean(.data$tot)) %>% 
+    pull()
+  
+  if(!is.finite(pct_out))pct_out <- 0
+  
+  hm1 <- ggplot(plot.hm) + 
+    geom_ribbon(aes(x=.data$x, ymin = .data$lwr, ymax=.data$upr), alpha=.25) + 
+    geom_line(aes(x=.data$x, y=.data$fit)) + 
+    geom_abline(intercept=0, slope=1, linetype=2) + 
+    theme_classic() + 
+    labs(x=paste0("Model Predicted, Pr(y=1)\n(", 
+                  sprintf("%.0f", pct_out*100), "% Outside of CI)"), 
+         y="Smoothed Empirical Pr(y=1)")
+  
+  hm1_dens <- ggplot(tmp, aes(x=.data$prob)) + 
+    geom_histogram(fill="gray75", col="white", bins=nbin) +
+    theme(panel.grid=element_blank(),
+          panel.background = element_blank(),
+          axis.text.x = element_blank(),
+          axis.title.x=element_blank(),
+          axis.ticks.x = element_blank(),
+          axis.title.y = element_text(colour="transparent"),
+          axis.text.y= element_text(colour="transparent"),
+          axis.ticks.y = element_line(colour="transparent")) 
+  
+  return(list(hist = hm1_dens, main = hm1))
+}
