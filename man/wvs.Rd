@@ -39,6 +39,8 @@ A data frame with 162 rows and 26 variables
   \item{rgdpe}{Expenditure-side real GDP at chained PPPs (in mil. 2017US$).
   Useful for making cross-country/cross-time comparisons of relative living standards.
   Obtained from Penn World Tables.}
+  \item{rel_soc}{Dummy variable indicating places where at least 75% of 
+  respondents identified religion as being important.}
   \item{pop}{Population in Millions, obtained from Penn World Tables.}
   \item{gdp_cap}{GDP/capita: \code{rgdpe}/\code{pop}.}
   \item{gini_disp}{Gini coefficient in terms of disposable income from the SWIID.}

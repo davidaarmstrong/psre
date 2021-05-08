@@ -405,6 +405,10 @@ assocfun <- function(xind,yind, data){
 #' @param ylab Character string giving y-variable label to be
 #' used instead of variable name.
 #' @param data A data frame that holds the variables to be plotted.
+#' @param ptsize Size of points. 
+#' @param ptshape Shape of points.
+#' @param ptcol Color of points.
+
 #'
 #' @importFrom ggplot2 geom_smooth facet_wrap theme_bw theme
 #' element_blank element_text geom_histogram element_line coord_flip
@@ -417,7 +421,8 @@ assocfun <- function(xind,yind, data){
 #' @export
 
 
-lsa <- function(formula, xlabels=NULL, ylab = NULL, data){
+lsa <- function(formula, xlabels=NULL, ylab = NULL, data,
+                ptsize=1, ptshape=1, ptcol="gray65"){
   if (!attr(terms(as.formula(formula)), which = 'response'))
     stop("No DV in formula.\n")
   avf <- all.vars(formula)
@@ -432,7 +437,7 @@ lsa <- function(formula, xlabels=NULL, ylab = NULL, data){
   for(i in 1:length(ivs)){
     if(i == 1){
       slist[[i]] <- ggplot(tmp, aes_string(y=dv, x=ivs[i])) +
-      geom_point(size=.5, shape=1) +
+      geom_point(size=ptsize, shape=ptshape, col=ptcol) +
       geom_smooth(method="loess", size=.5, se=FALSE, col="black") +
       facet_wrap(as.formula(paste0('~"', xlabels[i], '"')))+
       theme_bw() +
@@ -452,7 +457,7 @@ lsa <- function(formula, xlabels=NULL, ylab = NULL, data){
       labs(y="Histogram")
     }else{
       slist[[i]] <- ggplot(tmp, aes_string(y=dv, x=ivs[i])) +
-        geom_point(size=.5, shape=1) +
+        geom_point(size=ptsize, shape=ptshape, col=ptcol) +
         geom_smooth(method="loess", size=.5, se=FALSE, col="black") +
         facet_wrap(as.formula(paste0('~"', xlabels[i], '"')))+
         theme_bw() +
@@ -512,6 +517,9 @@ lsa <- function(formula, xlabels=NULL, ylab = NULL, data){
 #' then a \code{cowplot} object is returned with all plots printed.  
 #' If \sQuote{grobs} then a list with all of the individual ggplots/grobs
 #' is returned. 
+#' @param ptsize Size of points. 
+#' @param ptshape Shape of points.
+#' @param ptcol Color of points.
 #'
 #' @importFrom ggplot2 geom_smooth facet_wrap theme_bw theme
 #' element_blank element_text geom_histogram element_line coord_flip
@@ -523,7 +531,8 @@ lsa <- function(formula, xlabels=NULL, ylab = NULL, data){
 #'
 #' @export
 rrPlot <- function(formula, xlabels=NULL, ylab = NULL, 
-                   data, return = c("grid", "grobs")){
+                   data, return = c("grid", "grobs"), 
+                   ptsize = 1, ptshape=1, ptcol="gray65"){
   ret <- match.arg(return)
   if (!attr(terms(as.formula(formula)), which = 'response',
             return ))
@@ -540,7 +549,7 @@ rrPlot <- function(formula, xlabels=NULL, ylab = NULL,
   for(i in 1:length(ivs)){
     if(i == 1){
       slist[[i]] <- ggplot(tmp, aes_string(y=dv, x=ivs[i])) +
-        geom_point(size=.5, shape=1) +
+        geom_point(size=ptsize, shape=ptshape, col=ptcol) +
         geom_smooth(method="lm", size=.5, se=FALSE, col="black") +
         geom_abline(slope=1, intercept=0, lty=3) +
         facet_wrap(as.formula(paste0('~"', xlabels[i], '"')))+
@@ -561,7 +570,7 @@ rrPlot <- function(formula, xlabels=NULL, ylab = NULL,
         labs(y="Histogram")
     }else{
       slist[[i]] <- ggplot(tmp, aes_string(y=dv, x=ivs[i])) +
-        geom_point(size=.5, shape=1) +
+        geom_point(size=ptsize, shape=ptshape, col=ptcol) +
         geom_smooth(method="lm", size=.5, se=FALSE, col="black") +
         geom_abline(slope=1, intercept=0, lty=3) +
         facet_wrap(as.formula(paste0('~"', xlabels[i], '"')))+
@@ -1057,4 +1066,101 @@ gg_hmf <- function(observed, prob, span=NULL, nbin=20, ...){
           axis.ticks.y = element_line(colour="transparent")) 
   
   return(list(hist = hm1_dens, main = hm1))
+}
+
+
+#' Hybrid Plot for DFBETAS
+#' 
+#' Plots a hybrid histogram, dot plot for DFBETAS.  A histogram is plotted
+#' for the observations below \code{cutval}.  Observations above \code{cutval}
+#' are plotted and labelled with individual points. 
+#' 
+#' @param data A data frame of DFBETAS values
+#' @param varname The name of the variable to plot
+#' @param label Name of variable that holds the labels that will go with the points
+#' @param cutval The value that separates the histogram from the individual points. 
+#' @param binwidth The bin width for the histogram part of the display. 
+#' @param xlab Label to put on the x-axis. 
+#' @param ylab Label to put on the y-axis. 
+#' @param xrange Alternative range to plot on the x-axis. 
+#' @param yrange Alternative range to plot on y-axis
+#' @param nudge_x Vector of values to nudge labels horizontally.
+#' @param nudge_y Vector of values to nudge labels vertically.
+#' 
+#' @importFrom stats dfbetas
+#' @importFrom ggrepel geom_text_repel
+#' @importFrom ggplot2 coord_cartesian
+#' 
+#' @return A ggplot. 
+#' 
+#' @export
+#' 
+#' @examples 
+#' 
+#' data(wvs)
+#' wvs <- na.omit(wvs[,c("country", "secpay", "gini_disp", "democrat")])
+#' lmod <- lm(secpay ~ gini_disp + democrat, data=wvs)
+#' dba <- dfbetas(lmod)
+#' dbd <- wvs
+#' dbd$dfb_ginil <- dba[,2]^2
+#' dbd$dfb_democl <- dba[,3]^2
+#' dfbhist(dbd, "dfb_ginil", "country")
+#' 
+dfbhist <- function(data, varname, label, cutval=.25, binwidth=.025, xlab="DFBETAS", ylab="Frequency", 
+                    xrange = NULL, yrange=NULL, nudge_x=NULL, nudge_y=NULL){
+  t1 <- data %>% filter(.data[[varname]] <= cutval)
+  t2 <- data %>% filter(.data[[varname]] > cutval)
+  
+  g1 <- ggplot() + 
+    theme_classic() + 
+    labs(x=xlab, y=ylab)
+  if(nrow(t1) > 0){
+    g1 <- g1 + 
+      geom_histogram(data=t1, aes_string(x=varname), col="white", boundary=0, 
+                     binwidth=binwidth, position="identity")
+  }
+  if(nrow(t2) > 0){
+    if(is.null(nudge_x))nudge_x <- rep(0, nrow(t2))
+    if(is.null(nudge_y))nudge_y <- rep(0, nrow(t2))
+    g1 <- g1 + geom_point(data=t2, aes_string(x=varname, y="0")) + 
+      geom_text_repel(data=t2, aes_string(x=varname, y="0", label=label),
+                      nudge_x = nudge_x, nudge_y = nudge_y) 
+  }
+  g1 + coord_cartesian(xlim=xrange, ylim=yrange)
+}
+
+#' Truncated Power Basis Functions
+#' 
+#' Makes truncated power basis spline functions. 
+#' 
+#' @param x Vector of values that will be transformed
+#' by the basis functions. 
+#' @param degree Degree of the polynomial used by the basis 
+#' function. 
+#' @param nknots Number of knots to use in the spline.  
+#' @param knot_loc Location of the knots.  If \code{NULL}
+#' they will be placed evenly along the appropriate quantiles 
+#' of the variable. 
+#' 
+#' @export
+#' 
+#' @return A n x \code{degree}+\code{nknots} matrix of basis 
+#' function values. 
+tpb <- function(x, degree=3, nknots=3, knot_loc=NULL){
+  out <- sapply(1:degree, function(d)x^d)
+  if(is.null(knot_loc) ){
+    q <- seq(0,1, length=nknots+2)
+    q <- q[-c(1, length(q))]  
+    s <- quantile(x, q, na.rm=TRUE)
+    if(length(s)!=length(unique(s))){
+      stop("The quantiles of the variable are not unique.\n")
+    }
+  }else{
+    s <- knot_loc
+  }
+  for(i in 1:length(s)){
+    out <- cbind(out, (x-s[i])^3*(x >= s[i]))
+  }
+  colnames(out) <- paste0("tpb", 1:ncol(out))
+  return(out)
 }

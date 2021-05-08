@@ -4,7 +4,15 @@
 \alias{lsa}
 \title{Linear Scatterplot Array}
 \usage{
-lsa(formula, xlabels = NULL, ylab = NULL, data)
+lsa(
+  formula,
+  xlabels = NULL,
+  ylab = NULL,
+  data,
+  ptsize = 1,
+  ptshape = 1,
+  ptcol = "gray65"
+)
 }
 \arguments{
 \item{formula}{Formula giving the variables to be plotted.}
@@ -16,6 +24,12 @@ variables to be used in place of the variable names.}
 used instead of variable name.}
 
 \item{data}{A data frame that holds the variables to be plotted.}
+
+\item{ptsize}{Size of points.}
+
+\item{ptshape}{Shape of points.}
+
+\item{ptcol}{Color of points.}
 }
 \value{
 A \code{cowplot} object.

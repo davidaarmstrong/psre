@@ -4,7 +4,16 @@
 \alias{rrPlot}
 \title{Residual-Residual Plot}
 \usage{
-rrPlot(formula, xlabels = NULL, ylab = NULL, data, return = c("grid", "grobs"))
+rrPlot(
+  formula,
+  xlabels = NULL,
+  ylab = NULL,
+  data,
+  return = c("grid", "grobs"),
+  ptsize = 1,
+  ptshape = 1,
+  ptcol = "gray65"
+)
 }
 \arguments{
 \item{formula}{Formula giving the variables to be plotted.}
@@ -21,6 +30,12 @@ used instead of variable name.}
 then a \code{cowplot} object is returned with all plots printed.  
 If \sQuote{grobs} then a list with all of the individual ggplots/grobs
 is returned.}
+
+\item{ptsize}{Size of points.}
+
+\item{ptshape}{Shape of points.}
+
+\item{ptcol}{Color of points.}
 }
 \value{
 A \code{cowplot} object.

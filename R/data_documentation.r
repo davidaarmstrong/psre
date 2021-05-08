@@ -58,6 +58,8 @@
 #'   \item{rgdpe}{Expenditure-side real GDP at chained PPPs (in mil. 2017US$).
 #'   Useful for making cross-country/cross-time comparisons of relative living standards.
 #'   Obtained from Penn World Tables.}
+#'   \item{rel_soc}{Dummy variable indicating places where at least 75% of 
+#'   respondents identified religion as being important.}
 #'   \item{pop}{Population in Millions, obtained from Penn World Tables.}
 #'   \item{gdp_cap}{GDP/capita: \code{rgdpe}/\code{pop}.}
 #'   \item{gini_disp}{Gini coefficient in terms of disposable income from the SWIID.}
@@ -348,6 +350,40 @@ NULL
 #' Gleditsch, Nils Petter; Peter Wallensteen, Mikael Eriksson, Margareta Sollenberg & Havard Strand, 2002. \sQuote{Armed Conflict 1946–2001: A New Dataset}, Journal of Peace Research 39(5): 615–637.
 #' 
 #' Gibney, Mark, Linda Cornett, Reed Wood, Peter Haschke, Daniel Arnon, Attilio Pisano, Gray Barrett, and Baekkwan Park. 2020. \sQuote{The Political Terror Scale 1976-2019.} Date Retrieved, from the Political Terror Scale website: \url{http://www.politicalterrorscale.org}.
+#'
+#' @keywords datasets
+NULL
+
+
+#' World Values Survey Religious Importance
+#'
+#' A subset of data from the second thorugh fifth waves of the World Values Survey measuring
+#' religious importance.
+#'
+#' @details These data come from the same source as the \code{wvs} data.  These are aggregated
+#' responses to the question about religious importance by country and religious importance response.  
+#' 
+#' The  dataset has 224 rows and 4 variables.  The variables are as follows:
+#'
+#' @name relig_imp
+#' @docType data
+#' @format A data frame with 224 rows and 4 variables
+#' \describe{
+#'   \item{country}{Country of respondent residence.}
+#'   \item{relig_imp}{Response Category for the religious importance variable: Very Important, 
+#'   Rather Important, Not Very Important and Not At All Important.}
+#'   \item{n}{Proportion of observation in each country-response category.}
+#'   \item{l}{The average value of religious importance on the 1-4 scale.}
+#'}
+#'
+#' @references
+#' Inglehart, R., C. Haerpfer, A. Moreno, C. Welzel, K. Kizilova, J. Diez-Medrano, M. Lagos, P. Norris, E. Ponarin & B. Puranen et al. (eds.). 2014a. World Values Survey: Round Two - Country-Pooled Datafile Version: \url{www.worldvaluessurvey.org/WVSDocumentationWV2.jsp}. Madrid: JD Systems Institute.
+#'
+#' Inglehart, R., C. Haerpfer, A. Moreno, C. Welzel, K. Kizilova, J. Diez-Medrano, M. Lagos, P. Norris, E. Ponarin & B. Puranen et al. (eds.). 2014b. World Values Survey: Round Three - Country-Pooled Datafile Version: \url{www.worldvaluessurvey.org/WVSDocumentationWV3.jsp}. Madrid: JD Systems Institute.
+#'
+#' Inglehart, R., C. Haerpfer, A. Moreno, C. Welzel, K. Kizilova, J. Diez-Medrano, M. Lagos, P. Norris, E. Ponarin & B. Puranen et al. (eds.). 2014c. World Values Survey: Round Four - Country-Pooled Datafile Version: \url{www.worldvaluessurvey.org/WVSDocumentationWV4.jsp}. Madrid: JD Systems Institute.
+#'
+#' Inglehart, R., C. Haerpfer, A. Moreno, C. Welzel, K. Kizilova, J. Diez-Medrano, M. Lagos, P. Norris, E. Ponarin & B. Puranen et al. (eds.). 2014d. World Values Survey: Round Five - Country-Pooled Datafile Version: \url{www.worldvaluessurvey.org/WVSDocumentationWV5.jsp}. Madrid: JD Systems Institute.
 #'
 #' @keywords datasets
 NULL
