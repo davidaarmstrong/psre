@@ -1164,3 +1164,35 @@ tpb <- function(x, degree=3, nknots=3, knot_loc=NULL){
   colnames(out) <- paste0("tpb", 1:ncol(out))
   return(out)
 }
+
+#' Shuffle coefficients and standard errors together
+#' 
+#' Function shuffles together coefficients and standard errors with a significance flag. 
+#' 
+#' @param b Vector of coefficients
+#' @param pv Vector of p-values corresponding to \code{b}
+#' @param se Vector of standard errors corresponding to \code{b}
+#' @param alpha Alpha level for the significance flag
+#' @param digits Number of digits to print
+#' @param names A character vector of coefficient names as long as \code{b}
+#' 
+#' @return A character vector of printed output
+#' 
+#' @export
+#' 
+shuffle <- function(b, pv, se, alpha=.05, digits=3, names=NULL){
+sig_param <- ifelse(pv < alpha, "*", " ")
+coefs <- sprintf(paste0("%.", digits, "f%s"), b, sig_param)
+ses <- sprintf(paste0("(%.", digits, "f)"), se)
+out <- NULL
+for(i in 1:length(coefs)){
+  out <- c(out, coefs[i], ses[i])
+}
+out <- matrix(out, ncol=1)
+if(!is.null(names)){
+  odds <- seq(1, nrow(out), by=2)
+  rownames(out) <- ""
+  rownames(out)[odds] <- names
+}
+out
+}
