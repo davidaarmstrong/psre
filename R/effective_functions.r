@@ -1026,7 +1026,7 @@ gg_hmf <- function(observed, prob, span=NULL, nbin=20, ...){
   }
   obsn <- sapply(unx, function(z)sum(pred == z))
   
-  ci1 <- t(apply(pred.y, 1, function(x)quantile(x, c(.1,.9))))
+  ci1 <- t(apply(pred.y, 1, function(x)quantile(x, c(.1,.9), na.rm=TRUE)))
   lo <- loess(yobs ~ prob, data=tmp, span=spn)
   
   plot.hm <-tibble(
