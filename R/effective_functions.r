@@ -956,7 +956,7 @@ loess.aic <- function (x) {
   span <- x$pars$span
   n <- x$n
   traceL <- x$trace.hat
-  sigma2 <- sum( x$residuals^2 ) / (n-1)
+  sigma2 <- x$s^2
   delta1 <- x$one.delta
   delta2 <- x$two.delta
   enp <- x$enp
@@ -981,7 +981,9 @@ loess.aic <- function (x) {
 #' @param span Optional span parameter to be passed in.  If 
 #' \code{NULL}, AICc will be used to find the appropriate 
 #' span for the loess smooth. 
+#' @param method Method for making the line - LOESS or GAM (from the \code{mgcv} package.)
 #' @param nbin Number of bins for the histogram. 
+#' @param R Number of boostrap resamples
 #' @param ... Currently unimplemented. 
 #' 
 #' @return Two ggplots - the main heatmap Fit plot and a 
@@ -990,58 +992,88 @@ loess.aic <- function (x) {
 #' @importFrom stats loess rbinom
 #' @importFrom utils setTxtProgressBar txtProgressBar
 #' @importFrom ggplot2 geom_line
+#' @importFrom mgcv gam
 #' @export
 #' 
-gg_hmf <- function(observed, prob, span=NULL, nbin=20, ...){
-  span.grid <- seq(.05, .95, length=500)
-  tmp <- data.frame(
+gg_hmf <- function(observed, prob, method = c("loess", "gam"), 
+                   span=NULL, nbin=20, R=1000, ...){
+## TODO: Make consistent with heatmap.fit
+  
+    method <- match.arg(method)
+  tmp <- na.omit(data.frame(
     yobs=observed, 
-    prob = prob)
-  if(is.null(span)){
-    lo_fit <- sapply(span.grid, function(x)loess.aic(loess(yobs ~ prob, data=tmp, span=x, degree=1))$aicc)
-    spn <- span.grid[which.min(lo_fit)]
-  }else{
-    spn <- span
-  }
-  lo <- loess(yobs ~ prob, data=tmp, span=spn)
+    prob = prob))
+  if(method == "loess"){
+    if(is.null(span)){
+      smooth.err<-function(span.arg){
+        ## Written by Justin Esarey in the heatmapFit package
+        ok<-T
+        plot.model<-withCallingHandlers(tryCatch(loess(yobs~prob, data=tmp, degree=1, weights = rep(1, nrow(tmp)), 
+                                                       span=span.arg, control = loess.control(trace.hat="exact"))),  
+                                        warning = function(w){ok<<-F; invokeRestart("muffleWarning")})
+        if(ok==T){return(eval(parse(text=paste("loess.aic(plot.model)$aicc", sep=""))))}
+        if(ok==F){return(2e10)}
+      }  
+      
+      # do the optimization, set the span argument to the optimal value
+      spn<-optimize(f=smooth.err, interval=c(0.01, 0.99))$minimum
+    }else{
+      spn <- span
+    }
+  message(paste0("LOESS span = ", round(spn, 3), "\n\n"))
+  lo <- loess(yobs ~ prob, degree=1, data=tmp, span=spn)
   pred <- predict(lo)
-  pred <- sapply(pred, function(x)max(0, min(x,1)))
-  boot.y <- t(sapply(1:1000, function(x)rbinom(length(pred), 1, pred)))
-  unx <- sort(unique(pred))
+  }else{
+    gm <- gam(yobs ~ s(prob), data=tmp)
+    pred <- predict(gm)
+  }
+  unx <- seq(from=min(pred), to=max(pred), length=250)
   est.dat <- data.frame(
     y=NA, 
-    prob=tmp$prob)
+    prob=tmp$prob) ## or tmp$prob
   pred.dat <- data.frame(
     y = 0, 
     prob = unx
   )
-  pred.y <- NULL
+  pred.y <- pred.y.obs <- NULL
   cat("Generating Bootstrap Predictions ...\n")
-  pb <- txtProgressBar(min = 0, max = nrow(boot.y), style = 3)
-  for(i in 1:nrow(boot.y)){
+  pb <- txtProgressBar(min = 0, max = R, style = 3)
+  for(i in 1:R){
     setTxtProgressBar(pb, i)
-    est.dat$y <- boot.y[i,]
-    lo <- loess(y ~ prob, data=est.dat, span=spn)
-    pred.y <- cbind(pred.y, predict(lo, newdata=pred.dat))
+    est.dat$y <- ifelse(runif(nrow(tmp), min = 0, max = 1) < pred, 1, 0)  
+    if(method == "loess"){
+      lo <- loess(y ~ prob, data=est.dat, degree=1, span=spn)  
+    }else{
+      lo <- gam(y ~ s(prob), data=est.dat)
+    }
+    py <- predict(lo, newdata=pred.dat)
+    pyo <- predict(lo, newdata=est.dat)
+    py <- case_when(py < 0 ~ 0, py > 1 ~ 1, TRUE ~ py)
+    pyo <- case_when(pyo < 0 ~ 0, pyo > 1 ~ 1, TRUE ~ pyo)
+    pred.y <- cbind(pred.y, py)
+    pred.y.obs <- cbind(pred.y.obs, pyo)
   }
-  obsn <- sapply(unx, function(z)sum(pred == z))
-  
+  ap <- apply(pred.y.obs, 2, function(x)(2*(x < pred) + (x == pred)))
+  pvals <- apply(ap, 1, function(x)(sum(x)/2)/R)
+  pct_out <- sum(pvals < .1 | pvals > .9)/R
   ci1 <- t(apply(pred.y, 1, function(x)quantile(x, c(.1,.9), na.rm=TRUE)))
-  lo <- loess(yobs ~ prob, data=tmp, span=spn)
-  
+  if(method=="loess"){
+    lo <- loess(yobs ~ prob, data=tmp, degree=1, span=spn)  
+  }else{
+    lo <- gam(yobs ~  s(prob), data=tmp)
+  }
   plot.hm <-tibble(
     x=unx, 
-    n = obsn, 
     fit=predict(lo, newdata=data.frame(prob=unx)), 
     lwr = ci1[,1], 
     upr = ci1[,2], 
   )
   
-  pct_out <- plot.hm %>% 
-    mutate(tot = sum(.data$n)) %>% 
-    filter(.data$x < .data$lwr | .data$x > .data$upr) %>% 
-    summarise(pct = sum(.data$n)/mean(.data$tot)) %>% 
-    pull()
+  # pct_out <- plot.hm %>% 
+  #   mutate(tot = sum(.data$n)) %>% 
+  #   filter(.data$x < .data$lwr | .data$x > .data$upr) %>% 
+  #   summarise(pct = sum(.data$n)/mean(.data$tot)) %>% 
+  #   pull()
   
   if(!is.finite(pct_out))pct_out <- 0
   

@@ -4,7 +4,15 @@
 \alias{gg_hmf}
 \title{Heatmap Fit Plot using GGplot}
 \usage{
-gg_hmf(observed, prob, span = NULL, nbin = 20, ...)
+gg_hmf(
+  observed,
+  prob,
+  method = c("loess", "gam"),
+  span = NULL,
+  nbin = 20,
+  R = 1000,
+  ...
+)
 }
 \arguments{
 \item{observed}{Vector of observe (0/1) values used in a 
@@ -13,11 +21,15 @@ binary regression model.}
 \item{prob}{Vector of predicted probabilities from the model 
 with \code{observed} as the dependent variable.}
 
+\item{method}{Method for making the line - LOESS or GAM (from the \code{mgcv} package.)}
+
 \item{span}{Optional span parameter to be passed in.  If 
 \code{NULL}, AICc will be used to find the appropriate 
 span for the loess smooth.}
 
 \item{nbin}{Number of bins for the histogram.}
+
+\item{R}{Number of boostrap resamples}
 
 \item{...}{Currently unimplemented.}
 }
