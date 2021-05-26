@@ -809,7 +809,13 @@ make_fdat <- function(b, v, vt, eg, resdf=Inf, alpha=.05, clev){
       olap = case_when(
         .data$diff > 0 ~ as.numeric(.data$lb1 < .data$ub2), 
         .data$diff < 0 ~ as.numeric(.data$ub1 > .data$lb2), 
-        TRUE ~ 0))
+        TRUE ~ 0), 
+      crit = case_when(
+        .data$olap == 1 & .data$diff > 0 ~ (.data$ub2 - .data$lb1)^2, 
+        .data$olap == 1 & .data$diff < 0 ~ (.data$ub1 - .data$lb2)^2, 
+        .data$olap == 0 & .data$diff > 0 ~ (.data$lb1 - .data$ub2)^2, 
+        .data$olap == 0 & .data$diff < 0 ~ (.data$lb2 - .data$ub1)^2, 
+      ))
   na.omit(fdat)
 }  
 
@@ -878,7 +884,7 @@ optCL <- function(obj=NULL, varname=NULL, b=NULL, v=NULL,
     if(is.null(obj) | is.null(varname))stop("Both obj and varname must be provided if b or v is NULL.\n")
   }
   resdf <- ifelse(is.null(obj), resdf, obj$df.residual)
-  res <- rep(NA, length=grid_length)
+  res <- crit <- rep(NA, length=grid_length)
   alpha <- 1-level
   grid_pts <- seq(grid_range[1], grid_range[2], length=grid_length)
   grid_pts <- sort(unique(c(level, grid_pts)))
@@ -919,6 +925,10 @@ optCL <- function(obj=NULL, varname=NULL, b=NULL, v=NULL,
       ungroup %>% 
       summarise(err = mean(.data$olap == .data$sig)) %>% 
       pull()
+    crit[i] <- fd %>% 
+      ungroup %>% 
+      summarise(err = sum(.data$crit)) %>% 
+      pull()
   }
   w <- which(res == min(res))
   if(min(res) > 0){
@@ -938,6 +948,7 @@ optCL <- function(obj=NULL, varname=NULL, b=NULL, v=NULL,
     lev_dat <- NULL
   }
   return(list(opt_levels = grid_pts[w], 
+              crit = crit[w], 
               opt_errors = min(res), 
               lev_errors = res[which(grid_pts == level)], 
               tot_comps = nrow(fd), 
