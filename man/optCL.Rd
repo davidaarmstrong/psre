@@ -53,6 +53,8 @@ A list with the following elements:
 \describe{
   \item{opt_levels}{The optimal confidence levels that all have 
   identical minimal error rates. }
+  \item{opt_diffs}{The sum of differences between upper and lower bounds that 
+  characterize the appropriate visual tests.  Larger numbers are better.}
   \item{opt_errors}{The proportion of errors across all simple contrasts.}
   \item{lev_errors}{The proportion of errors made at the nominal 
   significance level.}

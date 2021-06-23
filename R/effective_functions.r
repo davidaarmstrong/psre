@@ -855,6 +855,8 @@ make_fdat <- function(b, v, vt, eg, resdf=Inf, alpha=.05, clev){
 #' \describe{
 #'   \item{opt_levels}{The optimal confidence levels that all have 
 #'   identical minimal error rates. }
+#'   \item{opt_diffs}{The sum of differences between upper and lower bounds that 
+#'   characterize the appropriate visual tests.  Larger numbers are better.}
 #'   \item{opt_errors}{The proportion of errors across all simple contrasts.}
 #'   \item{lev_errors}{The proportion of errors made at the nominal 
 #'   significance level.}
@@ -884,7 +886,7 @@ optCL <- function(obj=NULL, varname=NULL, b=NULL, v=NULL,
     if(is.null(obj) | is.null(varname))stop("Both obj and varname must be provided if b or v is NULL.\n")
   }
   resdf <- ifelse(is.null(obj), resdf, obj$df.residual)
-  res <- crit <- rep(NA, length=grid_length)
+  res <- crit <- diffs <- rep(NA, length=grid_length)
   alpha <- 1-level
   grid_pts <- seq(grid_range[1], grid_range[2], length=grid_length)
   grid_pts <- sort(unique(c(level, grid_pts)))
@@ -929,6 +931,18 @@ optCL <- function(obj=NULL, varname=NULL, b=NULL, v=NULL,
       ungroup %>% 
       summarise(err = sum(.data$crit)) %>% 
       pull()
+    diffs[i] <- fd %>% 
+      ungroup %>% 
+      mutate(diff = case_when(
+        b1 > b2 & sig == 1  ~ lb1-ub2, 
+        b1 < b2 & sig == 1  ~ lb2-ub1, 
+        b1 >= b2 & sig == 0 ~ ub2 - lb1, 
+        b1 < b2 & sig == 0 ~ ub1 - lb2, 
+        TRUE ~ NA_real_
+      )) %>% 
+      summarise(diff = sum(diff)) %>% 
+      select(diff) %>% 
+      pull()
   }
   w <- which(res == min(res))
   if(min(res) > 0){
@@ -948,6 +962,7 @@ optCL <- function(obj=NULL, varname=NULL, b=NULL, v=NULL,
     lev_dat <- NULL
   }
   return(list(opt_levels = grid_pts[w], 
+              opt_diffs = diffs[w], 
               crit = crit[w], 
               opt_errors = min(res), 
               lev_errors = res[which(grid_pts == level)], 
