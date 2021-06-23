@@ -14,7 +14,8 @@ optCL(
   quasi_vars = NULL,
   add_ref = TRUE,
   grid_range = c(0.75, 0.99),
-  grid_length = 100
+  grid_length = 100,
+  adjust = p.adjust.methods[c(8, 1:7)]
 )
 }
 \arguments{
@@ -47,6 +48,10 @@ matrix to represent the reference category.}
 \item{grid_range}{The range of values over which to do the grid search.}
 
 \item{grid_length}{The number of values in the grid.}
+
+\item{adjust}{String giving the method used to adjust the p-values for 
+multiplicity.  All methods allowed in \code{p.adjust.methods} are 
+permitted.  None is the default.}
 }
 \value{
 A list with the following elements: 

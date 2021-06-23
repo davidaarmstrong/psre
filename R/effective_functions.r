@@ -774,13 +774,15 @@ glmImp <- function(obj,
 #'  @param alpha p-value used to reject the null hypothesis. 
 #'  @param clev Candidate confidence level for the optimised visual testing
 #'  search. 
+#'  @param adjust String giving the multiplicity adjustment method, all values of \code{p.adjust.methods} 
+#'  are acceptable.  None is the default. 
 #'  
 #' @noRd
 #' 
 #' @importFrom dplyr filter 
 #' @importFrom stats model.matrix qt
 #' @importFrom ggplot2 geom_abline
-make_fdat <- function(b, v, vt, eg, resdf=Inf, alpha=.05, clev){
+make_fdat <- function(b, v, vt, eg, resdf=Inf, alpha=.05, clev, adjust){
   vi <- diag(v)
   fdat <- tibble(
     cat1 = eg[,1], 
@@ -803,7 +805,8 @@ make_fdat <- function(b, v, vt, eg, resdf=Inf, alpha=.05, clev){
     lb1 = .data$b1-qt(1-((1-clev)/2), resdf)*sqrt(.data$vt1), 
     ub1 = .data$b1+qt(1-((1-clev)/2), resdf)*sqrt(.data$vt1), 
     lb2 = .data$b2-qt(1-((1-clev)/2), resdf)*sqrt(.data$vt2), 
-    ub2 = .data$b2+qt(1-((1-clev)/2), resdf)*sqrt(.data$vt2))
+    ub2 = .data$b2+qt(1-((1-clev)/2), resdf)*sqrt(.data$vt2)) %>% 
+    mutate(p = p.adjust(p, method=adjust))
   fdat <- fdat %>% 
     rowwise %>% mutate(
       olap = case_when(
@@ -850,6 +853,9 @@ make_fdat <- function(b, v, vt, eg, resdf=Inf, alpha=.05, clev){
 #' matrix to represent the reference category. 
 #' @param grid_range The range of values over which to do the grid search. 
 #' @param grid_length The number of values in the grid.  
+#' @param adjust String giving the method used to adjust the p-values for 
+#' multiplicity.  All methods allowed in \code{p.adjust.methods} are 
+#' permitted.  None is the default. 
 #' 
 #' @return A list with the following elements: 
 #' \describe{
@@ -878,7 +884,9 @@ optCL <- function(obj=NULL, varname=NULL, b=NULL, v=NULL,
                   quasi_vars = NULL, 
                   add_ref = TRUE, 
                   grid_range = c(.75, .99), 
-                  grid_length=100){
+                  grid_length=100, 
+                  adjust= p.adjust.methods[c(8,1:7)]){
+  adj <- match.arg(adjust)
   if(is.null(obj) & is.null(varname)){
     if(is.null(b) | is.null(v))stop("Both b and v must be provided if obj and varname are NULL.\n")
   }
@@ -921,7 +929,7 @@ optCL <- function(obj=NULL, varname=NULL, b=NULL, v=NULL,
     quasi_vars
   }}
   for(i in 1:length(grid_pts)){
-    fd <- make_fdat(b,v,vt, eg, resdf, alpha, grid_pts[i])  
+    fd <- make_fdat(b,v,vt, eg, resdf, alpha, grid_pts[i], adjust=adj)  
     fd <- fd %>% na.omit()
     res[i] <- fd %>% 
       ungroup %>% 
