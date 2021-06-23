@@ -954,7 +954,7 @@ optCL <- function(obj=NULL, varname=NULL, b=NULL, v=NULL,
   }
   w <- which(res == min(res))
   if(min(res) > 0){
-    ret_dat <- make_fdat(b,v,vt, eg, resdf, alpha, grid_pts[w[1]])  
+    ret_dat <- make_fdat(b,v,vt, eg, resdf, alpha, grid_pts[w[1]], adjust=adj)  
     ret_dat <- ret_dat %>% 
       filter(.data$olap == .data$sig)
   }
@@ -962,7 +962,7 @@ optCL <- function(obj=NULL, varname=NULL, b=NULL, v=NULL,
     ret_dat <- NULL
   }
   if(res[which(grid_pts == level)] > 0){
-    lev_dat <- make_fdat(b,v,vt, eg, resdf, alpha, level)  
+    lev_dat <- make_fdat(b,v,vt, eg, resdf, alpha, level, adjust=adj)  
     lev_dat <- lev_dat %>% 
       filter(.data$olap == .data$sig)
   }
