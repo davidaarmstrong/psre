@@ -45,6 +45,7 @@ legal immigrants should have equal access to public education as Indian citizens
 All items standardized before being summed.}
 \item{educyrs}{Years of formal education, capped at 20.}
 \item{age}{Respondent age.}
+\item{sbc}{Dummy indicator for Scheduled or Backaward Caste.}
 \item{sex}{Binary indicator of respondent gender.}
 \item{partliv}{Living in a steady relationship with a partner.}
 \item{religgrp}{Religious group to which respondent belongs.}
@@ -57,6 +58,7 @@ All items standardized before being summed.}
 \item{work}{Ever had paying work (currently, previously, never).}
 \item{mainstat}{Main current employment status.}
 \item{union}{Union membership (current, previous, never).}
+\item{vote_bjp}{Vote for the BJP in most recent election. }
 \item{vote_le}{Vote turnout in last election.}
 \item{in_prty}{Party voted for in most recent parliamentary election.}
 \item{party_lr}{Party voted for in most recent parliamentary election in terms of ideological position.}

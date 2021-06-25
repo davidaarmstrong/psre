@@ -29,7 +29,8 @@ Imports:
     sm, 
     multcomp, 
     rlang, 
-    ggrepel
+    ggrepel, 
+    mgcv
 Depends: R (>= 3.5.0)
 License: GPL (>=2)
 Encoding: UTF-8

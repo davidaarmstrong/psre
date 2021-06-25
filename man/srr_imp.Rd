@@ -10,24 +10,26 @@ srr_imp(
   boot = TRUE,
   R = 250,
   level = 0.95,
-  ci_method = c("perc", "norm", "bca"),
+  pct = FALSE,
+  combine_terms = NULL,
   ...
 )
 }
 \arguments{
 \item{obj}{Model object, must be able to use \code{predict(obj, type="terms")}.}
 
-\item{data}{A data frame used to estiamte the model.}
+\item{data}{A data frame used to estimate the model.}
 
 \item{boot}{Logical indicating whether bootstrap confidence intervals should
 be produced and included.}
 
 \item{R}{If \code{boot=TRUE}, the number of bootstrap samples to be used.}
 
-\item{level}{Cofidence level used for the confidence interval.}
+\item{level}{Confidence level used for the confidence interval.}
 
-\item{ci_method}{Character string giving the method for calculating the
-bootstrapped confidence interval.}
+\item{pct}{Logical indicating whether importance figures should be turned into percentages. Default is \code{TRUE}.}
+
+\item{combine_terms}{A named list of the names of terms to be combined into one.}
 
 \item{...}{Other arguments being passed down to \code{boot}.}
 }

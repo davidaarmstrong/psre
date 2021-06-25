@@ -673,18 +673,20 @@ boot_imp <- function(data, inds, obj){
 #' relative importance as defined by Silber, Rosenbaum and Ross (1995)
 #'
 #' @param obj Model object, must be able to use \code{predict(obj, type="terms")}.
-#' @param data A data frame used to estiamte the model.
+#' @param data A data frame used to estimate the model.
 #' @param boot Logical indicating whether bootstrap confidence intervals should
 #' be produced and included.
 #' @param R If \code{boot=TRUE}, the number of bootstrap samples to be used.
-#' @param level Cofidence level used for the confidence interval.
-#' @param ci_method Character string giving the method for calculating the
-#' bootstrapped confidence interval.
+#' @param level Confidence level used for the confidence interval.
+#' @param pct Logical indicating whether importance figures should be turned into percentages. Default is \code{TRUE}. 
+#' @param combine_terms A named list of the names of terms to be combined into one. 
 #' @param ... Other arguments being passed down to \code{boot}.
 #'
 #' @return A data frame of importance measures with optimal bootstrapped confidence intervals.
 #'
 #' @importFrom boot boot boot.ci
+#' @importFrom MASS mvrnorm
+#' @importFrom stats loess.control optimize p.adjust p.adjust.methods runif
 #'
 #' @references Silber, J. H., Rosenbaum, P. R. and Ross, R N (1995) Comparing the Contributions of Groups of Predictors: Which Outcomes Vary with Hospital Rather than Patient Characteristics? JASA 90, 7–18.
 #'
@@ -694,21 +696,55 @@ srr_imp <- function(obj,
                     boot=TRUE,
                     R=250,
                     level = .95,
-                    ci_method=c("perc", "norm", "bca"),
+                    pct=FALSE, 
+                    combine_terms = NULL,
                     ...){
-  cim <- match.arg(ci_method)
-  trms <- predict(obj, type="terms")
-  out <- do.call(data.frame, list(importance=apply(trms, 2, sd)))
-  out$var <- rownames(out)
-  rownames(out) <- NULL
-  out <- out[,c("var", "importance")]
-  if(boot){
-    b_out <- boot(data, boot_imp, R=R, obj=obj, ...)
-    b_ci <- t(sapply(1:ncol(b_out$t), function(i)boot.ci(b_out, conf=level, type=cim, index=i)[[4]]))[,4:5]
-    colnames(b_ci) <- c("lwr", "upr")
-    out <- cbind(out, b_ci)
+  qtile <- (1-level)/2
+  qtile <- c(qtile, 1-qtile)
+  labs <- attr(terms(obj), "term.labels")
+  assgn <- attr(model.matrix(obj), "assign") 
+  if(!is.null(combine_terms)){
+    all_comb <- unname(c(unlist(combine_terms)))
+    single_terms <- setdiff(labs, all_comb)
+    a <- lapply(1:length(labs), function(i){
+      which(assgn == i)
+    })
+    names(a) <- labs
+    inds <- list()
+    k <- 1
+    if(length(single_terms) > 0){
+    for(i in seq_along(single_terms)){
+      inds[[k]] <- a[[single_terms[i]]]
+      k <- k+1
+      }
+      names(inds) <- single_terms
+    }
+    for(i in 1:length(combine_terms)){
+      inds[[k]] <- unname(c(unlist(a[combine_terms[[i]]])))
+      names(inds)[k] <- names(combine_terms)[i]
+      k <- k+1
+    }
   }
-  return(out)
+  B <- mvrnorm(R, coef(obj), vcov(obj))
+  X <- model.matrix(obj)
+  p_sim <- sapply(inds, function(i){
+    apply(X[, i, drop=FALSE] %*% t(B[,i, drop=FALSE]), 2, sd)
+  })
+  colnames(p_sim) <- names(inds)
+  p0 <- sapply(inds, function(i){
+    sd(c(X[, i, drop=FALSE] %*% c(coef(obj)[i])))
+  })
+  if(pct){
+    p0 <- p0/sum(p0)
+    p_sim <- t(apply(p_sim, 1, function(x)x/sum(x)))
+  }
+  cis <- apply(p_sim, 2, quantile, qtile)
+  res <- data.frame(var = factor(1:length(inds), labels=names(inds)), 
+                    importance = unname(p0), 
+                    lwr = cis[1,], 
+                    upr = cis[2,])
+  rownames(res) <- NULL
+  return(res)
 }
 
 #' Importace Measure for Generalized Linear Models
@@ -741,7 +777,7 @@ glmImp <- function(obj,
   cit <- match.arg(ci_method)
   a <- (1-level)/2
   fac <- is.factor(data[[varname]])
-  eff <- aveEffPlot(obj, varname, data, return = "sim", ...)
+  eff <- aveEffPlot(obj, varname, data, returnSim = TRUE, ...)
   re <- apply(eff$sim, 1, sd)
   ce <- colMeans(eff$sim)
   if(!fac){
@@ -801,12 +837,12 @@ make_fdat <- function(b, v, vt, eg, resdf=Inf, alpha=.05, clev, adjust){
     mutate(
     t = .data$diff/sqrt(.data$comp_var),
     p = 2*pt(abs(.data$t), resdf, lower.tail=FALSE), 
-    sig = as.numeric(.data$p < alpha), 
     lb1 = .data$b1-qt(1-((1-clev)/2), resdf)*sqrt(.data$vt1), 
     ub1 = .data$b1+qt(1-((1-clev)/2), resdf)*sqrt(.data$vt1), 
     lb2 = .data$b2-qt(1-((1-clev)/2), resdf)*sqrt(.data$vt2), 
     ub2 = .data$b2+qt(1-((1-clev)/2), resdf)*sqrt(.data$vt2)) %>% 
-    mutate(p = p.adjust(p, method=adjust))
+    mutate(p = p.adjust(.data$p, method=adjust), 
+           sig = as.numeric(.data$p < alpha))
   fdat <- fdat %>% 
     rowwise %>% mutate(
       olap = case_when(
