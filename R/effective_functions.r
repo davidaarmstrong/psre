@@ -703,22 +703,22 @@ srr_imp <- function(obj,
   qtile <- c(qtile, 1-qtile)
   labs <- attr(terms(obj), "term.labels")
   assgn <- attr(model.matrix(obj), "assign") 
-  if(!is.null(combine_terms)){
-    all_comb <- unname(c(unlist(combine_terms)))
-    single_terms <- setdiff(labs, all_comb)
-    a <- lapply(1:length(labs), function(i){
-      which(assgn == i)
-    })
-    names(a) <- labs
-    inds <- list()
-    k <- 1
-    if(length(single_terms) > 0){
+  all_comb <- unname(c(unlist(combine_terms)))
+  single_terms <- setdiff(labs, all_comb)
+  a <- lapply(1:length(labs), function(i){
+    which(assgn == i)
+  })
+  names(a) <- labs
+  inds <- list()
+  k <- 1
+  if(length(single_terms) > 0){
     for(i in seq_along(single_terms)){
       inds[[k]] <- a[[single_terms[i]]]
       k <- k+1
-      }
-      names(inds) <- single_terms
     }
+    names(inds) <- single_terms
+  }
+  if(!is.null(combine_terms)){
     for(i in 1:length(combine_terms)){
       inds[[k]] <- unname(c(unlist(a[combine_terms[[i]]])))
       names(inds)[k] <- names(combine_terms)[i]
