@@ -2,7 +2,7 @@
 % Please edit documentation in R/effective_functions.r
 \name{letter_plot}
 \alias{letter_plot}
-\title{Dot Plot with Leter Display}
+\title{Dot Plot with Letter Display}
 \usage{
 letter_plot(fits, letters)
 }
@@ -15,4 +15,41 @@ compact letter display.  This is most often from a call to \code{cld} from the
 }
 \description{
 Produces an dot plot with error bars along with a compact letter display
+}
+\examples{
+library(psre)
+library(ggeffects)
+library(multcomp)
+library(dplyr)
+library(ggplot2)
+data(wvs)
+wvs$civ <- with(wvs, case_when(
+    civ == 4 ~ "Islamic", 
+    civ == 6 ~ "Latin American", 
+    civ == 7 ~ "Orthodox", 
+    civ == 8 ~ "Sinic", 
+    civ == 9 ~ "Western", 
+    TRUE ~ "Other"))
+wvs$civ = factor(wvs$civ, levels=c("Western", 
+                                   "Sinic", 
+                                   "Islamic", 
+                                   "Latin American", 
+                                   "Orthodox", 
+                                   "Other"))
+
+mod <- lm(resemaval ~ civ + gdp_cap + 
+            pct_secondary + pct_univ_degree + 
+            pct_high_rel_imp, data=wvs)
+
+eff <- ggpredict(mod, 
+                            "civ", 
+                            ci.lvl = .95)
+
+pwc <- summary(glht(mod, linfct=mcp(civ = "Tukey")), 
+               test=adjusted(type="none"))
+cld1 <- cld(pwc)
+lmat <- cld1$mcletters$LetterMatrix
+eff$x <- reorder(eff$x, eff$predicted, mean)
+letter_plot(eff, lmat) + 
+  labs(x="Predicted Emancipative Values\n(95\% Confidence Interval)")
 }

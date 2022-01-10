@@ -28,6 +28,14 @@ A data frame of importance measures with optimal bootstrapped confidence interva
 Calculates importance along the lines of Greenwell et al (2018)
 using partial dependence plots.
 }
+\examples{
+\dontrun{
+data(gss)
+mod <- glm(childs ~ sei10 + sex + educ + age, 
+            data=gss, family=poisson)
+g_imp1 <- glmImp(mod, "age", gss)
+}
+}
 \references{
 Greenwell, Brandon M., Bradley C. Boehmke and Andrew J. McCarthy.  (2018). “A Simple and Effective Model-Based Variable Importance Measure.”  arXiv1805.04755 [stat.ML]
 }

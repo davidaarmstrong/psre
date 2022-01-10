@@ -161,6 +161,15 @@ qqPoints <- function (x,
 #' @importFrom nortest lillie.test sf.test ad.test
 #' @importFrom lawstat rjb.test
 #' @importFrom normwhn.test normality.test1
+#' 
+#' @examples
+#' data(wvs)
+#' library(car)
+#' lam <- transNorm(wvs$gdp_cap,
+#'           family="yj",
+#'           lams =c(-2,2))
+#' wvs$trans_gdp <- yjPower(wvs$gdp_cap, 
+#'              lambda=lam)
 transNorm <- function(x, start = .01, family=c("bc", "yj"), lams,
                       combine.method = c("Stouffer", "Fisher", "Average"), ...){
   family <- match.arg(family)
@@ -196,7 +205,7 @@ transNorm <- function(x, start = .01, family=c("bc", "yj"), lams,
   c(lambda = lambda[which.max(p.combine)])
 }
 
-#' Dot Plot with Leter Display
+#' Dot Plot with Letter Display
 #'
 #' Produces an dot plot with error bars along with a compact letter display
 #'
@@ -209,6 +218,43 @@ transNorm <- function(x, start = .01, family=c("bc", "yj"), lams,
 #' @importFrom ggplot2 geom_errorbarh ggplot_build aes_string geom_vline scale_x_continuous coord_cartesian ylab
 #' @importFrom tibble as_tibble
 #' @importFrom dplyr left_join
+#' 
+#' @examples 
+#' library(psre)
+#' library(ggeffects)
+#' library(multcomp)
+#' library(dplyr)
+#' library(ggplot2)
+#' data(wvs)
+#' wvs$civ <- with(wvs, case_when(
+#'     civ == 4 ~ "Islamic", 
+#'     civ == 6 ~ "Latin American", 
+#'     civ == 7 ~ "Orthodox", 
+#'     civ == 8 ~ "Sinic", 
+#'     civ == 9 ~ "Western", 
+#'     TRUE ~ "Other"))
+#' wvs$civ = factor(wvs$civ, levels=c("Western", 
+#'                                    "Sinic", 
+#'                                    "Islamic", 
+#'                                    "Latin American", 
+#'                                    "Orthodox", 
+#'                                    "Other"))
+#' 
+#' mod <- lm(resemaval ~ civ + gdp_cap + 
+#'             pct_secondary + pct_univ_degree + 
+#'             pct_high_rel_imp, data=wvs)
+#' 
+#' eff <- ggpredict(mod, 
+#'                             "civ", 
+#'                             ci.lvl = .95)
+#' 
+#' pwc <- summary(glht(mod, linfct=mcp(civ = "Tukey")), 
+#'                test=adjusted(type="none"))
+#' cld1 <- cld(pwc)
+#' lmat <- cld1$mcletters$LetterMatrix
+#' eff$x <- reorder(eff$x, eff$predicted, mean)
+#' letter_plot(eff, lmat) + 
+#'   labs(x="Predicted Emancipative Values\n(95% Confidence Interval)")
 letter_plot <- function(fits, letters){
   if(!(all(c("x", "predicted", "conf.low", "conf.high") %in% names(fits))))stop("x, predicted, conf.low and conf.high need to be variables in the 'fits' data frame.")
   lmat <- letters
@@ -419,8 +465,16 @@ assocfun <- function(xind,yind, data){
 #' @return A \code{cowplot} object.
 #'
 #' @export
-
-
+#' 
+#' @examples 
+#' data(wvs)
+#' lsa(formula = as.formula(sacsecval ~ resemaval + moral + 
+#'                            pct_univ_degree + pct_female + 
+#'                            pct_low_income), 
+#'   xlabels = c("Emancipative Vals", "Moral Perm", 
+#'               "% Univ Degree", "% Female", "% Low Income"), 
+#'   ylab = "Secular Values", 
+#'   data=wvs)
 lsa <- function(formula, xlabels=NULL, ylab = NULL, data,
                 ptsize=1, ptshape=1, ptcol="gray65"){
   if (!attr(terms(as.formula(formula)), which = 'response'))
@@ -530,6 +584,23 @@ lsa <- function(formula, xlabels=NULL, ylab = NULL, data,
 #' @return A \code{cowplot} object.
 #'
 #' @export
+#' 
+#' @examples
+#' data(wvs)
+#' library(L1pack)
+#' library(MASS)
+#' lmod <- lm(secpay ~ gini_disp + democrat + log(pop), data=wvs)
+#' e1_lad <- lad(secpay ~ gini_disp + democrat + log(pop), 
+#'                       data=wvs)$residuals
+#' e1_m <- rlm(secpay ~ gini_disp + democrat + log(pop), 
+#'                   data=wvs, method="M")$residuals
+#' e1_mm <- rlm(secpay ~ gini_disp + democrat + log(pop), 
+#'                    data=wvs, method="MM")$residuals
+#' e1dat <- data.frame(OLS = lmod$residuals, 
+#'                     LAD = e1_lad, 
+#'                     M = e1_m, 
+#'                     MM = e1_mm)
+#' rrPlot(OLS ~ LAD + M + MM, data=e1dat)
 rrPlot <- function(formula, xlabels=NULL, ylab = NULL, 
                    data, return = c("grid", "grobs"), 
                    ptsize = 1, ptshape=1, ptcol="gray65"){
@@ -691,6 +762,12 @@ boot_imp <- function(data, inds, obj){
 #' @references Silber, J. H., Rosenbaum, P. R. and Ross, R N (1995) Comparing the Contributions of Groups of Predictors: Which Outcomes Vary with Hospital Rather than Patient Characteristics? JASA 90, 7–18.
 #'
 #' @export
+#' 
+#' @examples 
+#' data(gss)
+#' mod <- glm(childs ~ sei10 + sex + educ + age, 
+#'             data=gss, family=poisson)
+#' srr_imp(mod, data=gss)
 srr_imp <- function(obj,
                     data,
                     boot=TRUE,
@@ -768,6 +845,14 @@ srr_imp <- function(obj,
 #' @importFrom DAMisc aveEffPlot
 #'
 #' @export
+#' 
+#' @examples 
+#' \dontrun{
+#' data(gss)
+#' mod <- glm(childs ~ sei10 + sex + educ + age, 
+#'             data=gss, family=poisson)
+#' g_imp1 <- glmImp(mod, "age", gss)
+#' }
 glmImp <- function(obj,
                    varname,
                    data,
@@ -915,6 +1000,27 @@ make_fdat <- function(b, v, vt, eg, resdf=Inf, alpha=.05, clev, adjust){
 #' 
 #' @importFrom dplyr rowwise case_when ungroup summarise
 #' @export
+#' 
+#' @examples 
+#' \dontrun{
+#' data(wvs)
+#' wvs$civ2 <- "Other"
+#' wvs$civ2 <- ifelse(wvs$civ == 9, 
+#'                    "Western", 
+#'                    wvs$civ2)
+#' wvs$civ2 <- ifelse(wvs$civ == 6, 
+#'                    "Latin American", 
+#'                    wvs$civ2)
+#' wvs$civ2 <- as.factor(wvs$civ2)
+#' 
+#' intmod <- lm(resemaval ~ civ2 * pct_secondary, 
+#'              data=wvs)
+#' 
+#' ss2 <- simple_slopes(intmod, 
+#'                      "pct_secondary", 
+#'                      "civ2")
+#' o2 <- optCL(b=ss2$est$slope, v=ss2$v)
+#' }
 optCL <- function(obj=NULL, varname=NULL, b=NULL, v=NULL, 
                   resdf = Inf, level=.95, 
                   quasi_vars = NULL, 
@@ -1065,6 +1171,17 @@ loess.aic <- function (x) {
 #' @importFrom mgcv gam
 #' @export
 #' 
+#' @examples 
+#' \dontrun{
+#' data(india)
+#' india$bjp <- ifelse(india$in_prty == 2, 1, 0)
+#' mod1 <- glm(bjp ~  educyrs + anti_immigration, 
+#'             data=india, family=binomial)
+#' 
+#' gh1 <- gg_hmf(model.response(model.frame(mod1)), 
+#'               fitted(mod1), 
+#'               method="loess")
+#' }
 gg_hmf <- function(observed, prob, method = c("loess", "gam"), 
                    span=NULL, nbin=20, R=1000, ...){
 ## TODO: Make consistent with heatmap.fit
@@ -1246,6 +1363,13 @@ dfbhist <- function(data, varname, label, cutval=.25, binwidth=.025, xlab="DFBET
 #' 
 #' @export
 #' 
+#' @examples 
+#' 
+#' library(psre)
+#' data(wvs)
+#' smod3 <- lm(secpay ~ tpb(gini_disp, degree=3, knot_loc=.35) + democrat, data=wvs)
+#' summary(smod3)
+#' 
 #' @return A n x \code{degree}+\code{nknots} matrix of basis 
 #' function values. 
 tpb <- function(x, degree=3, nknots=3, knot_loc=NULL){
@@ -1282,19 +1406,35 @@ tpb <- function(x, degree=3, nknots=3, knot_loc=NULL){
 #' 
 #' @export
 #' 
+#' @examples 
+#' 
+#' library(nnet)
+#' data(repress)
+#' mrm <- multinom(pts_s ~ pr + cwar + iwar +  log(rgdpe) + log(pop), data=repress)
+#' b <- coef(mrm)
+#' v <- vcov(mrm)
+#' b <- c(t(b))
+#' se <- sqrt(diag(v))
+#' pv <- 2*pnorm(abs(b/se), lower.tail=FALSE)
+#' tab11_7 <- matrix(shuffle(b, pv, se), ncol=4)
+#' rownames(tab11_7) <- rep("", 12)
+#' rownames(tab11_7)[seq(1, 12, by=2)] <- colnames(coef(mrm))
+#' colnames(tab11_7) <- paste0("PTS = ", 2:5)
+#' noquote(tab11_7)
 shuffle <- function(b, pv, se, alpha=.05, digits=3, names=NULL){
-sig_param <- ifelse(pv < alpha, "*", " ")
-coefs <- sprintf(paste0("%.", digits, "f%s"), b, sig_param)
-ses <- sprintf(paste0("(%.", digits, "f)"), se)
-out <- NULL
-for(i in 1:length(coefs)){
-  out <- c(out, coefs[i], ses[i])
+  sig_param <- ifelse(pv < alpha, "*", " ")
+  coefs <- sprintf(paste0("%.", digits, "f%s"), b, sig_param)
+  ses <- sprintf(paste0("(%.", digits, "f)"), se)
+  out <- NULL
+  for(i in 1:length(coefs)){
+    out <- c(out, coefs[i], ses[i])
+  }
+  out <- matrix(out, ncol=1)
+  if(!is.null(names)){
+    odds <- seq(1, nrow(out), by=2)
+    rownames(out) <- ""
+    rownames(out)[odds] <- names
+  }
+  out
 }
-out <- matrix(out, ncol=1)
-if(!is.null(names)){
-  odds <- seq(1, nrow(out), by=2)
-  rownames(out) <- ""
-  rownames(out)[odds] <- names
-}
-out
-}
+

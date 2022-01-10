@@ -26,3 +26,11 @@ function values.
 \description{
 Makes truncated power basis spline functions.
 }
+\examples{
+
+library(psre)
+data(wvs)
+smod3 <- lm(secpay ~ tpb(gini_disp, degree=3, knot_loc=.35) + democrat, data=wvs)
+summary(smod3)
+
+}

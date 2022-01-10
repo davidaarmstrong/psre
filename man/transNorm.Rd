@@ -37,6 +37,15 @@ A scalar giving the optimal transformation parameter.
 Uses the method proposed by Velez, Correa and Marmolejo-Ramos
 to normalize variables using Box-Cox or Yeo-Johnson transformations.
 }
+\examples{
+data(wvs)
+library(car)
+lam <- transNorm(wvs$gdp_cap,
+          family="yj",
+          lams =c(-2,2))
+wvs$trans_gdp <- yjPower(wvs$gdp_cap, 
+             lambda=lam)
+}
 \references{
 Velez Jorge I., Correa Juan C., Marmolejo-Ramos Fernando.  (2015)
 "A new approach to the Box-Cox Transformation" Frontiers in Applied

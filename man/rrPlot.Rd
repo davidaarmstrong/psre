@@ -44,3 +44,20 @@ A \code{cowplot} object.
 Produces a linear scatterplot array with marginal histograms.
 The plots have OLS regression lines and a 45-degree line.
 }
+\examples{
+data(wvs)
+library(L1pack)
+library(MASS)
+lmod <- lm(secpay ~ gini_disp + democrat + log(pop), data=wvs)
+e1_lad <- lad(secpay ~ gini_disp + democrat + log(pop), 
+                      data=wvs)$residuals
+e1_m <- rlm(secpay ~ gini_disp + democrat + log(pop), 
+                  data=wvs, method="M")$residuals
+e1_mm <- rlm(secpay ~ gini_disp + democrat + log(pop), 
+                   data=wvs, method="MM")$residuals
+e1dat <- data.frame(OLS = lmod$residuals, 
+                    LAD = e1_lad, 
+                    M = e1_m, 
+                    MM = e1_mm)
+rrPlot(OLS ~ LAD + M + MM, data=e1dat)
+}

@@ -37,3 +37,13 @@ A \code{cowplot} object.
 \description{
 Produces a linear scatterplot array with marginal histograms
 }
+\examples{
+data(wvs)
+lsa(formula = as.formula(sacsecval ~ resemaval + moral + 
+                           pct_univ_degree + pct_female + 
+                           pct_low_income), 
+  xlabels = c("Emancipative Vals", "Moral Perm", 
+              "\% Univ Degree", "\% Female", "\% Low Income"), 
+  ylab = "Secular Values", 
+  data=wvs)
+}

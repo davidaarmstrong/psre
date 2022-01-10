@@ -31,6 +31,10 @@ Imports:
     rlang, 
     ggrepel, 
     mgcv
+Suggests:
+    L1pack, 
+    ggeffects,
+    nnet
 Depends: R (>= 3.5.0)
 License: GPL (>=2)
 Encoding: UTF-8

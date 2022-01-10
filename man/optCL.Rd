@@ -84,3 +84,24 @@ indistinguishable intervals have confidence intervals that do overlap.
 It does not always work perfectly, but it generally results in fewer
 inferential errors than the nominal level.
 }
+\examples{
+\dontrun{
+data(wvs)
+wvs$civ2 <- "Other"
+wvs$civ2 <- ifelse(wvs$civ == 9, 
+                   "Western", 
+                   wvs$civ2)
+wvs$civ2 <- ifelse(wvs$civ == 6, 
+                   "Latin American", 
+                   wvs$civ2)
+wvs$civ2 <- as.factor(wvs$civ2)
+
+intmod <- lm(resemaval ~ civ2 * pct_secondary, 
+             data=wvs)
+
+ss2 <- simple_slopes(intmod, 
+                     "pct_secondary", 
+                     "civ2")
+o2 <- optCL(b=ss2$est$slope, v=ss2$v)
+}
+}

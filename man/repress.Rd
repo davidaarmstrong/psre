@@ -29,6 +29,6 @@ Freedom House.  (2020).  Freedom in the World 2020.  New York: Freedom House.
 
 Gleditsch, Nils Petter; Peter Wallensteen, Mikael Eriksson, Margareta Sollenberg & Havard Strand, 2002. \sQuote{Armed Conflict 1946–2001: A New Dataset}, Journal of Peace Research 39(5): 615–637.
 
-Gibney, Mark, Linda Cornett, Reed Wood, Peter Haschke, Daniel Arnon, Attilio Pisano, Gray Barrett, and Baekkwan Park. 2020. \sQuote{The Political Terror Scale 1976-2019.} Date Retrieved, from the Political Terror Scale website: \url{http://www.politicalterrorscale.org}.
+Gibney, Mark, Linda Cornett, Reed Wood, Peter Haschke, Daniel Arnon, Attilio Pisano, Gray Barrett, and Baekkwan Park. 2020. \sQuote{The Political Terror Scale 1976-2019.} Date Retrieved, from the Political Terror Scale website: \url{https://www.politicalterrorscale.org/}.
 }
 \keyword{datasets}

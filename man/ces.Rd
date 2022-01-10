@@ -73,6 +73,6 @@ These data are a subset of the Canadian Election Study telephone
 sample (Stephenson et. al. 2020).
 }
 \references{
-Stephenson, Laura B,  Allison Harell, Daniel Rubenson, Peter John Loewen.  (2020). "2019 Canadian Election Study - Phone Survey", \url{https://doi.org/10.7910/DVN/8RHLG1}, Harvard Dataverse, V1.
+Stephenson, Laura B,  Allison Harell, Daniel Rubenson, Peter John Loewen.  (2020). "2019 Canadian Election Study - Phone Survey", \doi{https://doi.org/10.7910/DVN/8RHLG1}, Harvard Dataverse, V1.
 }
 \keyword{datasets}

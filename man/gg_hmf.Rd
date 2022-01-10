@@ -42,3 +42,15 @@ Makes a Heatmap Fit plot (Esary and Pierce, 2012) using
 GGPlot rather than lattice that the \code{heatmapFit} package
 uses.
 }
+\examples{
+\dontrun{
+data(india)
+india$bjp <- ifelse(india$in_prty == 2, 1, 0)
+mod1 <- glm(bjp ~  educyrs + anti_immigration, 
+            data=india, family=binomial)
+
+gh1 <- gg_hmf(model.response(model.frame(mod1)), 
+              fitted(mod1), 
+              method="loess")
+}
+}

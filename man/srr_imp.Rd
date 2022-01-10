@@ -40,6 +40,12 @@ A data frame of importance measures with optimal bootstrapped confidence interva
 Calculates absolute importance along the lines consistent with
 relative importance as defined by Silber, Rosenbaum and Ross (1995)
 }
+\examples{
+data(gss)
+mod <- glm(childs ~ sei10 + sex + educ + age, 
+            data=gss, family=poisson)
+srr_imp(mod, data=gss)
+}
 \references{
 Silber, J. H., Rosenbaum, P. R. and Ross, R N (1995) Comparing the Contributions of Groups of Predictors: Which Outcomes Vary with Hospital Rather than Patient Characteristics? JASA 90, 7–18.
 }

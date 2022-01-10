@@ -167,7 +167,7 @@ NULL
 #' \item{weight_CES}{Weighting variable for the CES.}
 #' }
 #' @references
-#' Stephenson, Laura B,  Allison Harell, Daniel Rubenson, Peter John Loewen.  (2020). "2019 Canadian Election Study - Phone Survey", \url{https://doi.org/10.7910/DVN/8RHLG1}, Harvard Dataverse, V1.
+#' Stephenson, Laura B,  Allison Harell, Daniel Rubenson, Peter John Loewen.  (2020). "2019 Canadian Election Study - Phone Survey", \doi{https://doi.org/10.7910/DVN/8RHLG1}, Harvard Dataverse, V1.
 #'
 #' @keywords datasets
 NULL
@@ -351,7 +351,7 @@ NULL
 #' 
 #' Gleditsch, Nils Petter; Peter Wallensteen, Mikael Eriksson, Margareta Sollenberg & Havard Strand, 2002. \sQuote{Armed Conflict 1946–2001: A New Dataset}, Journal of Peace Research 39(5): 615–637.
 #' 
-#' Gibney, Mark, Linda Cornett, Reed Wood, Peter Haschke, Daniel Arnon, Attilio Pisano, Gray Barrett, and Baekkwan Park. 2020. \sQuote{The Political Terror Scale 1976-2019.} Date Retrieved, from the Political Terror Scale website: \url{http://www.politicalterrorscale.org}.
+#' Gibney, Mark, Linda Cornett, Reed Wood, Peter Haschke, Daniel Arnon, Attilio Pisano, Gray Barrett, and Baekkwan Park. 2020. \sQuote{The Political Terror Scale 1976-2019.} Date Retrieved, from the Political Terror Scale website: \url{https://www.politicalterrorscale.org/}.
 #'
 #' @keywords datasets
 NULL

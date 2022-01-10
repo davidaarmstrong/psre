@@ -25,3 +25,19 @@ A character vector of printed output
 \description{
 Function shuffles together coefficients and standard errors with a significance flag.
 }
+\examples{
+
+library(nnet)
+data(repress)
+mrm <- multinom(pts_s ~ pr + cwar + iwar +  log(rgdpe) + log(pop), data=repress)
+b <- coef(mrm)
+v <- vcov(mrm)
+b <- c(t(b))
+se <- sqrt(diag(v))
+pv <- 2*pnorm(abs(b/se), lower.tail=FALSE)
+tab11_7 <- matrix(shuffle(b, pv, se), ncol=4)
+rownames(tab11_7) <- rep("", 12)
+rownames(tab11_7)[seq(1, 12, by=2)] <- colnames(coef(mrm))
+colnames(tab11_7) <- paste0("PTS = ", 2:5)
+noquote(tab11_7)
+}
