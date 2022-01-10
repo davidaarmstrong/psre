@@ -4,7 +4,7 @@ This R package supports </em>Presenting Statistical Results Effectively</em> (Sa
 
 You can install the package directly from GitHub using the `remotes` package: 
 
-```
+```r
 remotes::install_github("davidaarmstrong/psre")
 ```
 
