@@ -25,12 +25,12 @@ responses to the question about religious importance by country and religious im
 The  dataset has 224 rows and 4 variables.  The variables are as follows:
 }
 \references{
-Inglehart, R., C. Haerpfer, A. Moreno, C. Welzel, K. Kizilova, J. Diez-Medrano, M. Lagos, P. Norris, E. Ponarin & B. Puranen et al. (eds.). 2014a. World Values Survey: Round Two - Country-Pooled Datafile Version: \url{www.worldvaluessurvey.org/WVSDocumentationWV2.jsp}. Madrid: JD Systems Institute.
+Inglehart, R., C. Haerpfer, A. Moreno, C. Welzel, K. Kizilova, J. Diez-Medrano, M. Lagos, P. Norris, E. Ponarin & B. Puranen et al. (eds.). 2014a. World Values Survey: Round Two - Country-Pooled Datafile Version: \url{https://www.worldvaluessurvey.org/WVSDocumentationWV2.jsp}. Madrid: JD Systems Institute.
 
-Inglehart, R., C. Haerpfer, A. Moreno, C. Welzel, K. Kizilova, J. Diez-Medrano, M. Lagos, P. Norris, E. Ponarin & B. Puranen et al. (eds.). 2014b. World Values Survey: Round Three - Country-Pooled Datafile Version: \url{www.worldvaluessurvey.org/WVSDocumentationWV3.jsp}. Madrid: JD Systems Institute.
+Inglehart, R., C. Haerpfer, A. Moreno, C. Welzel, K. Kizilova, J. Diez-Medrano, M. Lagos, P. Norris, E. Ponarin & B. Puranen et al. (eds.). 2014b. World Values Survey: Round Three - Country-Pooled Datafile Version: \url{https://www.worldvaluessurvey.org/WVSDocumentationWV3.jsp}. Madrid: JD Systems Institute.
 
-Inglehart, R., C. Haerpfer, A. Moreno, C. Welzel, K. Kizilova, J. Diez-Medrano, M. Lagos, P. Norris, E. Ponarin & B. Puranen et al. (eds.). 2014c. World Values Survey: Round Four - Country-Pooled Datafile Version: \url{www.worldvaluessurvey.org/WVSDocumentationWV4.jsp}. Madrid: JD Systems Institute.
+Inglehart, R., C. Haerpfer, A. Moreno, C. Welzel, K. Kizilova, J. Diez-Medrano, M. Lagos, P. Norris, E. Ponarin & B. Puranen et al. (eds.). 2014c. World Values Survey: Round Four - Country-Pooled Datafile Version: \url{https://www.worldvaluessurvey.org/WVSDocumentationWV4.jsp}. Madrid: JD Systems Institute.
 
-Inglehart, R., C. Haerpfer, A. Moreno, C. Welzel, K. Kizilova, J. Diez-Medrano, M. Lagos, P. Norris, E. Ponarin & B. Puranen et al. (eds.). 2014d. World Values Survey: Round Five - Country-Pooled Datafile Version: \url{www.worldvaluessurvey.org/WVSDocumentationWV5.jsp}. Madrid: JD Systems Institute.
+Inglehart, R., C. Haerpfer, A. Moreno, C. Welzel, K. Kizilova, J. Diez-Medrano, M. Lagos, P. Norris, E. Ponarin & B. Puranen et al. (eds.). 2014d. World Values Survey: Round Five - Country-Pooled Datafile Version: \url{https://www.worldvaluessurvey.org/WVSDocumentationWV5.jsp}. Madrid: JD Systems Institute.
 }
 \keyword{datasets}

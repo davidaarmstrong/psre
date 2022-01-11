@@ -23,7 +23,7 @@ studies, they are similar in spirit to the data used in Poe and Tate (1994) and 
 Davenport and Armstrong (20040).
 }
 \references{
-Feenstra, Robert C., Robert Inklaar and Marcel P. Timmer 2015. \sQuote{The Next Generation of the Penn World Table} American Economic Review, 105(10), 3150-3182, available for download at \url{www.ggdc.net/pwt}.
+Feenstra, Robert C., Robert Inklaar and Marcel P. Timmer 2015. \sQuote{The Next Generation of the Penn World Table} American Economic Review, 105(10), 3150-3182, available for download at \url{https://www.rug.nl/ggdc/productivity/pwt/}.
 
 Freedom House.  (2020).  Freedom in the World 2020.  New York: Freedom House.
 

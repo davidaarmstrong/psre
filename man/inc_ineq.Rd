@@ -22,7 +22,7 @@ Standardized World Income Inequality Data (Solt, 2020) with GDP and population
 data from the Penn World Tables version 10 (Feenstra et. al., 2015).
 }
 \references{
-Feenstra, Robert C., Robert Inklaar and Marcel P. Timmer (2015), "The Next Generation of the Penn World Table" American Economic Review, 105(10), 3150-3182, available for download at \url{www.ggdc.net/pwt}.
+Feenstra, Robert C., Robert Inklaar and Marcel P. Timmer (2015), "The Next Generation of the Penn World Table" American Economic Review, 105(10), 3150-3182, available for download at \url{https://www.rug.nl/ggdc/productivity/pwt/}.
 
 Solt, Frederick. 2020. "Measuring Income Inequality Across Countries and Over Time: The Standardized World Income Inequality Database." Social Science Quarterly 101(3):1183-1199. SWIID Version 9.0, October 2020.
 }

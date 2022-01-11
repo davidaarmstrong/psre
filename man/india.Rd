@@ -70,6 +70,6 @@ National Identity III survey (ISSP Research Group 2015).  This
 subset contains only the data from India.
 }
 \references{
-ISSP Research Group (2015): International Social Survey Programme: National Identity III - ISSP 2013. GESIS Data Archive, Cologne. ZA5950 Data file Version 2.0.0, https://doi.org/10.4232/1.12312
+ISSP Research Group (2015): International Social Survey Programme: National Identity III - ISSP 2013. GESIS Data Archive, Cologne. ZA5950 Data file Version 2.0.0, \doi{https://doi.org/10.4232/1.12312}
 }
 \keyword{datasets}
