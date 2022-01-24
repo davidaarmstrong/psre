@@ -58,7 +58,7 @@ ggplot() +
         legend.text = element_text(size=10)) + 
   labs(x="Political Rights", y="Predicted Repression", 
        linetype="")
-ggsave("output/f8_8a.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f8_8a.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## Filter out piecewise linear model 
 epb %>% filter(model != "Piecewise Linear") %>% 
@@ -71,7 +71,7 @@ epb %>% filter(model != "Piecewise Linear") %>%
         legend.text = element_text(size=10)) + 
   labs(x="Political Rights", y="Predicted Repression", 
        linetype="")
-ggsave("output/f8_8b.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f8_8b.png", height=4.5, width=4.5, units="in", dpi=300)
 
 #################
 

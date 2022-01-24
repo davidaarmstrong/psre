@@ -33,7 +33,7 @@ ggplot(g1, aes(x=x, y=predicted, ymin=conf.low, ymax=conf.high, fill=group, line
   labs(x="Gini", y="Predicted Emancipative Values", 
        linetype = "Religious\nImportance", 
        fill = "Religious\nImportance")
-ggsave("output/f9_6a.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f9_6a.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## B. Effect of religious importance for the minimum and maximum of gini coefficient
 g2 <- ggpredict(intmod4, terms=c("pct_high_rel_imp [all]", "gini_disp [0.175, 0.632]"))
@@ -47,7 +47,7 @@ ggplot(g2, aes(x=x, y=predicted, ymin=conf.low, ymax=conf.high, fill=group, line
   labs(x="Religious Importance", y="Predicted Emancipative Values", 
        linetype = "Gini", 
        fill = "Gini")
-ggsave("output/f9_6b.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f9_6b.png", height=4.5, width=4.5, units="in", dpi=300)
 
 
 

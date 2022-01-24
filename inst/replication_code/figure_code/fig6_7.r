@@ -61,11 +61,11 @@ m7u <- update(m7, data=wvs1a)
 
 ## create factorplot data for m7u using the civ variable. 
 fp <- factorplot(m7u, factor.var="civ", adjust.methods="none")
-png("output/f6_7.png", height=4.5, width=4.5, units="in", res=300)
+#png("output/f6_7.png", height=4.5, width=4.5, units="in", res=300)
 plot(fp, polycol = c("gray70", "white", "gray70"), 
      textcol=c("black", "gray50", "black"), 
      abbrev.char=100, 
      print.sig.leg=FALSE, 
      print.square.leg = FALSE, 
      print.se=FALSE)
-dev.off()
+#dev.off()

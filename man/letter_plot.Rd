@@ -13,6 +13,9 @@ letter_plot(fits, letters)
 compact letter display.  This is most often from a call to \code{cld} from the
 \pkg{multcomp} package.}
 }
+\value{
+A ggplot.
+}
 \description{
 Produces an dot plot with error bars along with a compact letter display
 }

@@ -49,7 +49,7 @@ e1 <- e1a +
   geom_hline(yintercept=0, lty=2, col="gray50") + 
   annotation_custom(e1bgrob, ymax=maxy) 
 e1
-ggsave("output/f9_5a.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f9_5a.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## B. Religious importance given gini coefficient
 ## proceed as above
@@ -75,7 +75,7 @@ e2 <- e2a +
   annotation_custom(e2bgrob, ymax=maxy) 
 
 e2
-ggsave("output/f9_5b.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f9_5b.png", height=4.5, width=4.5, units="in", dpi=300)
 
 
 ## Change in Significance

@@ -28,4 +28,4 @@ ggplot(wvsc, aes(x=year, y=secpay)) +
   labs(x="Year", y="Attitudes Toward Inequality", 
        colour="", linetype="") + 
   coord_cartesian(xlim=c(1990, 2009), expand=TRUE)
-ggsave("output/f4_16.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f4_16.png", height=4.5, width=4.5, units="in", dpi=300)

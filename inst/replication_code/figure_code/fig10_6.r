@@ -48,7 +48,7 @@ ggplot() +
   theme_classic() + 
   geom_function(fun = "dnorm", size=1) + 
   labs(x="Quantile Residuals")
-ggsave("output/f10_6a.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f10_6a.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## B. Standardized deviance residuals
 ggplot() + 
@@ -56,4 +56,4 @@ ggplot() +
   theme_classic() + 
   geom_function(fun = "dnorm", size=1) + 
   labs(x="Quantile Residuals")
-ggsave("output/f10_6b.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f10_6b.png", height=4.5, width=4.5, units="in", dpi=300)

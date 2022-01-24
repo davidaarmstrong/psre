@@ -99,4 +99,4 @@ ggplot(g, aes(y=newx)) +
                     ymax=2) + 
   scale_y_discrete(breaks=c("O_ND", "W_ND", "LA_ND", "O_ED", "LA_ED", "W_ED"), 
                    labels=c("Other (n=67)", "Western (n=5)", "Latin Amer (n=18)", "Other (n=22)", "Latin Amer (n=10)", "Western (n=40)"))
-ggsave("output/f9_2.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f9_2.png", height=4.5, width=4.5, units="in", dpi=300)

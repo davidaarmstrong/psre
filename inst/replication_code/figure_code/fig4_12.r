@@ -36,7 +36,7 @@ ggplot(wvsa, aes(x=gini_disp, y=secpay)) +
   scale_linetype_manual(values=c(2,1)) + 
   theme(legend.position="top", 
         legend.key.size = grid::unit(3, "lines"))
-ggsave("output/f4_12a.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f4_12a.png", height=4.5, width=4.5, units="in", dpi=300)
 
 
 
@@ -52,7 +52,7 @@ ggplot(wvsa, aes(x=gini_disp, y=secpay)) +
   theme_classic() + 
   theme(legend.position="top", 
         legend.key.size = grid::unit(3, "lines"))
-ggsave("output/f4_12b.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f4_12b.png", height=4.5, width=4.5, units="in", dpi=300)
 
 
 ## C. Interaction without outliers
@@ -67,4 +67,4 @@ wvsa %>% dplyr::filter(!(country %in% c("Czech Rep.", "Slovakia"))) %>%
   theme_classic() + 
   theme(legend.position="top", 
         legend.key.size = grid::unit(3, "lines"))
-ggsave("output/f4_12c.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f4_12c.png", height=4.5, width=4.5, units="in", dpi=300)

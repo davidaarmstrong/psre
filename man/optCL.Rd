@@ -85,7 +85,6 @@ It does not always work perfectly, but it generally results in fewer
 inferential errors than the nominal level.
 }
 \examples{
-\dontrun{
 data(wvs)
 wvs$civ2 <- "Other"
 wvs$civ2 <- ifelse(wvs$civ == 9, 
@@ -103,5 +102,4 @@ ss2 <- simple_slopes(intmod,
                      "pct_secondary", 
                      "civ2")
 o2 <- optCL(b=ss2$est$slope, v=ss2$v)
-}
 }

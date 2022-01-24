@@ -100,9 +100,9 @@ g9_4a2 <- wvs1 %>% filter(civ2 %in% c(contrs$c1[i], contrs$c2[i])) %>%
         axis.text.y=element_text(colour="transparent"),
         axis.ticks.y = element_line(colour="transparent")) 
 
-png("output/f9_4a.png", height=5.5, width=4.5, units="in", res=300)  
+#png("output/f9_4a.png", height=5.5, width=4.5, units="in", res=300)  
 grid.arrange(g9_4a2, g9_4a1, ncol=1, heights=c(2,8))
-dev.off()
+#dev.off()
 
 ## proceed as above, but for the third contrast
 
@@ -143,9 +143,9 @@ g9_4b2 <- wvs1 %>% filter(civ2 %in% c(contrs$c1[i], contrs$c2[i])) %>%
         axis.text.y=element_text(colour="transparent"),
         axis.ticks.y = element_line(colour="transparent")) 
 
-png("output/f9_4b.png", height=5.5, width=4.5, units="in", res=300)  
+#png("output/f9_4b.png", height=5.5, width=4.5, units="in", res=300)  
 grid.arrange(g9_4b2, g9_4b1, ncol=1, heights=c(2,8))
-dev.off()
+#dev.off()
 
 ## proceed as above, but for the first contrast
 i <- 1
@@ -185,9 +185,9 @@ g9_4c2 <- wvs1 %>% filter(civ2 %in% c(contrs$c1[i], contrs$c2[i])) %>%
         axis.text.y=element_text(colour="transparent"),
         axis.ticks.y = element_line(colour="transparent")) 
 
-png("output/f9_4c.png", height=5.5, width=4.5, units="in", res=300)  
+#png("output/f9_4c.png", height=5.5, width=4.5, units="in", res=300)  
 grid.arrange(g9_4c2, g9_4c1, ncol=1, heights=c(2,8))
-dev.off()
+#dev.off()
 
 
 

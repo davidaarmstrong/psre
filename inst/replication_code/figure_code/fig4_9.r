@@ -17,4 +17,4 @@ ggplot(wvsa, aes(x=gdp_cap, y=sacsecval)) +
   geom_point(shape=1, size=2) + 
   theme_classic() + 
   labs(x="GDP/capita", y="Secular Values")
-ggsave("output/f4_9.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f4_9.png", height=4.5, width=4.5, units="in", dpi=300)

@@ -34,7 +34,7 @@ ggplot(d_dat, aes(x=x, y=y, fill=z)) +
   scale_fill_gradient(low="gray85", high="black", na.value = "white") + 
   labs(x="Religious Importance", y="Gini", 
        fill = "Density")
-ggsave("output/f9_9a.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f9_9a.png", height=4.5, width=4.5, units="in", dpi=300)
 
 
 
@@ -51,5 +51,5 @@ ggplot(wvs, aes(x=pct_high_rel_imp, y=gini_disp)) +
   theme_classic() + 
   theme(legend.position= "top") + 
   labs(x="Religious Importance", y="Gini", fill="Frequency") 
-ggsave("output/f9_9b.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f9_9b.png", height=4.5, width=4.5, units="in", dpi=300)
 

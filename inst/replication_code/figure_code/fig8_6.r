@@ -65,7 +65,7 @@ ggplot() +
   scale_colour_manual(values=c("black", "gray50")) + 
   labs(x="Gini Coefficient", y="Attitudes Toward Inequality", 
        shape="", colour="")
-ggsave("output/f8_6a.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f8_6a.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## B. Model 8d: Quadratic Polynomial
 ggplot() + 
@@ -77,7 +77,7 @@ ggplot() +
   scale_colour_manual(values=c("black", "gray50")) + 
   labs(x="Gini Coefficient", y="Attitudes Toward Inequality", 
        shape="", colour="")
-ggsave("output/f8_6b.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f8_6b.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## C. Model 8e: Piecewise Spline
 ggplot() + 
@@ -89,4 +89,4 @@ ggplot() +
   scale_colour_manual(values=c("black", "gray50")) + 
   labs(x="Gini Coefficient", y="Attitudes Toward Inequality", 
        shape="", colour="")
-ggsave("output/f8_6c.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f8_6c.png", height=4.5, width=4.5, units="in", dpi=300)

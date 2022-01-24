@@ -50,5 +50,5 @@ d %>% ggplot(aes_string(x="1", y="value", fill="lab")) +
   xlim(.55, 2.25) + 
   coord_polar("y", start=0) + 
   theme_void()
-ggsave("output/f3_2.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f3_2.png", height=4.5, width=4.5, units="in", dpi=300)
 

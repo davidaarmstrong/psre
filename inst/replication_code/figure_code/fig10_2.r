@@ -38,4 +38,4 @@ ggplot() +
   geom_vline(xintercept=mean(g2$avesamp), linetype=2, size=1.25) + 
   theme_classic() +
   labs(x="First Differences for Age\n(+/- 2.5 Years)", y="Frequency")
-ggsave("output/f10_2.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f10_2.png", height=4.5, width=4.5, units="in", dpi=300)

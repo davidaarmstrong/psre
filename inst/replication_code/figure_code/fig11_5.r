@@ -130,12 +130,12 @@ marg_dens <-
         axis.ticks.y = element_line(colour="transparent")) 
 
 
-png("output/f11_5a.png", height=5.5, width=4.5, units="in", res=300)  
+#png("output/f11_5a.png", height=5.5, width=4.5, units="in", res=300)  
 grid.arrange(marg_dens, ie_add, ncol=1, heights=c(2,8))
-dev.off()
+#dev.off()
 
-png("output/f11_5b.png", height=5.5, width=4.5, units="in", res=300)  
+#png("output/f11_5b.png", height=5.5, width=4.5, units="in", res=300)  
 grid.arrange(marg_dens, ie_int, ncol=1, heights=c(2,8))
-dev.off()
+#dev.off()
 
 

@@ -59,7 +59,7 @@ f1 <- ggplot(plot_dat, aes(x=x, y=predicted, ymin=conf.low, ymax=conf.high, fill
   theme(legend.position="top") + 
   coord_cartesian(xlim=c(1, 11), expand=TRUE) 
 f1 
-ggsave("output/f9_1b.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f9_1b.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## get coefficients from the model
 b <- coef(m)
@@ -129,7 +129,7 @@ ggplot() +
   labs(x="x", 
        y="y", 
        colour="d", linetype="d") 
-ggsave("output/f9_1a.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f9_1a.png", height=4.5, width=4.5, units="in", dpi=300)
 
 
 
@@ -144,7 +144,7 @@ ggplot(plot_dat, aes(x=as.factor(d), y=predicted, ymin=conf.low, ymax=conf.high)
   theme_bw() + 
   theme(panel.grid=element_blank(), 
         legend.position="top")
-ggsave("output/f9_1c.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f9_1c.png", height=4.5, width=4.5, units="in", dpi=300)
 
 
 ## make hypothetical data for the two quantitative-variable
@@ -189,6 +189,6 @@ ggplot(plot_dat, aes(x=x2, y=predicted, ymin=conf.low,
   theme_classic() + 
   coord_cartesian(xlim=c(1,11), expand=TRUE)+ 
   labs(x= "X2", y="Fitted Values")
-ggsave("output/f9_1d.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f9_1d.png", height=4.5, width=4.5, units="in", dpi=300)
 
 

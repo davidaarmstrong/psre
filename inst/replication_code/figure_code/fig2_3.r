@@ -32,7 +32,7 @@ ctry5 %>% arrange(gdp_cap) %>%
   labs(x="GDP/capita", y="") + 
   scale_x_continuous(labels=dollar) + 
   coord_cartesian(xlim=c(0,115000), ylim=c(.5, 5.5), expand=FALSE) 
-ggsave("output/f2_3a.png", height=4.5, width=4.5, dpi=300)
+# ggssave("output/f2_3a.png", height=4.5, width=4.5, dpi=300)
 ## Panel (b): Bar
 
 ctry5 %>% arrange(gdp_cap) %>% 
@@ -43,7 +43,7 @@ ctry5 %>% arrange(gdp_cap) %>%
   labs(y="GDP/capita", x="") + 
   scale_y_continuous(labels=dollar) + 
   coord_cartesian(ylim=c(0,115000), xlim=c(.5, 5.5), expand=FALSE) 
-ggsave("output/f2_3b.png", height=4.5, width=4.5, dpi=300)
+# ggssave("output/f2_3b.png", height=4.5, width=4.5, dpi=300)
 
 ## Panel (c): Area
 ctry5 %>% arrange(gdp_cap) %>% 
@@ -53,7 +53,7 @@ ctry5 %>% arrange(gdp_cap) %>%
   scale_size_continuous(range=c(1,20)) + 
   theme_classic() + 
   labs(y="GDP/capita", x="", size="GDP/Capita") 
-ggsave("output/f2_3c.png", height=4.5, width=4.5, dpi=300)
+# ggssave("output/f2_3c.png", height=4.5, width=4.5, dpi=300)
 
 ## create a vector of numbers for gdp_cap that is rescaled
 ## to the range (0,75)
@@ -75,4 +75,4 @@ ggplot(c5, aes(x=1, y=ctry_fac, colour=ctry_fac)) +
   geom_text(aes(label=ctry_fac), show.legend = FALSE) + 
   scale_colour_manual(values=c5$col) + 
   theme_void() 
-ggsave("output/f2_3d.png", height=4.5, width=4.5, dpi=300)
+# ggssave("output/f2_3d.png", height=4.5, width=4.5, dpi=300)

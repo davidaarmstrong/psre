@@ -44,7 +44,7 @@ ggplot(gss, aes(x=educ8, y=aid_scale)) +
   theme_classic() + 
   labs(x="Years of Formal Education Completed", y="Preference Toward Generosity of Government Aid") + 
   coord_flip()
-ggsave("output/f4_5a.png", height=9, width=4.5, units="in", dpi=300)
+# ggssave("output/f4_5a.png", height=9, width=4.5, units="in", dpi=300)
 
 
 
@@ -64,4 +64,4 @@ ggplot(gss, aes(x=aid_scale, y=educ8)) +
     y = median(x, na.rm=TRUE)), geom="point", col="white", size=1) + 
   theme_classic() +
   labs(y="Years of Formal Education Completed", x="Preference Toward Generosity of Government Aid") 
-ggsave("output/f4_5b.png", height=9, width=4.5, units="in", dpi=300)
+# ggssave("output/f4_5b.png", height=9, width=4.5, units="in", dpi=300)

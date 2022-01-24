@@ -27,4 +27,4 @@ ggplot(qqdf, aes(x=theo, y=x)) +
   theme_classic() + 
   labs(x="Theoretical Quantiles", 
        y="Observed Quantiles")
-ggsave("output/f3_6.png", height=6, width=6, units="in", dpi=300)
+# ggssave("output/f3_6.png", height=6, width=6, units="in", dpi=300)

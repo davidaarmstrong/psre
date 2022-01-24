@@ -65,4 +65,4 @@ ggplot(e, aes(x=x, y=predicted,
   theme_classic() + 
   theme(legend.position = c(0.2, 0.95)) + 
   labs(x="Age", y="Expected # Children", linetype="")
-ggsave("output/f10_11.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f10_11.png", height=4.5, width=4.5, units="in", dpi=300)

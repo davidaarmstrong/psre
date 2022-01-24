@@ -50,7 +50,7 @@ ggplot(edat, aes(x=age, y=(com_age + res))) +
   theme_classic() + 
   theme(legend.position = "top") + 
   labs(x="Age", y="Component + Quantile Residual", linetype = "")
-ggsave("output/f10_10a.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f10_10a.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## B. Education
 ggplot(edat, aes(x=educ, y=(com_educ + res))) + 
@@ -61,7 +61,7 @@ ggplot(edat, aes(x=educ, y=(com_educ + res))) +
   theme_classic() + 
   theme(legend.position = "top") + 
   labs(x="Education", y="Component + Quantile Residual", linetype = "")
-ggsave("output/f10_10b.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f10_10b.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## C. Socioeconomic status
 ggplot(edat, aes(x=sei01, y=(com_sei + res))) + 
@@ -72,4 +72,4 @@ ggplot(edat, aes(x=sei01, y=(com_sei + res))) +
   theme_classic() + 
   theme(legend.position = "top") + 
   labs(x="Socio-economic Status", y="Component + Quantile Residual", linetype = "")
-ggsave("output/f10_10c.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f10_10c.png", height=4.5, width=4.5, units="in", dpi=300)

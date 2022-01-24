@@ -51,9 +51,9 @@ mod1 <- glm(bjp ~  eth + sbc + educyrs + tb3 + urban +
 gh1 <- gg_hmf(model.response(model.frame(mod1)), fitted(mod1), method="loess")
 
 ## A. Model 11b
-png("output/f11_7a.png", height=5.5, width=4.5, units="in", res=300)  
+#png("output/f11_7a.png", height=5.5, width=4.5, units="in", res=300)  
 grid.arrange(gh1[[1]], gh1[[2]], heights=c(2,8), ncol=1)
-dev.off()
+#dev.off()
 
 
 ## get the variables from mod1 and listwise delete
@@ -68,9 +68,9 @@ mod2 <- gam(bjp ~  eth + sbc + s(educyrs) + tb3 + urban +
 gh2 <- gg_hmf(model.response(model.frame(mod2)), fitted(mod2))
 
 ## B. Generalized Additive Model
-png("output/f11_7b.png", height=5.5, width=4.5, units="in", res=300)
+#png("output/f11_7b.png", height=5.5, width=4.5, units="in", res=300)
 grid.arrange(gh2[[1]], gh2[[2]], heights=c(2,8), ncol=1)
-dev.off()
+#dev.off()
 
 
 

@@ -69,5 +69,5 @@ ggplot(all_dat, aes(x=mean, xmin=lower, xmax=upper, y=varlab)) +
   theme_bw() + 
   theme(panel.grid=element_blank()) + 
   labs(x="First Difference\n(2 SD Change)", y="")
-ggsave("output/f11_8.png", height=4, width=10, units="in", dpi=300)
+# ggssave("output/f11_8.png", height=4, width=10, units="in", dpi=300)
 

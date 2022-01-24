@@ -73,6 +73,6 @@ g11_4b <- ggplot(india, aes(x=educyrs)) +
         axis.ticks.y = element_line(colour="transparent")) 
 
 ## put both figures together. 
-png("output/f11_4.png", height=5.5, width=4.5, units="in", res=300)  
+#png("output/f11_4.png", height=5.5, width=4.5, units="in", res=300)  
 grid.arrange(g11_4b, g11_4a, ncol=1, heights=c(2,8))
-dev.off()
+#dev.off()

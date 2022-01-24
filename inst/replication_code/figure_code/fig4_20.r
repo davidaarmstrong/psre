@@ -20,4 +20,4 @@ gss %>% dplyr::filter(educ >= 9 & !is.na(party3)) %>%
         aspect.ratio = 1) + 
   labs(x="Years of Formal Education", 
        y = "Aid Generosity Scale")
-ggsave("output/f4_20.png", height=5, width=7, dpi=300)
+# ggssave("output/f4_20.png", height=5, width=7, dpi=300)

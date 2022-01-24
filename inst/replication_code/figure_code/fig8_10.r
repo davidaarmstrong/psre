@@ -128,7 +128,7 @@ ggplot(ss_fit, aes(x=pr, y=fit, ymin=low, ymax=up, group=model)) +
   theme_classic() + 
   theme(legend.position=c(.2,.15)) + 
   labs(x="Political Rights", y="Predicted Repression", linetype="")
-ggsave("output/f8_10a.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f8_10a.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## Proceed as above, but with the fakeX2 data
 fakeX2s <- fakeX2 %>% dplyr::select(pr, fit, low, up) %>% 
@@ -147,4 +147,4 @@ ggplot(lo_fit, aes(x=pr, y=fit, ymin=low, ymax=up, group=model)) +
   theme_classic() + 
   theme(legend.position=c(.2,.15)) + 
   labs(x="Political Rights", y="Predicted Repression", linetype="")
-ggsave("output/f8_10b.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f8_10b.png", height=4.5, width=4.5, units="in", dpi=300)

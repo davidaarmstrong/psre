@@ -18,7 +18,7 @@ ggplot(wvsa, aes(x=gdp_cap, y=sacsecval)) +
   geom_smooth(method="lm", linetype=1) + 
   theme_classic() + 
   labs(x="GDP/capita", y="Secular Values")
-ggsave("output/f4_10a.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f4_10a.png", height=4.5, width=4.5, units="in", dpi=300)
 
 
 ggplot(wvsa, aes(x=gdp_cap, y=sacsecval)) + 
@@ -32,4 +32,4 @@ ggplot(wvsa, aes(x=gdp_cap, y=sacsecval)) +
   theme_classic() + 
   theme(legend.position = c(.8, .15)) + 
   labs(x="GDP/capita", y="Secular Values", colour="Model", linetype="Model")
-ggsave("output/f4_10b.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f4_10b.png", height=4.5, width=4.5, units="in", dpi=300)

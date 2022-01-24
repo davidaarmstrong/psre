@@ -34,7 +34,7 @@ ggplot(cestab, aes(x=vote, y=province, fill=pct)) +
   theme_classic() + 
   theme(legend.position="top") + 
   labs(y = "", x="Vote 2019", fill="%")
-ggsave("output/f4_8a.png", height=6, width=4.5, units="in", dpi=300)
+# ggssave("output/f4_8a.png", height=6, width=4.5, units="in", dpi=300)
 
 
 ## pivot the vote percentages to wide, giving one row for
@@ -65,4 +65,4 @@ ggplot(cestab2, aes(x=vote, y=province, fill=pct)) +
   theme_classic() + 
   theme(legend.position="top") + 
   labs(y = "", x="Vote 2019", fill="%")
-ggsave("output/f4_8b.png", height=6, width=4.5, units="in", dpi=300)
+# ggssave("output/f4_8b.png", height=6, width=4.5, units="in", dpi=300)

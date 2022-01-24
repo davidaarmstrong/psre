@@ -153,4 +153,4 @@ ggplot(tmp_dens, aes(x=eval.points)) +
   theme_bw() + 
   theme(panel.grid=element_blank()) + 
   labs(x="Values of X", y="Density")
-ggsave("output/f3_10.png", height=8, width=8, units="in", dpi=150)
+# ggssave("output/f3_10.png", height=8, width=8, units="in", dpi=150)

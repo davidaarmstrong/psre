@@ -53,6 +53,6 @@ ggplot(d1, aes(x=gini, y=cpr)) +
   theme_classic() + 
   theme(legend.position = "top") + 
   labs(x="Gini Coefficient", y="Component + Residual", linetype="")
-ggsave("output/f7_4.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f7_4.png", height=4.5, width=4.5, units="in", dpi=300)
 
 

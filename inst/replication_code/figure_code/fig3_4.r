@@ -30,7 +30,7 @@ ggplot(nbd, aes(x=eval.points)) +
   theme_classic() + 
   labs(x="Proportion in Middle Income Category", 
        y="Density")
-ggsave("output/f3_4a.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f3_4a.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## B. Scott (1992)
 nbd <- normBand(d2$pct_mid_income, kernel="gaussian", bw="nrd")
@@ -41,7 +41,7 @@ ggplot(nbd, aes(x=eval.points)) +
   theme_classic() + 
   labs(x="Proportion in Middle Income Category", 
        y="Density")
-ggsave("output/f3_4b.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f3_4b.png", height=4.5, width=4.5, units="in", dpi=300)
 
 
 ## C. Sheather and Jones (1991)
@@ -53,7 +53,7 @@ ggplot(nbd, aes(x=eval.points)) +
   theme_classic() + 
   labs(x="Proportion in Middle Income Category", 
        y="Density")
-ggsave("output/f3_4c.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f3_4c.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## D. Too Bumpy
 nbd <- normBand(d2$pct_mid_income, kernel="gaussian", bw=0.02)
@@ -64,7 +64,7 @@ ggplot(nbd, aes(x=eval.points)) +
   theme_classic() + 
   labs(x="Proportion in Middle Income Category", 
        y="Density")
-ggsave("output/f3_4d.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f3_4d.png", height=4.5, width=4.5, units="in", dpi=300)
 
 
 

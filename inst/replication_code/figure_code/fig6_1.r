@@ -87,5 +87,5 @@ ggplot() +
         legend.text=element_text(size=10)) + 
   labs(x="Political Rights", y="Predicted Emancipative Values", 
        linetype="", fill="")
-ggsave("output/f6_1.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f6_1.png", height=4.5, width=4.5, units="in", dpi=300)
 

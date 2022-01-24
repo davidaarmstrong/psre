@@ -134,7 +134,7 @@ ggplot(filter(h_all, model=="Quadratic"), aes(x=com_x2, y=com_x2 + stdres)) +
   theme_classic() + 
   theme(legend.position = "top") + 
   labs(x="x2", y="Component + Std. Deviance Residual", linetype = "")
-ggsave("output/f10_9a.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f10_9a.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## B. Simple, monotone
 ggplot(filter(h_all, model=="Log"), aes(x=com_x2, y=com_x2 + stdres)) + 
@@ -144,7 +144,7 @@ ggplot(filter(h_all, model=="Log"), aes(x=com_x2, y=com_x2 + stdres)) +
   theme_classic() + 
   theme(legend.position = "top") + 
   labs(x="x2", y="Component + Std. Deviance Residual", linetype = "")
-ggsave("output/f10_9b.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f10_9b.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## C. Categorical (points jittered)
 ggplot(filter(h_all, model=="Categorical"), aes(x=com_x2, y=com_x2 + stdres)) + 
@@ -155,5 +155,5 @@ ggplot(filter(h_all, model=="Categorical"), aes(x=com_x2, y=com_x2 + stdres)) +
   theme_classic() + 
   theme(legend.position = "top") + 
   labs(x="x2", y="Component + Std. Deviance Residual", linetype = "")
-ggsave("output/f10_9c.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f10_9c.png", height=4.5, width=4.5, units="in", dpi=300)
 

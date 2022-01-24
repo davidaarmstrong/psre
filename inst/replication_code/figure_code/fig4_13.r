@@ -27,12 +27,12 @@ gray_pal <- colorRampPalette(c("gray10", "gray90"))
 
 
 ## open a png driver to save the plot
-png("output/f4_13a.png", height=4.5, width=5, units="in", res=300)
+#png("output/f4_13a.png", height=4.5, width=5, units="in", res=300)
 corrplot(R_ord, 
          method="ellipse", 
          tl.col="black", 
          col=gray_pal(200))
-dev.off()
+#dev.off()
 
 ## Create correlation matrix of variables using a BCn transformation 
 ## this transformation is executing using the trans_fun function from 
@@ -50,12 +50,12 @@ R2 <- cor(wvs %>%
 ## proceed as above. 
 
 R2_ord <- R2[ord, ord]
-png("output/f4_13b.png", height=4.5, width=5, units="in", res=300)
+#png("output/f4_13b.png", height=4.5, width=5, units="in", res=300)
 corrplot(R2_ord, 
          method="ellipse", 
          tl.col="black", 
          col=gray_pal(200))
-dev.off()
+#dev.off()
 
 ## keep only the variables of interest in the investigation. 
 tmpa <- wvs %>% 
@@ -72,9 +72,9 @@ R3 <- outer(1:6, 1:6, Vectorize(function(x,y)assocfun(x,y,tmpa)))
 rownames(R3) <- colnames(R3) <- rownames(R2)
 R3 <- R3 * sign(R2)
 R3_ord <- R3[ord, ord]
-png("output/f4_13c.png", height=4.5, width=5, units="in", res=300)
+#png("output/f4_13c.png", height=4.5, width=5, units="in", res=300)
 corrplot(R3_ord, 
          method="ellipse", 
          tl.col="black", 
          col=gray_pal(200))
-dev.off()
+#dev.off()

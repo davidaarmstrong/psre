@@ -32,7 +32,7 @@ ggplot(qqdf1, aes(x=theo, y=x)) +
     theme(aspect.ratio=1) + 
     labs(x="Theoretical Quantiles", 
          y="Observed Quantiles")
-ggsave("output/f3_7a.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f3_7a.png", height=4.5, width=4.5, units="in", dpi=300)
 
 
 ## B. New Democracies
@@ -51,7 +51,7 @@ qqdf2 <- qqdf2 %>% mutate(outside = factor(ifelse(x < lwr | x > upr, 2, 1)))
     labs(x="Theoretical Quantiles", 
          y="Observed Quantiles")
 }
-ggsave("output/f3_7b.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f3_7b.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## C. Established Democracies
 
@@ -74,5 +74,5 @@ qqdf3 <- qqdf3 %>% mutate(outside = factor(ifelse(x < lwr | x > upr, 2, 1)))
     theme(aspect.ratio=1) + 
     labs(x="Theoretical Quantiles", 
          y="Observed Quantiles")}
-ggsave("output/f3_7c.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f3_7c.png", height=4.5, width=4.5, units="in", dpi=300)
 

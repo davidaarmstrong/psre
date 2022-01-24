@@ -34,7 +34,7 @@ ggplot() +
   theme_classic() + 
   labs(x="Gini Coefficient", 
        y="Moral Permissiveness Scale")
-ggsave("output/f8_5a.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f8_5a.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## calculate the marginal effects using all the 
 ## values of gini_disp
@@ -45,6 +45,6 @@ ggplot(data=NULL, aes(x=mes)) +
   labs(x="Marginal Effect", y="Frequency") + 
   geom_vline(xintercept = mean(mes), col="black", lty=2) + 
   theme_classic()
-ggsave("output/f8_5b.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f8_5b.png", height=4.5, width=4.5, units="in", dpi=300)
 
 

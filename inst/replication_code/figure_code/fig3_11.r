@@ -65,4 +65,4 @@ ggplot(tmp_dens, aes(x=eval.points)) +
   theme(panel.grid=element_blank(),
         aspect.ratio=1) + 
   labs(x="Transformed Variable Values", y="Density")
-ggsave("output/f3_11.png", height=4, width=7, units="in", dpi=300)
+# ggssave("output/f3_11.png", height=4, width=7, units="in", dpi=300)

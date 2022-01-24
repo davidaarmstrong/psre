@@ -19,4 +19,4 @@ ggplot(relig_imp, aes(y=reorder(country, l, mean), x=relig_imp, fill=n)) +
         legend.position="top") + 
   scale_fill_gradient(low="gray10", high="gray90", labels=percent) + 
   labs(x="Religious Importance", y="", fill="%")
-ggsave("output/f4_7.png", height=8, width=4, units="in", dpi=300)
+# ggssave("output/f4_7.png", height=8, width=4, units="in", dpi=300)

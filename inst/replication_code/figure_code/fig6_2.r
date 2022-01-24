@@ -82,4 +82,4 @@ ggplot(qplot_dat, aes(x=x, y=y, ymin=low, ymax=up)) +
   geom_point() + 
   theme_classic() + 
   labs(x="Political Rights", y="Predicted Emancipative Values")
-ggsave("output/f6_2.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f6_2.png", height=4.5, width=4.5, units="in", dpi=300)

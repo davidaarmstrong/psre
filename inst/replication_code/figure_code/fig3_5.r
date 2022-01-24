@@ -62,7 +62,7 @@ ggplot(qqdf, aes(x=theo, y=x)) +
   theme_classic() + 
   labs(x="Theoretical Quantiles", 
        y="Observed Quantiles")
-ggsave("output/f3_5a.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f3_5a.png", height=4.5, width=4.5, units="in", dpi=300)
 
 
 ## Panel (b): Bi-modal
@@ -81,7 +81,7 @@ ggplot(qqdf, aes(x=theo, y=x)) +
   theme_classic() + 
   labs(x="Theoretical Quantiles", 
        y="Observed Quantiles")
-ggsave("output/f3_5b.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f3_5b.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## Panel (c): Leptokurtic (Light Tails)
 
@@ -99,7 +99,7 @@ ggplot(qqdf, aes(x=theo, y=x)) +
   theme_classic() + 
   labs(x="Theoretical Quantiles", 
        y="Observed Quantiles")
-ggsave("output/f3_5c.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f3_5c.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## Panel (d): Platykurtic (Heavy Tails)
 
@@ -117,7 +117,7 @@ ggplot(qqdf, aes(x=theo, y=x)) +
   theme_classic() + 
   labs(x="Theoretical Quantiles", 
        y="Observed Quantiles")
-ggsave("output/f3_5d.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f3_5d.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## Panel (e): Negative Skew
 
@@ -135,7 +135,7 @@ ggplot(qqdf, aes(x=theo, y=x)) +
   theme_classic() + 
   labs(x="Theoretical Quantiles", 
        y="Observed Quantiles")
-ggsave("output/f3_5e.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f3_5e.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## Panel (f): Positive Skew
 
@@ -153,4 +153,4 @@ ggplot(qqdf, aes(x=theo, y=x)) +
   theme_classic() + 
   labs(x="Theoretical Quantiles", 
        y="Observed Quantiles")
-ggsave("output/f3_5f.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f3_5f.png", height=4.5, width=4.5, units="in", dpi=300)

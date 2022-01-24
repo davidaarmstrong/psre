@@ -14,28 +14,28 @@ data(wvs)
 wvs <- wvs %>% dplyr::filter(resemaval > 0.05 & sacsecval > 0.05 )
 
 ## A. Perspective Plot
-png("output/f4_18a.png", height=4.5, width=4.5, units="in", res=300)
+#png("output/f4_18a.png", height=4.5, width=4.5, units="in", res=300)
 sm.density(wvs[,c("resemaval", "sacsecval")], 
            xlab="Emancipative Values", 
            ylab="Secular Values", 
            zlab="Density", 
            col="gray75")
-dev.off()
+#dev.off()
 
 ## B. Image plot
-png("output/f4_18b.png", height=4.5, width=4.5, units="in", res=300)
+#png("output/f4_18b.png", height=4.5, width=4.5, units="in", res=300)
 sm.density(wvs[,c("resemaval", "sacsecval")], 
            xlab="Emancipative Values", 
            ylab="Secular Values", 
            zlab="Density", 
            col="gray75", display="image")
-dev.off()
+#dev.off()
 
 ## C. Contour Plot
-png("output/f4_18c.png", height=4.5, width=4.5, units="in", res=300)
+#png("output/f4_18c.png", height=4.5, width=4.5, units="in", res=300)
 sm.density(wvs[,c("resemaval", "sacsecval")], 
            xlab="Emancipative Values", 
            ylab="Secular Values", 
            zlab="Density", 
            col="gray75", display="slice")
-dev.off()
+#dev.off()

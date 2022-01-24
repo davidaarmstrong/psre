@@ -27,4 +27,4 @@ ggplot(wvs) +
     y = median(x, na.rm=TRUE)), geom="point", col="white") + 
   theme_classic() + 
   labs(x="", y="GDP/capita")
-ggsave("output/f3_8.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f3_8.png", height=4.5, width=4.5, units="in", dpi=300)

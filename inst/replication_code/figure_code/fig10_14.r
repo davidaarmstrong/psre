@@ -43,7 +43,7 @@ ggplot(res_datb,
   geom_smooth(method="loess", se=FALSE, col="black") + 
   theme_classic() + 
   labs(x="Constant Information Scale", y="Standardized Deviance Residuals")
-ggsave("output/f10_14a.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f10_14a.png", height=4.5, width=4.5, units="in", dpi=300)
 
 
 ## get quantile-quantile data
@@ -61,5 +61,5 @@ ggplot(qqdf, aes(x=theo, y=x)) +
   theme_classic() + 
   labs(x="Theoretical Quantiles", 
        y="Observed Quantiles")
-ggsave("output/f10_14fb.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f10_14fb.png", height=4.5, width=4.5, units="in", dpi=300)
 

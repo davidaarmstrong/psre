@@ -66,17 +66,17 @@ f2_2 <- ggplot(us, aes(x=year)) +
 ## Panel (a): Aspect Ratio = 1
 f2_2 + 
   theme(aspect.ratio=1) 
-ggsave("output/f2_2a.png", height=4.5, width=4.5, dpi=300)
+## ggssave("output/f2_2a.png", height=4.5, width=4.5, dpi=300)
 ## Panel (b): Aspect Ratio = 1.5
 f2_2 + 
   theme(legend.position = c(.8, .2), 
         aspect.ratio=1/1.5) 
-ggsave("output/f2_2b.png", height=4.5, width=4.5, dpi=300)
+## ggssave("output/f2_2b.png", height=4.5, width=4.5, dpi=300)
 
 ## Panel (c): Banking to 45 degrees
 f2_2 + 
   theme(legend.position = c(.8, .2), 
         aspect.ratio=b45, 
         legend.background = element_blank()) 
-ggsave("output/f2_2c.png", height=4.5, width=4.5, dpi=300)
+## ggssave("output/f2_2c.png", height=4.5, width=4.5, dpi=300)
 

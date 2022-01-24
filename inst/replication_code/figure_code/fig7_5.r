@@ -58,7 +58,7 @@ ggplot(m0data, aes(x=.hat, y=.rstud)) +
   geom_text_repel(aes(label=text), hjust=1, nudge_x=c(.02, .04, .0305)) + 
   theme_classic() + 
   labs(x="Hat Values", y="Studentized Residuals") 
-ggsave("output/f7_5a.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f7_5a.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## proceed as above, but using the data from the cubic polynomial
 m0data <- broom::augment(pmod3)
@@ -80,5 +80,5 @@ ggplot(m0data, aes(x=.hat, y=.rstud)) +
   geom_text_repel(aes(label=text), hjust=1, nudge_x=c(0.087,0.085, 0.04, 0.055, 0)) + 
   theme_classic() + 
   labs(x="Hat Values", y="Studentized Residuals") 
-ggsave("output/f7_5b.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f7_5b.png", height=4.5, width=4.5, units="in", dpi=300)
 

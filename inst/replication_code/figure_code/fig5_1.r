@@ -54,7 +54,7 @@ f5_1a <- ggplot(ces_samp, aes(x=leader_con, y=moral, colour=gender)) +
        y="Moral Traditionalism", 
        colour="")
 f5_1a
-ggsave("output/f5_1a.png", height=5, width=4.5, units="in", dpi=300)
+# ggssave("output/f5_1a.png", height=5, width=4.5, units="in", dpi=300)
 
 
 
@@ -108,7 +108,7 @@ ggplot(ces_samp, aes(x=leader_con, y=moral)) +
        y="Moral Traditionalism", 
        colour="", linetype="") + 
   coord_cartesian(xlim=c(0,5), ylim=rgy, expand=FALSE)
-ggsave("output/f5_1b.png", height=5, width=4.5, units="in", dpi=300)
+# ggssave("output/f5_1b.png", height=5, width=4.5, units="in", dpi=300)
 
 ## C. Two Examples
 ## get x- and y-axis ranges from the plot in panel A
@@ -144,5 +144,5 @@ ggplot(fit2, aes(x=leader_con, y=moral, colour=gender)) +
   labs(x="Conservative Leader Feeling Thermometer", 
        y="Moral Traditionalism", 
        colour="")
-ggsave("output/f5_1c.png", height=5, width=4.5, units="in", dpi=300)
+# ggssave("output/f5_1c.png", height=5, width=4.5, units="in", dpi=300)
 

@@ -64,7 +64,7 @@ ggplot(e1, aes(x=x, y=predicted, ymin = conf.low,
   theme_classic() + 
   theme(legend.position = c(.85, .85)) + 
   labs("x2", y="E(Y|b,X)", linetype="") 
-ggsave("output/f10_7a.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f10_7a.png", height=4.5, width=4.5, units="in", dpi=300)
 
 
 ## proceed as above, but in this case 
@@ -101,7 +101,7 @@ ggplot(e2, aes(x=x, y=predicted, ymin = conf.low,
   theme_classic() + 
   theme(legend.position = c(.2, .9)) + 
   labs("x2", y="E(Y|b,X)", linetype="") 
-ggsave("output/f10_7b.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f10_7b.png", height=4.5, width=4.5, units="in", dpi=300)
 
 
 ## proceed as above, but this time, the 
@@ -144,6 +144,6 @@ ggplot(e3, aes(x=x, y=predicted, ymin = conf.low,
   theme_classic() + 
   theme(legend.position = c(.2, .9)) + 
   labs("x2", y="E(Y|b,X)", linetype="") 
-ggsave("output/f10_7c.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f10_7c.png", height=4.5, width=4.5, units="in", dpi=300)
 
 

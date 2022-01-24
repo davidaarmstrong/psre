@@ -24,7 +24,7 @@ ggplot(wvsd, aes(x=year, y=secpay, colour=country)) +
   theme_classic() + 
   labs(x="Year", y="Attitudes Toward Inequality", 
        colour="")
-ggsave("output/f4_17a.png", height=4.5, width=5.5, units="in", dpi=300)
+# ggssave("output/f4_17a.png", height=4.5, width=5.5, units="in", dpi=300)
 
 
 
@@ -42,4 +42,4 @@ ggplot(wvsd, aes(x=year, y=secpay)) +
         axis.text.x = element_text(angle=45, hjust=1)) + 
   labs(x="Year", y="Attitudes Toward Inequality", 
        colour="")
-ggsave("output/f4_17b.png", height=5, width=7, units="in", dpi=300)
+# ggssave("output/f4_17b.png", height=5, width=7, units="in", dpi=300)

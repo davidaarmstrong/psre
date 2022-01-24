@@ -37,7 +37,7 @@ ggplot(nbd, aes(x=eval.points)) +
   theme_classic() + 
   labs(x="Residuals", 
        y="Density")
-ggsave("output/f7_11a.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f7_11a.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## calculate the density estimate and normal reference 
 ## distribution for the linear interaction model 
@@ -51,7 +51,7 @@ ggplot(nbd, aes(x=eval.points)) +
   theme_classic() + 
   labs(x="Residuals", 
        y="Density")
-ggsave("output/f7_11b.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f7_11b.png", height=4.5, width=4.5, units="in", dpi=300)
 
 
 

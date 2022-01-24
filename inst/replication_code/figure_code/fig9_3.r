@@ -47,4 +47,4 @@ ggplot(g, aes(y=reorder(x, predicted, mean), x=predicted,
   geom_point() + 
   theme_classic() + 
   labs(x="Simple Slopes of Secondary Education\n(85% Confidence Interval)", y="")
-ggsave("output/f9_3.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f9_3.png", height=4.5, width=4.5, units="in", dpi=300)

@@ -37,6 +37,6 @@ ggplot(tab3.1,
   theme(axis.text.x = element_text(angle=45, hjust=1)) + 
   labs(x="", y="Percentage") + 
   scale_y_continuous(breaks = c(5, 10, 15, 20, 25)/100, labels=percent)
-ggsave("output/f3_1.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f3_1.png", height=4.5, width=4.5, units="in", dpi=300)
 
 

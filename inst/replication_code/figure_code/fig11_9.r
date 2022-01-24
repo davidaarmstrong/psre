@@ -44,4 +44,4 @@ ggplot(oa1$data, aes(x=s, y=mean, ymin=lower, ymax=upper)) +
   theme_bw() + 
   theme(panel.grid=element_blank()) + 
   labs(x="Political Rights", y="Predicted Pr(y=m)") 
-ggsave("output/f11_9.png", height=3, width=12, units="in", dpi=300)
+# ggssave("output/f11_9.png", height=3, width=12, units="in", dpi=300)

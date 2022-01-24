@@ -105,7 +105,7 @@ qplot_dat_opt %>% filter(clevel == "74%") %>%
   geom_point() + 
   theme_classic() + 
   labs(x="Political Rights", y="Predicted Emancipative Values")
-ggsave("output/f6_3a.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f6_3a.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## B. 80%
 qplot_dat_opt %>% filter(clevel == "80%") %>%
@@ -114,7 +114,7 @@ qplot_dat_opt %>% filter(clevel == "80%") %>%
   geom_point() + 
   theme_classic() + 
   labs(x="Political Rights", y="Predicted Emancipative Values")
-ggsave("output/f6_3b.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f6_3b.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## C. 85%
 qplot_dat_opt %>% filter(clevel == "85%") %>%
@@ -123,5 +123,5 @@ qplot_dat_opt %>% filter(clevel == "85%") %>%
   geom_point() + 
   theme_classic() + 
   labs(x="Political Rights", y="Predicted Emancipative Values")
-ggsave("output/f6_3c.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f6_3c.png", height=4.5, width=4.5, units="in", dpi=300)
 

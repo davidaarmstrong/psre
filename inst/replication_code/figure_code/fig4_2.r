@@ -26,4 +26,4 @@ gss %>% dplyr::filter(!is.na(party3) & !is.na(aidhouse)) %>%
   theme_classic() + 
   theme(legend.position="top") + 
   guides(fill = guide_legend(ncol=2)) 
-ggsave("output/f4_2.png", height=5, width=4.5, units="in", dpi=300)
+# ggssave("output/f4_2.png", height=5, width=4.5, units="in", dpi=300)

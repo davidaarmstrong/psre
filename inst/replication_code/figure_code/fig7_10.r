@@ -35,7 +35,7 @@ ggplot(wvs0, aes(x=fitl, y=el)) +
   theme_classic() + 
   labs(x="Fitted Values", 
        y="Studentized Residuals")
-ggsave("output/f7_10a.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f7_10a.png", height=4.5, width=4.5, units="in", dpi=300)
 
 
 ## estimate interaction model
@@ -50,7 +50,7 @@ ggplot(wvs0, aes(x=fitp, y=ep)) +
   theme_classic() + 
   labs(x="Fitted Values", 
        y="Studentized Residuals")
-ggsave("output/f7_10b.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f7_10b.png", height=4.5, width=4.5, units="in", dpi=300)
 
 
 ## The code below does not produce a figure or table 

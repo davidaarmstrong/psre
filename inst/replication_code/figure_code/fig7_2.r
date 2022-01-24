@@ -41,4 +41,4 @@ ggplot(wvs0, aes(x=gini_disp, y=secpay, colour=democrat)) +
         aspect.ratio=1) + 
   labs(x="Gini Coefficient", y="Attitudes toward Inequality", 
        colour="", shape="", linetype="")
-ggsave("output/fig7_2.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/fig7_2.png", height=4.5, width=4.5, units="in", dpi=300)

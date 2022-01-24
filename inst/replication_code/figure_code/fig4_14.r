@@ -27,4 +27,4 @@ g <- ggpairs(tmp, lower = list(continuous = wrap("smooth_loess",
                                                  linewidth=.5, 
                                                  se=FALSE)))
 g + theme_bw() + theme(panel.grid=element_blank())
-ggsave("output/f4_14.png", height=8, width=8, units="in", dpi=300)
+# ggssave("output/f4_14.png", height=8, width=8, units="in", dpi=300)

@@ -213,6 +213,8 @@ transNorm <- function(x, start = .01, family=c("bc", "yj"), lams,
 #' @param letters A matrix of character strings giving the letters from a
 #' compact letter display.  This is most often from a call to \code{cld} from the
 #' \pkg{multcomp} package.
+#' 
+#' @return A ggplot.
 #'
 #' @export
 #' @importFrom ggplot2 geom_errorbarh ggplot_build aes_string geom_vline scale_x_continuous coord_cartesian ylab
@@ -846,8 +848,8 @@ srr_imp <- function(obj,
 #'
 #' @export
 #' 
-#' @examples 
-#' \dontrun{
+#' @examples
+#' \donttest{ 
 #' data(gss)
 #' mod <- glm(childs ~ sei10 + sex + educ + age, 
 #'             data=gss, family=poisson)
@@ -1002,7 +1004,6 @@ make_fdat <- function(b, v, vt, eg, resdf=Inf, alpha=.05, clev, adjust){
 #' @export
 #' 
 #' @examples 
-#' \dontrun{
 #' data(wvs)
 #' wvs$civ2 <- "Other"
 #' wvs$civ2 <- ifelse(wvs$civ == 9, 
@@ -1020,7 +1021,6 @@ make_fdat <- function(b, v, vt, eg, resdf=Inf, alpha=.05, clev, adjust){
 #'                      "pct_secondary", 
 #'                      "civ2")
 #' o2 <- optCL(b=ss2$est$slope, v=ss2$v)
-#' }
 optCL <- function(obj=NULL, varname=NULL, b=NULL, v=NULL, 
                   resdf = Inf, level=.95, 
                   quasi_vars = NULL, 
@@ -1172,7 +1172,7 @@ loess.aic <- function (x) {
 #' @export
 #' 
 #' @examples 
-#' \dontrun{
+#' \donttest{
 #' data(india)
 #' india$bjp <- ifelse(india$in_prty == 2, 1, 0)
 #' mod1 <- glm(bjp ~  educyrs + anti_immigration, 

@@ -27,5 +27,5 @@ ggplot() +
   labs(x="Proportion for Whom Religion is Very Important", 
        y="Moral Permissiveness Scale") + 
   theme_classic()
-ggsave("output/f8_2.png", height = 4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f8_2.png", height = 4.5, width=4.5, units="in", dpi=300)
 

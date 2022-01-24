@@ -55,7 +55,7 @@ ggplot(dat, aes(x=s, y=mean, fill=yfac)) +
   labs(x="Political Rights", 
        y="Cumulative Predicted Probability\nof State Repression", 
        fill="State\nRepression")
-ggsave("output/f11_10.png", height=5, width=4.5, units="in", dpi=300)
+# ggssave("output/f11_10.png", height=5, width=4.5, units="in", dpi=300)
 
 
 ## add in labels for a particular value of political rights. 
@@ -80,6 +80,6 @@ ggplot() +
   labs(x="Political Rights", 
        y="Cumulative Predicted Probability\nof State Repression", 
        fill="State\nRepression")
-ggsave("output/f11_10b.png", height=5, width=4.5, units="in", dpi=300)
+# ggssave("output/f11_10b.png", height=5, width=4.5, units="in", dpi=300)
 
 

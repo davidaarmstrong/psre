@@ -50,7 +50,7 @@ ggplot(lofit, aes(x=pr, y=fit, ymin = low, ymax=up, linetype=span)) +
   theme_classic() + 
   theme(legend.position=c(.15,.15)) + 
   labs(x="Political Rights", y="Predicted Repression")
-ggsave("output/f8_9a.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f8_9a.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## estimate the smoothing spline
 ss <- smooth.spline(repress$pr, repress$pts_s, all.knots=TRUE, cv=TRUE)
@@ -79,7 +79,7 @@ ggplot(fakess, aes(x=pr, y=fit, ymin=low, ymax=up)) +
   geom_line() + 
   theme_classic() + 
   labs(x="Political Rights", y="Predicted Repression")
-ggsave("output/f8_9b.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f8_9b.png", height=4.5, width=4.5, units="in", dpi=300)
 
 
 

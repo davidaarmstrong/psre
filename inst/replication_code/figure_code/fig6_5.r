@@ -106,7 +106,7 @@ bracket <- list(c("Civilization\n(Reference=Western)", "Latin American", "Islami
           panel.grid=element_blank()) + 
     labs(x = "Coefficient")} %>% 
   add_brackets(bracket) 
-ggsave("output/f6_5a.png", height=5, width=6.5, units="in", dpi=300)
+# ggssave("output/f6_5a.png", height=5, width=6.5, units="in", dpi=300)
 
 
 
@@ -136,5 +136,5 @@ bracket <- list(c("Civilization\n(Reference=Western)", "Latin American", "Islami
           panel.grid=element_blank()) + 
     labs(x = "Coefficient")} %>% 
   add_brackets(bracket) 
-ggsave("output/f6_5b.png", height=5, width=6.5, units="in", dpi=300)
+# ggssave("output/f6_5b.png", height=5, width=6.5, units="in", dpi=300)
 

@@ -69,7 +69,7 @@ ggplot() +
   guides(linetype=guide_legend(ncol=2)) + 
   labs(x="Gini Coefficient", y="Attitudes Toward Inequality", 
        linetype="")
-ggsave("output/f8_7a.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f8_7a.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## B. New Democracies
 ggplot() + 
@@ -86,5 +86,5 @@ ggplot() +
   guides(linetype=guide_legend(ncol=2)) + 
   labs(x="Gini Coefficient", y="Attitudes Toward Inequality", 
        linetype="")
-ggsave("output/f8_7b.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f8_7b.png", height=4.5, width=4.5, units="in", dpi=300)
 

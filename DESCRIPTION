@@ -3,14 +3,18 @@ Type: Package
 Title: Presenting Statistical Results Effectively
 Version: 0.1.0
 Authors@R: c(person("Dave", "Armstrong", role=c("aut", "cre"), email="dave@quantoid.net"), 
-             person("Andersen", "Bob", role="aut"))
-Description: Includes functions and data used in the book Presenting Statistical Results Effectively.  
+             person("Robert", "Andersen", role="aut"), 
+             person("Justin", "Esarey", role="cph"), 
+             person("John", "Fox", role="cph"), 
+             person("Michael", "Friendly", role="cph"), 
+             person("Adrian", "Bowman", role="cph"), 
+             person("Adelchi", "Azzalini", role="cph"))
+Description: Includes functions and data used in the book "Presenting Statistical Results Effectively", Andersen and Armstrong (2022, 978-1446269800).  
 biocViews: 
 Imports: 
     stats, 
     MASS, 
     metap, 
-    multtest, 
     car, 
     nortest, 
     lawstat, 

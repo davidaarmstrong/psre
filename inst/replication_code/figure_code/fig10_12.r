@@ -127,7 +127,7 @@ ggplot(filter(res_dat, model == "Quadratic"),
   geom_smooth(method="loess", se=FALSE, col="black") + 
   theme_classic() + 
   labs(x="Constant Information Scale", y="Standardized Deviance Residuals")
-ggsave("output/f10_12a.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f10_12a.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## B. Quadratic (randomized quantile residuals)
 ggplot(filter(res_dat, model == "Quadratic"), 
@@ -136,7 +136,7 @@ ggplot(filter(res_dat, model == "Quadratic"),
   geom_smooth(method="loess", se=FALSE, col="black") + 
   theme_classic() + 
   labs(x="Constant Information Scale", y="Quantile Residuals")
-ggsave("output/f10_12b.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f10_12b.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## C. Simple, monotone (standardized deviance residuals)
 ggplot(filter(res_dat, model == "Log"), 
@@ -145,7 +145,7 @@ ggplot(filter(res_dat, model == "Log"),
   geom_smooth(method="loess", se=FALSE, col="black") + 
   theme_classic() + 
   labs(x="Constant Information Scale", y="Standardized Deviance Residuals")
-ggsave("output/f10_12c.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f10_12c.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## D. Simple, monotone (randomized quantile residuals)
 ggplot(filter(res_dat, model == "Log"), 
@@ -154,7 +154,7 @@ ggplot(filter(res_dat, model == "Log"),
   geom_smooth(method="loess", se=FALSE, col="black") + 
   theme_classic() + 
   labs(x="Constant Information Scale", y="Quantile Residuals")
-ggsave("output/f10_12d.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f10_12d.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## E. Categorical (standardized deviance residuals)
 ggplot(filter(res_dat, model == "Categorical"), 
@@ -163,7 +163,7 @@ ggplot(filter(res_dat, model == "Categorical"),
   geom_smooth(method="loess", se=FALSE, col="black") + 
   theme_classic() + 
   labs(x="Constant Information Scale", y="Standardized Deviance Residuals")
-ggsave("output/f10_12e.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f10_12e.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## F. Categorical (randomized quantile residuals)
 ggplot(filter(res_dat, model == "Categorical"), 
@@ -172,5 +172,5 @@ ggplot(filter(res_dat, model == "Categorical"),
   geom_smooth(method="loess", se=FALSE, col="black") + 
   theme_classic() + 
   labs(x="Constant Information Scale", y="Quantile Residuals")
-ggsave("output/f10_12f.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f10_12f.png", height=4.5, width=4.5, units="in", dpi=300)
 

@@ -79,4 +79,4 @@ ggplot(allg, aes(x=reorder(model, abs(fit), mean), y=fit, ymin=low, ymax=up)) +
   theme(panel.grid=element_blank()) + 
   labs(x="", y="First Difference\n(95% Confidence Interval)") + 
   coord_flip()
-ggsave("output/f10_3.png", width=5, height=7, units="in", dpi=300)
+# ggssave("output/f10_3.png", width=5, height=7, units="in", dpi=300)

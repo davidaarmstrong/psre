@@ -52,7 +52,7 @@ e1dat <- data.frame(OLS = lmod$residuals,
 
 ## A. Linear model RR Plot
 rrPlot(OLS ~ LAD + M + MM, data=e1dat)
-ggsave("output/f7_6a.png", height=3, width=8, dpi=300)
+# ggssave("output/f7_6a.png", height=3, width=8, dpi=300)
 
 
 ## proceed as above, but using the cubic polynomial in gini
@@ -70,7 +70,7 @@ e2dat <- data.frame(OLS = pmod$residuals,
                     MM = e2_mm)
 
 rrPlot(OLS ~ LAD + M + MM, data=e2dat)
-ggsave("output/f7_6b.png", height=3, width=8, dpi=300)
+# ggssave("output/f7_6b.png", height=3, width=8, dpi=300)
 
 ## Hypothesis Tests for Slopes and Intercepts: 
 

@@ -110,7 +110,7 @@ ggplot(tmp) +
   theme(legend.position=c(.15, .15)) + 
   labs(x="Political Rights", y="Predicted State Repression", 
        linetype="")
-ggsave("output/f11_11.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f11_11.png", height=4.5, width=4.5, units="in", dpi=300)
 
 
 

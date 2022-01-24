@@ -59,7 +59,7 @@ ggplot(us, aes(x=year)) +
   theme(legend.position=c(.8, .15), 
         aspect.ratio=1) +
   labs(x="Year", y="GDP/capita", colour="", linetype="") 
-ggsave("output/f2_1b.png", height=4.5, width=4.5, units="in", dpi=300)
+# # ggssave("output/f2_1b.png", height=4.5, width=4.5, units="in", dpi=300)
 
 
 

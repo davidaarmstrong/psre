@@ -20,7 +20,7 @@ ggplot(anscombe, aes(x=x1, y=y1)) +
   geom_smooth(method="lm", se=FALSE, col="black") + 
   theme_classic() + 
   labs(x="x", y="y")
-ggsave("output/f7_1a.png", height=4.5, width=4.5, dpi=300)
+# ggssave("output/f7_1a.png", height=4.5, width=4.5, dpi=300)
 
 ## B. Curvilinear
 
@@ -29,7 +29,7 @@ ggplot(anscombe, aes(x=x2, y=y2)) +
   geom_smooth(method="lm", se=FALSE, col="black") + 
   theme_classic() + 
   labs(x="x", y="y")
-ggsave("output/f7_1b.png", height=4.5, width=4.5, dpi=300)
+# ggssave("output/f7_1b.png", height=4.5, width=4.5, dpi=300)
 
 ## C. Weakly Influential Outlier
 
@@ -38,7 +38,7 @@ ggplot(anscombe, aes(x=x3, y=y3)) +
   geom_smooth(method="lm", se=FALSE, col="black") + 
   theme_classic() + 
   labs(x="x", y="y")
-ggsave("output/f7_1c.png", height=4.5, width=4.5, dpi=300)
+# ggssave("output/f7_1c.png", height=4.5, width=4.5, dpi=300)
 
 ## D. Strongly Influential Outlier
 
@@ -47,4 +47,4 @@ ggplot(anscombe, aes(x=x4, y=y4)) +
   geom_smooth(method="lm", se=FALSE, col="black") + 
   theme_classic() + 
   labs(x="x", y="y")
-ggsave("output/f7_1d.png", height=4.5, width=4.5, dpi=300)
+# ggssave("output/f7_1d.png", height=4.5, width=4.5, dpi=300)

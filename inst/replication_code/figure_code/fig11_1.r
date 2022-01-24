@@ -36,4 +36,4 @@ ggplot() +
   theme(legend.position=c(.8, .5)) + 
   scale_x_continuous(breaks=mfx_df$x) + 
   labs(x=expression(x[1]), y="E(y|b,x1)", linetype=expression(x[1]), parse=TRUE)
-ggsave("output/f11_1.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f11_1.png", height=4.5, width=4.5, units="in", dpi=300)

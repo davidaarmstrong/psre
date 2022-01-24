@@ -68,7 +68,7 @@ ggplot(tmp, aes(x=exg, y=eyg)) +
   geom_smooth(method="lm", se=FALSE, col="black") + 
   theme_classic() + 
   labs(x="GINI Residuals", y="Attitudes Toward Inequality Residuals")
-ggsave("output/f7_9a.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f7_9a.png", height=4.5, width=4.5, units="in", dpi=300)
 
 
 ## Proceed as above, but with different labelled cases.  The
@@ -90,7 +90,7 @@ ggplot(tmp, aes(x=exd, y=eyd)) +
   geom_smooth(method="lm", se=FALSE, col="black") + 
   theme_classic() + 
   labs(x="Democratic History Residuals", y="Attitudes Toward Inequality Residuals")
-ggsave("output/f7_9b.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f7_9b.png", height=4.5, width=4.5, units="in", dpi=300)
 
 
 ## For the polynomial model, make the model matrix and 
@@ -136,7 +136,7 @@ ggplot(tmp, aes(x=exgp1, y=eygp1)) +
   geom_smooth(method="lm", se=FALSE, col="black") + 
   theme_classic() + 
   labs(x="GINI Residuals", y="Attitudes Toward Inequality Residuals")
-ggsave("output/f7_9c.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f7_9c.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## D. Model 7c: Gini Coefficient Squared
 tmp <- tmp %>% 
@@ -152,7 +152,7 @@ ggplot(tmp, aes(x=exgp2, y=eygp2)) +
   geom_smooth(method="lm", se=FALSE, col="black") + 
   theme_classic() + 
   labs(x="GINI Squared Residuals", y="Attitudes Toward Inequality Residuals")
-ggsave("output/f7_9d.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f7_9d.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## E. Model 7c: Gini Coefficient Cubed. 
 tmp <- tmp %>% 
@@ -168,7 +168,7 @@ ggplot(tmp, aes(x=exgp3, y=eygp3)) +
   geom_smooth(method="lm", se=FALSE, col="black") + 
   theme_classic() + 
   labs(x="GINI Cubed Residuals", y="Attitudes Toward Inequality Residuals")
-ggsave("output/f7_9e.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f7_9e.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## F. Model 7c: Democratic History
 
@@ -185,4 +185,4 @@ ggplot(tmp, aes(x=exdp, y=eydp)) +
   geom_smooth(method="lm", se=FALSE, col="black") + 
   theme_classic() + 
   labs(x="Democratic History Residuals", y="Attitudes Toward Inequality Residuals")
-ggsave("output/f7_9f.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f7_9f.png", height=4.5, width=4.5, units="in", dpi=300)

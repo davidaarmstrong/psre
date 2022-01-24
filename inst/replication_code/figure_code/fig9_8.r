@@ -37,7 +37,7 @@ ggplot(wvs1, aes(x=pct_secondary, y=civ2)) +
     y = median(x, na.rm=TRUE)), geom="point", col="white", size=1) + 
   theme_classic() + 
   labs(y="", x="Proportion with Secondary Education") 
-ggsave("output/f9_8a.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f9_8a.png", height=4.5, width=4.5, units="in", dpi=300)
 
 
 ## find the terciles of pct_seoncary
@@ -64,5 +64,5 @@ ggplot(aes(x=sec_fac, fill=civ2)) +
   theme(legend.position="top") + 
   scale_fill_manual(values=c("gray25", "gray50", "gray75")) + 
   labs(x="Proportion with Secondary Education", y="Frequency", fill="")
-ggsave("output/f9_8b.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f9_8b.png", height=4.5, width=4.5, units="in", dpi=300)
 

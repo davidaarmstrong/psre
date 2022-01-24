@@ -23,4 +23,4 @@ lsa(
               "% Univ Degree", "% Female", "% Low Income"), 
   ylab = "Secular Values", 
   data=tmp)
-ggsave("output/f4_15.png", height=3.5, width=12, dpi=300)
+# ggssave("output/f4_15.png", height=3.5, width=12, dpi=300)

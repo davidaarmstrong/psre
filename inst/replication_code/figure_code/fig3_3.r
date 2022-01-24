@@ -65,7 +65,7 @@ ggplot(d2, aes(x=pct_mid_income)) +
   theme_classic()+ 
   labs(x="Proportion in Middle Income Category", 
        y="Frequency")
-ggsave("output/f3_3a.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f3_3a.png", height=4.5, width=4.5, units="in", dpi=300)
 
 
 
@@ -74,7 +74,7 @@ ggplot(d2, aes(x=pct_mid_income)) +
   theme_classic()+ 
   labs(x="Proportion in Middle Income Category", 
        y="Frequency")
-ggsave("output/f3_3b.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f3_3b.png", height=4.5, width=4.5, units="in", dpi=300)
 
 
 
@@ -83,7 +83,7 @@ ggplot(d2, aes(x=pct_mid_income)) +
   theme_classic()+ 
   labs(x="Proportion in Middle Income Category", 
        y="Frequency")
-ggsave("output/f3_3c.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f3_3c.png", height=4.5, width=4.5, units="in", dpi=300)
 
 
 ggplot(d2, aes(x=pct_mid_income)) + 
@@ -91,7 +91,7 @@ ggplot(d2, aes(x=pct_mid_income)) +
   theme_classic()+ 
   labs(x="Proportion in Middle Income Category", 
        y="Frequency")
-ggsave("output/f3_3d.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f3_3d.png", height=4.5, width=4.5, units="in", dpi=300)
 
 
 
@@ -101,7 +101,7 @@ ggplot(d2, aes(x=pct_mid_income)) +
   theme_classic() + 
   labs(x="Proportion in Middle Income Category", 
        y="Frequency")
-ggsave("output/f3_3e.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f3_3e.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## Panel (f): Trial and Error
 ggplot(d2, aes(x=pct_mid_income)) + 
@@ -109,5 +109,5 @@ ggplot(d2, aes(x=pct_mid_income)) +
   theme_classic()+ 
   labs(x="Proportion in Middle Income Category", 
        y="Frequency")
-ggsave("output/f3_3f.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f3_3f.png", height=4.5, width=4.5, units="in", dpi=300)
 

@@ -22,7 +22,7 @@ ggplot(gss, aes(x=party3, fill=aidhouse)) +
   theme(legend.position="top") + 
   labs(x="", y="Frequency", fill="") + 
   scale_fill_grey()
-ggsave("output/f4_1a.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f4_1a.png", height=4.5, width=4.5, units="in", dpi=300)
 
 
 ## B. Stacked, normalized
@@ -42,7 +42,7 @@ gss %>%
   labs(x="", y="Percentage", fill="") + 
   scale_fill_grey() + 
   scale_y_continuous(labels=percent)
-ggsave("output/f4_1b.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f4_1b.png", height=4.5, width=4.5, units="in", dpi=300)
 
 
 ## C. Side-by-side bars, nor normalized
@@ -52,7 +52,7 @@ ggplot(gss, aes(x=party3, fill=aidhouse)) +
   theme(legend.position="top") + 
   labs(x="", y="Frequency", fill="") + 
   scale_fill_grey()
-ggsave("output/f4_1c.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f4_1c.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## D. Side-by-side bars, normalized
 ## calculate percentages within for each value of 
@@ -71,5 +71,5 @@ gss %>%
   labs(x="", y="Percentage", fill="") + 
   scale_fill_grey() + 
   scale_y_continuous(labels=percent)
-ggsave("output/f4_1d.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f4_1d.png", height=4.5, width=4.5, units="in", dpi=300)
 

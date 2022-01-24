@@ -23,7 +23,7 @@ ggplot(ces, aes(x=leader_lib, y=leader_con)) +
   labs(x="Liberal Leader Feeling Thermometer\n(Justin Trudeau)", 
        y="Conservative Leader Feeling Thermometer\n(Andrew Scheer)", 
        colour="Model", linetype="Model")
-ggsave("output/f4_11a.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f4_11a.png", height=4.5, width=4.5, units="in", dpi=300)
 
 # B. Jittered Data
 ggplot(ces, aes(x=leader_lib, y=leader_con)) + 
@@ -41,4 +41,4 @@ ggplot(ces, aes(x=leader_lib, y=leader_con)) +
   labs(x="Liberal Leader Feeling Thermometer\n(Justin Trudeau)", 
        y="Conservative Leader Feeling Thermometer\n(Andrew Scheer)", 
        colour="Model", linetype="Model")
-ggsave("output/f4_11b.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f4_11b.png", height=4.5, width=4.5, units="in", dpi=300)

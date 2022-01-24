@@ -164,7 +164,7 @@ ggplot(filter(h_all, model=="Quadratic"), aes(x=x2, y=com_x2 + stdres)) +
   theme_classic() + 
   theme(legend.position = "top") + 
   labs(x="x2", y="Component + Std. Deviance Residual", linetype = "")
-ggsave("output/f10_8a.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f10_8a.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## B. Quadratic (randomized quantile residuals)
 ggplot(filter(h_all, model=="Quadratic"), aes(x=x2, y=com_x2 + qr_mean)) + 
@@ -174,7 +174,7 @@ ggplot(filter(h_all, model=="Quadratic"), aes(x=x2, y=com_x2 + qr_mean)) +
   theme_classic() + 
   theme(legend.position = "top") + 
   labs(x="x2", y="Component + Quantile Residual", linetype = "")
-ggsave("output/f10_8b.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f10_8b.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## C. Simple, monotone (standardized deviance residuals)
 ggplot(filter(h_all, model=="Log"), aes(x=x2, y=com_x2 + stdres)) + 
@@ -184,7 +184,7 @@ ggplot(filter(h_all, model=="Log"), aes(x=x2, y=com_x2 + stdres)) +
   theme_classic() + 
   theme(legend.position = "top") + 
   labs(x="x2", y="Component + Std. Deviance Residual", linetype = "")
-ggsave("output/f10_8c.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f10_8c.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## D. Simple, monotone (randomized quantile residuals)
 ggplot(filter(h_all, model=="Log"), aes(x=x2, y=com_x2 + qr_mean)) + 
@@ -194,7 +194,7 @@ ggplot(filter(h_all, model=="Log"), aes(x=x2, y=com_x2 + qr_mean)) +
   theme_classic() + 
   theme(legend.position = "top") + 
   labs(x="x2", y="Component + Quantile Residual", linetype = "")
-ggsave("output/f10_8d.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f10_8d.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## E. Categorical (standardized deviance residuals)
 ggplot(filter(h_all, model=="Categorical"), aes(x=x2, y=com_x2 + stdres)) + 
@@ -205,7 +205,7 @@ ggplot(filter(h_all, model=="Categorical"), aes(x=x2, y=com_x2 + stdres)) +
   theme_classic() + 
   theme(legend.position = "top") + 
   labs(x="x2", y="Component + Std. Deviance Residual", linetype = "")
-ggsave("output/f10_8e.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f10_8e.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## F. Categorical (randomized quantile residuals)
 ggplot(filter(h_all, model=="Categorical"), aes(x=x2, y=com_x2 + qr_mean)) + 
@@ -216,5 +216,5 @@ ggplot(filter(h_all, model=="Categorical"), aes(x=x2, y=com_x2 + qr_mean)) +
   theme_classic() + 
   theme(legend.position = "top") + 
   labs(x="x2", y="Component + Quantile Residual", linetype = "")
-ggsave("output/f10_8f.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f10_8f.png", height=4.5, width=4.5, units="in", dpi=300)
 

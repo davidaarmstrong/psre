@@ -87,7 +87,7 @@ ggplot(e7, aes(x=reorder(x, predicted, mean), y=predicted, ymin=conf.low, ymax=c
   theme_classic() + 
   labs(x="", y="Prediced Emancipative Values\n(OVT Confidence Interval [79%])") + 
   coord_flip()
-ggsave("output/f6_6a.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f6_6a.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## use 95% confiedence intervals
 e7 <- ggpredict(m7, "civ", ci.lvl = 0.95)
@@ -106,5 +106,5 @@ lmat <- cld1$mcletters$LetterMatrix
 e7 <- e7 %>% mutate(x = reorder(x, predicted, mean))
 letter_plot(e7, lmat) + 
   labs(x="Predicted Emancipative Values\n(95% Confidence Interval)")
-ggsave("output/f6_6b.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f6_6b.png", height=4.5, width=4.5, units="in", dpi=300)
 

@@ -49,4 +49,4 @@ ggplot(res, aes(x=r, y=val)) +
   theme_bw() + 
   theme(panel.grid=element_blank()) + 
   labs(x="Correlation", y="Measure of Association")
-ggsave("output/f4_0.png", height=4, width=6, units="in", dpi=300)
+# ggssave("output/f4_0.png", height=4, width=6, units="in", dpi=300)

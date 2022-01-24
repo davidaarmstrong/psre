@@ -45,7 +45,7 @@ ggplot(mf, aes(x=gini_disp, y=cr_gini)) +
   labs(x="Gini Coefficient", 
        y="Component + Residual", 
        linetype="", colour="")
-ggsave("output/f7_3a.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f7_3a.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## B. Democratic history
 ggplot(mf, aes(x=democrat, y=cr_democrat)) + 
@@ -54,4 +54,4 @@ ggplot(mf, aes(x=democrat, y=cr_democrat)) +
   theme(aspect.ratio=1) + 
   labs(x="Democratic History", 
        y="Component + Residual")
-ggsave("output/f7_3b.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f7_3b.png", height=4.5, width=4.5, units="in", dpi=300)

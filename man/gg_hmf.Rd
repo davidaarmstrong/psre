@@ -43,7 +43,7 @@ GGPlot rather than lattice that the \code{heatmapFit} package
 uses.
 }
 \examples{
-\dontrun{
+\donttest{
 data(india)
 india$bjp <- ifelse(india$in_prty == 2, 1, 0)
 mod1 <- glm(bjp ~  educyrs + anti_immigration, 

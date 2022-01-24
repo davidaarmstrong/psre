@@ -23,7 +23,7 @@ ggplot(gss, aes(x=aid_scale, fill=party3)) +
   theme(legend.position="top") + 
   labs(x="Preference Toward Generosity of Government Aid", y="Density", fill="") +   
   scale_fill_grey()
-ggsave("output/f4_6a.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f4_6a.png", height=4.5, width=4.5, units="in", dpi=300)
 
 
 ggplot(gss, aes(x=aid_scale, linetype=party3)) + 
@@ -32,4 +32,4 @@ ggplot(gss, aes(x=aid_scale, linetype=party3)) +
   theme(legend.position="top") + 
   scale_linetype_manual(values=c(2,3,1)) + 
   labs(x="Preference Toward Generosity of Government Aid", y="Density", linetype="")
-ggsave("output/f4_6b.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f4_6b.png", height=4.5, width=4.5, units="in", dpi=300)

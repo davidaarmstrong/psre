@@ -117,7 +117,7 @@ ggplot(qqdf, aes(x=theo, y=x)) +
   theme_classic() + 
   labs(x="Theoretical Quantiles", 
        y="Observed Quantiles")
-ggsave("output/f10_13a.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f10_13a.png", height=4.5, width=4.5, units="in", dpi=300)
 
 
 ## get quantile-quantile data
@@ -135,7 +135,7 @@ ggplot(qqdf, aes(x=theo, y=x)) +
   theme_classic() + 
   labs(x="Theoretical Quantiles", 
        y="Observed Quantiles")
-ggsave("output/f10_13c.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f10_13c.png", height=4.5, width=4.5, units="in", dpi=300)
 
 
 ## get quantile-quantile data
@@ -153,7 +153,7 @@ ggplot(qqdf, aes(x=theo, y=x)) +
   theme_classic() + 
   labs(x="Theoretical Quantiles", 
        y="Observed Quantiles")
-ggsave("output/f10_13e.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f10_13e.png", height=4.5, width=4.5, units="in", dpi=300)
 
 
 ## Estimate negative binomial models
@@ -177,7 +177,7 @@ ggplot(qqdf, aes(x=theo, y=x)) +
   theme_classic() + 
   labs(x="Theoretical Quantiles", 
        y="Observed Quantiles")
-ggsave("output/f10_13b.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f10_13b.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## D. Simple, monotone (negative binomial)
 qqdf <- qqPoints(qresid(h2n))
@@ -194,7 +194,7 @@ ggplot(qqdf, aes(x=theo, y=x)) +
   theme_classic() + 
   labs(x="Theoretical Quantiles", 
        y="Observed Quantiles")
-ggsave("output/f10_13d.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f10_13d.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## F. Categorical (negative binomial)
 qqdf <- qqPoints(qresid(h3n))
@@ -210,7 +210,7 @@ ggplot(qqdf, aes(x=theo, y=x)) +
   theme_classic() + 
   labs(x="Theoretical Quantiles", 
        y="Observed Quantiles")
-ggsave("output/f10_13f.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f10_13f.png", height=4.5, width=4.5, units="in", dpi=300)
 
 
 

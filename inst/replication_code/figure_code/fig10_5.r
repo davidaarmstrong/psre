@@ -74,4 +74,4 @@ ggplot(imp, aes(y=reorder(var, importance, mean), x=importance, xmin=lwr, xmax=u
   theme_classic() + 
   theme(legend.position = c(.8, .2)) + 
   labs(y="", x="Variable Importance", linetype="", shape="") 
-ggsave("output/f10_5.png", width=4.5, height=4.5, units="in", dpi=300)
+# ggssave("output/f10_5.png", width=4.5, height=4.5, units="in", dpi=300)

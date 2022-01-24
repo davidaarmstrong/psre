@@ -21,7 +21,7 @@ ggplot(gss, aes(x=party3, y=aid_scale)) +
   theme_classic() + 
   labs(x="", y="Preference Toward Generosity of Government Aid") + 
   coord_flip()
-ggsave("output/f4_4a.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f4_4a.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## B. Violin Plot
 ggplot(gss, aes(x=party3, y=aid_scale)) + 
@@ -40,5 +40,5 @@ ggplot(gss, aes(x=party3, y=aid_scale)) +
   theme_classic() + 
   labs(x="", y="Preference Toward Generosity of Government Aid") + 
   coord_flip()
-ggsave("output/f4_4b.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f4_4b.png", height=4.5, width=4.5, units="in", dpi=300)
 

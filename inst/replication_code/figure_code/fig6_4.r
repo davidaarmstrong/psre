@@ -69,4 +69,4 @@ ggplot(imp_plot_dat, aes(x=reorder(variable, importance, mean), y=importance,
   theme_classic() + 
   labs(x="", y="Importance") + 
   coord_flip()
-ggsave("output/f6_4.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f6_4.png", height=4.5, width=4.5, units="in", dpi=300)

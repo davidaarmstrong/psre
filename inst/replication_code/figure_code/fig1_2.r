@@ -16,7 +16,7 @@ ggplot(bias.dat) +
   labs(x="b", y="Density", fill="") + 
   theme_classic() + 
   theme(legend.position="top")
-ggsave("output/f1_2a.png", height=4.5, width=4.5, dpi=300)
+## ggssave("output/f1_2a.png", height=4.5, width=4.5, dpi=300)
 
 ## Panel (b): Efficiency
 ## make data
@@ -32,7 +32,7 @@ ggplot(xdat, aes(x=x)) +
   theme_classic() + 
   labs(x="b", y="Density", linetype="") + 
   theme(legend.position=c(.85,.85))
-ggsave("output/f1_2b.png", height=4.5, width=4.5, dpi=300)
+## ggssave("output/f1_2b.png", height=4.5, width=4.5, dpi=300)
 
 
 ## Panel (c): Consistency 
@@ -46,5 +46,5 @@ ggplot(xdat, aes(x=x)) +
   theme_classic() + 
   theme(legend.position=c(.85, .85)) + 
   labs(x="b", y="Density", linetype="")
-ggsave("output/f1_2c.png", height=4.5, width=4.5, dpi=300)
+## ggssave("output/f1_2c.png", height=4.5, width=4.5, dpi=300)
 

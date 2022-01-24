@@ -54,7 +54,7 @@ ggplot(dbd, aes(y=reorder(country, dfb_ginil, mean), x=dfb_ginil)) +
   geom_segment(aes(xend=0, y=country, yend=country)) + 
   theme_classic() + 
   labs(x="Gini Coefficient DFBETAS", y="")
-ggsave("output/f7_7a.png", width=4.5, height=6, units="in", dpi=300)
+# ggssave("output/f7_7a.png", width=4.5, height=6, units="in", dpi=300)
 
 ## B. Model 7a: Democratic History
 ggplot(dbd, aes(y=reorder(country, dfb_democl, mean), x=dfb_democl)) + 
@@ -62,7 +62,7 @@ ggplot(dbd, aes(y=reorder(country, dfb_democl, mean), x=dfb_democl)) +
   geom_segment(aes(xend=0, y=country, yend=country)) + 
   theme_classic() + 
   labs(x="Democratic History DFBETAS", y="")
-ggsave("output/f7_7b.png", width=4.5, height=6, units="in", dpi=300)
+# ggssave("output/f7_7b.png", width=4.5, height=6, units="in", dpi=300)
 
 ## get the x- and y-axis limits from the plots for model 7a
 xrga <- ggplot_build(f7_7a)$layout$panel_params[[1]]$x.range
@@ -77,7 +77,7 @@ ggplot(dbd, aes(y=reorder(country, dfb_ginip, mean), x=dfb_ginip)) +
   theme_classic() + 
   labs(x="Gini Coefficient DFBETAS", y="") + 
   coord_cartesian(xlim = xrga, ylim=yrga, expand=FALSE)
-ggsave("output/f7_7c.png", width=4.5, height=6, units="in", dpi=300)
+# ggssave("output/f7_7c.png", width=4.5, height=6, units="in", dpi=300)
 
 ## D. Model 7c: Democratic History
 ggplot(dbd, aes(y=reorder(country, dfb_democp, mean), x=dfb_democp)) + 
@@ -86,5 +86,5 @@ ggplot(dbd, aes(y=reorder(country, dfb_democp, mean), x=dfb_democp)) +
   theme_classic() + 
   labs(x="Democratic History DFBETAS", y="") + 
   coord_cartesian(xlim = xrgb, ylim=yrgb, expand=FALSE)
-ggsave("output/f7_7d.png", width=4.5, height=6, units="in", dpi=300)
+# ggssave("output/f7_7d.png", width=4.5, height=6, units="in", dpi=300)
 

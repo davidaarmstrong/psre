@@ -20,7 +20,7 @@ ggplot(data.frame(x=x), aes(x=x, y=IHS(x))) +
   geom_line() + 
   theme_classic() + 
   labs(x="x", y="IHS(x)")
-ggsave("output/f3_9a.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f3_9a.png", height=4.5, width=4.5, units="in", dpi=300)
 
 
 d1b <- data.frame(
@@ -50,7 +50,7 @@ ggplot(db, aes(x=x, y=y, linetype=lambda)) +
   theme_classic() + 
   theme(legend.position = c(.75, .25)) + 
   labs(x="x", y="YJ(x)", linetype="Lambda")
-ggsave("output/f3_9b.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f3_9b.png", height=4.5, width=4.5, units="in", dpi=300)
 
 
 d1 <- data.frame(
@@ -95,7 +95,7 @@ ggplot(bcn_dat1, aes(x=x, y=y, linetype=lambda)) +
         legend.position = c(.75, .25),
         aspect.ratio=1) + 
   labs(x="x", y="BCn(x)", linetype="Lambda")
-ggsave("output/f3_9c.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f3_9c.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ggplot(bcn_dat2, aes(x=x, y=y, linetype=lambda)) +
   geom_line() + 
@@ -104,4 +104,4 @@ ggplot(bcn_dat2, aes(x=x, y=y, linetype=lambda)) +
         legend.position = c(.75, .25),
         aspect.ratio=1) + 
   labs(x="x", y="BCn(x)", linetype="Lambda")
-ggsave("output/f3_9d.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f3_9d.png", height=4.5, width=4.5, units="in", dpi=300)

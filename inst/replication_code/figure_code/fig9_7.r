@@ -73,10 +73,12 @@ pred1[dens$z < cutoff[1]] <- NA
 pred2 <- predsurf
 pred2[dens$z < cutoff[2]] <- NA
 pred3 <- predsurf
-pred3[dens$z < cutoff[3]] <- NA
+pred3[dens$z < cutoff[3]] <- NA_character_
+
+oldpar <- par()
 
 ## A. Left origin
-png("output/f9_7a.png", height=5.5, width=5.5, units="in", res=300)
+#png("output/f9_7a.png", height=5.5, width=5.5, units="in", res=300)
 persp(v1.seq, v2.seq, predsurf,
       zlim=c(0, 0.71), 
       xlab = ifelse(is.null(xlab), toupper(v1), xlab),
@@ -104,11 +106,12 @@ persp(v1.seq, v2.seq, pred3, col = hcols[4], axes = FALSE,
       #        zlim = c(min(c(predsurf)), max(c(predsurf))), 
       ylim = c(min(v2.seq), max(v2.seq)), 
       xlim = c(min(v1.seq), max(v1.seq)))
-dev.off()
+#dev.off()
+par(oldpar)
 
 ## B. Right origin
 theta <- 215
-png("output/f9_7b.png", height=5.5, width=5.5, units="in", res=300)
+#png("output/f9_7b.png", height=5.5, width=5.5, units="in", res=300)
 persp(v1.seq, v2.seq, predsurf,
       zlim=c(0, 0.71), 
       xlab = ifelse(is.null(xlab), toupper(v1), xlab),
@@ -136,6 +139,6 @@ persp(v1.seq, v2.seq, pred3, col = hcols[4], axes = FALSE,
       #      zlim = c(min(c(predsurf)), max(c(predsurf))), 
       ylim = c(min(v2.seq), max(v2.seq)), 
       xlim = c(min(v1.seq), max(v1.seq)))
-dev.off()
-
+#dev.off()
+par(oldpar)
 

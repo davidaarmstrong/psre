@@ -69,7 +69,7 @@ ggplot(ed_eff, aes(x=eff, fill=eth)) +
   theme(legend.position=c(.15,.9)) +
   scale_fill_manual(values=c("gray75", "gray50", "gray25")) +
   labs(x="First Difference of Education", y="Frequency", fill="")
-ggsave("output/f11_3a.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f11_3a.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## calculate the linear predictor for 
 ## mod1 and add in ethnicity
@@ -103,6 +103,6 @@ ggplot() +
   geom_text(aes(x=mean(c(eta_sum$min[1], eta_sum$max[1])), 
                 y=-0.03, label="Hindu")) + 
   labs(x=expression(eta), y="E(y|b,x1)", colour="", parse=TRUE)
-ggsave("output/f11_3b.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f11_3b.png", height=4.5, width=4.5, units="in", dpi=300)
 
 

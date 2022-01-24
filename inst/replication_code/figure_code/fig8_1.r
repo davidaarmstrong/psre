@@ -38,5 +38,5 @@ ggplot() +
   theme_void() + 
   coord_cartesian(xlim=xl, 
                   ylim=yl)
-ggsave("output/f8_1.png", height=5.5, width=5.5, units="in", dpi=300)
+# ggssave("output/f8_1.png", height=5.5, width=5.5, units="in", dpi=300)
              

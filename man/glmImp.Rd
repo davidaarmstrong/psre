@@ -29,7 +29,7 @@ Calculates importance along the lines of Greenwell et al (2018)
 using partial dependence plots.
 }
 \examples{
-\dontrun{
+\donttest{ 
 data(gss)
 mod <- glm(childs ~ sei10 + sex + educ + age, 
             data=gss, family=poisson)

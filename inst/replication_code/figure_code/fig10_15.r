@@ -60,10 +60,10 @@ ggplot(infl.df, aes(x=hat, y=rstu, size=d)) +
   geom_hline(yintercept=0, lty=3) + 
   geom_vline(xintercept=hat_cut, lty=2) + 
   labs(x="Hat Values", y="Studentized Deviance Residuals")
-ggsave("output/f10_15a.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f10_15a.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## B. DFBETA plot
 dfbhist(tmp, "all", "obs", .0075, binwidth=.0001, 
         nudge_y=c(100,-100,100,100,-100,150), 
         nudge_x=c(0, -.001,0,0,.002,0))
-ggsave("output/f10_15b.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f10_15b.png", height=4.5, width=4.5, units="in", dpi=300)

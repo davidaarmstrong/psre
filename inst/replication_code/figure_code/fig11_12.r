@@ -86,7 +86,7 @@ ggplot(dens_dat, aes(x=x, y=as.factor(sprintf("%.2f", s)))) +
   theme_classic() + 
   labs(x="Absolute Difference in Effects", 
        y="Political Rights")
-ggsave("output/f11_12.png", height=6.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f11_12.png", height=6.5, width=4.5, units="in", dpi=300)
 
 ## or with geom_density_ridges
 

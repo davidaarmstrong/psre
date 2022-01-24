@@ -53,17 +53,17 @@ rg2 <- ggplot_build(dfbhist(dbd, "dfb_democl", "country", binwidth=.015))$layout
 
 ## A. Model 7a: Gini Coefficient
 dfbhist(dbd, "dfb_ginil", "country", cutval=.2)
-ggsave("output/f7_8a.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f7_8a.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## B. Model 7a: Democratic History
 dfbhist(dbd, "dfb_democl", "country", cutval = .2, binwidth=.015)
-ggsave("output/f7_8b.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f7_8b.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## C. Model 7c: Gini Coefficient
 dfbhist(dbd, "dfb_ginip", "country", xrange = rg1$x.range, 
         nudge_y=c(0,2,0))
-ggsave("output/f7_8c.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f7_8c.png", height=4.5, width=4.5, units="in", dpi=300)
 
 ## D. Model 7c: Democratic History
 dfbhist(dbd, "dfb_democp", "country", binwidth=.01, xrange = rg2$x.range)
-ggsave("output/f7_8d.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f7_8d.png", height=4.5, width=4.5, units="in", dpi=300)

@@ -217,7 +217,7 @@ NULL
 #' Tom W. Smith; Co-Principal Investigator, Peter V. Marsden; Co-Principal Investigator,
 #' Michael Hout; Sponsored by National Science Foundation. -NORC ed.- Chicago:
 #' NORC at the University of Chicago [producer and distributor]. Data accessed from the
-#' GSS Data Explorer website at \url{https://gssdataexplorer.norc.org}.
+#' GSS Data Explorer website at \url{https://gss.norc.org/get-the-data}.
 #'
 #' @keywords datasets
 NULL

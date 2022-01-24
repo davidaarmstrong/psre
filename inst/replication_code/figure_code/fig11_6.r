@@ -89,7 +89,7 @@ ggplot() +
   geom_line(data=fit_dat, aes(x=obs, y=fit), col="black") + 
   scale_fill_manual(values=c("gray35", "gray65")) + 
   theme_void()
-ggsave("output/f11_5.png", height=.5, width=6, units="in", dpi=300)
+# ggssave("output/f11_5.png", height=.5, width=6, units="in", dpi=300)
 
 
 ## A much simpler, though less flexible way of doing this is with 

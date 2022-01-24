@@ -60,7 +60,7 @@ ggplot(plot_pois, aes(x=vals, y=pois , fill=person)) +
   labs(x="Number of Childern", y="Poisson Probability", 
        fill="Respondent")+ 
   theme(legend.position = c(.85, .85)) 
-ggsave("output/f10_1a.png", height=4.5, width=4.5, units="in", dpi=300)
+# ggssave("output/f10_1a.png", height=4.5, width=4.5, units="in", dpi=300)
 
 
 ## get coefficients from the model
@@ -125,4 +125,4 @@ ggplot(plot_b, aes(x=age, y=exp(eta), group=sex)) +
   geom_abline(slope=slope_f, intercept = int_f, linetype=3) + 
   theme_classic() + 
   labs(x="Age", y="E(y|b,X)")
-ggsave("output/f10_1b.png", height=4.5, width = 4.5, units="in", dpi=300)
+# ggssave("output/f10_1b.png", height=4.5, width = 4.5, units="in", dpi=300)
