@@ -824,6 +824,7 @@ srr_imp <- function(obj,
                     lwr = cis[1,], 
                     upr = cis[2,])
   }else{
+    X <- model.matrix(obj)
     p0 <- sapply(inds, function(i){
       sd(c(X[, i, drop=FALSE] %*% c(coef(obj)[i])))
     })
