@@ -804,6 +804,7 @@ srr_imp <- function(obj,
       k <- k+1
     }
   }
+  if(boot){
   B <- mvrnorm(R, coef(obj), vcov(obj))
   X <- model.matrix(obj)
   p_sim <- sapply(inds, function(i){
@@ -822,6 +823,13 @@ srr_imp <- function(obj,
                     importance = unname(p0), 
                     lwr = cis[1,], 
                     upr = cis[2,])
+  }else{
+    if(pct){
+      p0 <- p0/sum(p0)
+    }
+    res <- data.frame(var = factor(1:length(inds), labels=names(inds)), 
+                      importance = unname(p0))
+  }
   rownames(res) <- NULL
   return(res)
 }
