@@ -824,6 +824,9 @@ srr_imp <- function(obj,
                     lwr = cis[1,], 
                     upr = cis[2,])
   }else{
+    p0 <- sapply(inds, function(i){
+      sd(c(X[, i, drop=FALSE] %*% c(coef(obj)[i])))
+    })
     if(pct){
       p0 <- p0/sum(p0)
     }
