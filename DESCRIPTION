@@ -1,7 +1,7 @@
 Package: psre
 Type: Package
 Title: Presenting Statistical Results Effectively
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: c(person("Dave", "Armstrong", role=c("aut", "cre"), email="dave@quantoid.net"), 
              person("Robert", "Andersen", role="aut"), 
              person("Justin", "Esarey", role="cph"), 
@@ -18,7 +18,6 @@ Imports:
     car, 
     nortest, 
     lawstat, 
-    normwhn.test, 
     DAMisc, 
     ggplot2, 
     boot, 
@@ -43,4 +42,4 @@ Depends: R (>= 3.5.0)
 License: GPL (>=2)
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2

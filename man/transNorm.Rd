@@ -34,6 +34,11 @@ p-values from normality tests.}
 A scalar giving the optimal transformation parameter.
 }
 \description{
+Note, that we do note use the Doornik-Hansen test because
+the implementation in `normwh.test` has been archived.  We continue to use
+the other methods prescribed in Velez et al.
+}
+\details{
 Uses the method proposed by Velez, Correa and Marmolejo-Ramos
 to normalize variables using Box-Cox or Yeo-Johnson transformations.
 }
