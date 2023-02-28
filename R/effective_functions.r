@@ -589,20 +589,16 @@ lsa <- function(formula, xlabels=NULL, ylab = NULL, data,
 #' 
 #' @examples
 #' data(wvs)
-#' library(L1pack)
 #' library(MASS)
 #' lmod <- lm(secpay ~ gini_disp + democrat + log(pop), data=wvs)
-#' e1_lad <- lad(secpay ~ gini_disp + democrat + log(pop), 
-#'                       data=wvs)$residuals
 #' e1_m <- rlm(secpay ~ gini_disp + democrat + log(pop), 
 #'                   data=wvs, method="M")$residuals
 #' e1_mm <- rlm(secpay ~ gini_disp + democrat + log(pop), 
 #'                    data=wvs, method="MM")$residuals
 #' e1dat <- data.frame(OLS = lmod$residuals, 
-#'                     LAD = e1_lad, 
 #'                     M = e1_m, 
 #'                     MM = e1_mm)
-#' rrPlot(OLS ~ LAD + M + MM, data=e1dat)
+#' rrPlot(OLS ~ M + MM, data=e1dat)
 rrPlot <- function(formula, xlabels=NULL, ylab = NULL, 
                    data, return = c("grid", "grobs"), 
                    ptsize = 1, ptshape=1, ptcol="gray65"){
@@ -1385,7 +1381,7 @@ dfbhist <- function(data, varname, label, cutval=.25, binwidth=.025, xlab="DFBET
 #' @return A n x \code{degree}+\code{nknots} matrix of basis 
 #' function values. 
 tpb <- function(x, degree=3, nknots=3, knot_loc=NULL){
-  out <- sapply(1:degree, function(d)x^d)
+  out <- sapply(2:degree, function(d)x^(d-1))
   if(is.null(knot_loc) ){
     q <- seq(0,1, length=nknots+2)
     q <- q[-c(1, length(q))]  
@@ -1397,7 +1393,7 @@ tpb <- function(x, degree=3, nknots=3, knot_loc=NULL){
     s <- knot_loc
   }
   for(i in 1:length(s)){
-    out <- cbind(out, (x-s[i])^3*(x >= s[i]))
+    out <- cbind(out, (x-s[i])^degree*(x >= s[i]))
   }
   colnames(out) <- paste0("tpb", 1:ncol(out))
   return(out)
