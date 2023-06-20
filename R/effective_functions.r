@@ -835,7 +835,7 @@ srr_imp <- function(obj,
   return(res)
 }
 
-#' Print Method for Silver, Rosenbaum and Ross Importance Measure
+#' Print Method for Silber, Rosenbaum and Ross Importance Measure
 #'
 #' Prints the results of the \code{srr_imp} function
 #'

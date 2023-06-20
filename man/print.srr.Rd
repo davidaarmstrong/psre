@@ -2,7 +2,7 @@
 % Please edit documentation in R/effective_functions.r
 \name{print.srr}
 \alias{print.srr}
-\title{Print Method for Silver, Rosenbaum and Ross Importance Measure}
+\title{Print Method for Silber, Rosenbaum and Ross Importance Measure}
 \usage{
 \method{print}{srr}(x, ...)
 }
