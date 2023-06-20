@@ -815,10 +815,11 @@ srr_imp <- function(obj,
     p_sim <- t(apply(p_sim, 1, function(x)x/sum(x)))
   }
   cis <- apply(p_sim, 2, quantile, qtile)
-  res <- data.frame(var = factor(1:length(inds), labels=names(inds)), 
+  res <- list(smry = data.frame(var = factor(1:length(inds), labels=names(inds)), 
                     importance = unname(p0), 
                     lwr = cis[1,], 
-                    upr = cis[2,])
+                    upr = cis[2,]), 
+              sims = p_sim)
   }else{
     X <- model.matrix(obj)
     p0 <- sapply(inds, function(i){
@@ -827,12 +828,29 @@ srr_imp <- function(obj,
     if(pct){
       p0 <- p0/sum(p0)
     }
-    res <- data.frame(var = factor(1:length(inds), labels=names(inds)), 
-                      importance = unname(p0))
+    res <- list(smry = data.frame(var = factor(1:length(inds), labels=names(inds)), 
+                      importance = unname(p0)))
   }
-  rownames(res) <- NULL
+  class(res) <- "srr"
   return(res)
 }
+
+#' Print Method for Silver, Rosenbaum and Ross Importance Measure
+#'
+#' Prints the results of the \code{srr_imp} function
+#'
+#' @param x An object of class \code{srr}.
+#' @param ... Other arguments passed down to \code{print}
+#'
+#' @return Printed output
+#'
+#' @export
+#' @method print srr
+print.ss <- function(x, ...){
+  print(x$smry, ...)
+}
+
+
 
 #' Importace Measure for Generalized Linear Models
 #'
