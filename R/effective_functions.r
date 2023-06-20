@@ -846,7 +846,7 @@ srr_imp <- function(obj,
 #'
 #' @export
 #' @method print srr
-print.ss <- function(x, ...){
+print.srr <- function(x, ...){
   print(x$smry, ...)
 }
 

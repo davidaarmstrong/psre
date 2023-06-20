@@ -5,21 +5,15 @@
 \title{Print Method for Simple Slopes}
 \usage{
 \method{print}{ss}(x, ...)
-
-\method{print}{srr}(x, ...)
 }
 \arguments{
-\item{x}{An object of class \code{srr}.}
+\item{x}{An object of class \code{ss}.}
 
 \item{...}{Other arguments passed down to \code{print}}
 }
 \value{
 Printed output
-
-Printed output
 }
 \description{
 Prints the results of the Simple Slopes function
-
-Prints the results of the \code{srr_imp} function
 }
