@@ -1458,7 +1458,7 @@ shuffle <- function(b, pv, se, alpha=.05, digits=3, names=NULL){
   out <- matrix(out, ncol=1)
   if(!is.null(names)){
     odds <- seq(1, nrow(out), by=2)
-    rownames(out) <- ""
+    rownames(out) <- rep("", nrow(out))
     rownames(out)[odds] <- names
   }
   out
