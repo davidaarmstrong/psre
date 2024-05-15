@@ -1,8 +1,8 @@
 Package: psre
 Type: Package
 Title: Presenting Statistical Results Effectively
-Version: 0.1.2
-Authors@R: c(person("Dave", "Armstrong", role=c("aut", "cre"), email="dave@quantoid.net"), 
+Version: 0.1.3
+Authors@R: c(person("Dave", "Armstrong", role=c("aut", "cre"), email="davearmstrong.ps@gmail.com"), 
              person("Robert", "Andersen", role="aut"), 
              person("Justin", "Esarey", role="cph"), 
              person("John", "Fox", role="cph"), 
@@ -41,4 +41,4 @@ Depends: R (>= 3.5.0)
 License: GPL (>=2)
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1

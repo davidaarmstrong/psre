@@ -4,7 +4,7 @@
 \alias{simple_slopes}
 \title{Calculate Simple Slopes}
 \usage{
-simple_slopes(mod, quant_var, cat_var)
+simple_slopes(mod, quant_var, cat_var, ...)
 }
 \arguments{
 \item{mod}{A model object that contains an interaction between a
@@ -15,6 +15,8 @@ variable ine the interaction.}
 
 \item{cat_var}{A character string giving the name of the factor
 variable ine the interaction.}
+
+\item{...}{Other arguments, currently not implemented.}
 }
 \value{
 A data frame giving the conditional partial effect

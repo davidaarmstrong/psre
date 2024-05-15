@@ -312,6 +312,7 @@ letter_plot <- function(fits, letters){
 #' variable ine the interaction.
 #' @param cat_var A character string giving the name of the factor
 #' variable ine the interaction.
+#' @param ... Other arguments, currently not implemented.
 #'
 #' @return A data frame giving the conditional partial effect
 #' along with standard errors, t-statistics and p-values.
@@ -322,7 +323,7 @@ letter_plot <- function(fits, letters){
 #' @importFrom utils combn
 #'
 #' @export
-simple_slopes <- function(mod, quant_var, cat_var){
+simple_slopes <- function(mod, quant_var, cat_var, ...){
   inds <- grep(quant_var, names(coef(mod)))
   me <- which(names(coef(mod)) == quant_var)
   inds <- c(me, setdiff(inds, me))
@@ -383,7 +384,7 @@ print.ss <- function(x, ...){
 #'
 #' Calculates a letter matrix for a simple-slopes output.
 #'
-#' @param x An object of class `ss`
+#' @param object An object of class `ss`
 #' @param level Confidence level used for the letters.
 #' @param ... Other arguments to be passed to generic function.
 #'
@@ -398,11 +399,11 @@ print.ss <- function(x, ...){
 #'
 #' @export
 #' @method cld ss
-cld.ss <- function(x, level=.05, ...){
-  ord <- x$est %>% arrange(.data$slope) %>% select("group") %>% pull
-  signif <- x$comp$p < level
-  comps <- x$comp %>% select("comp") %>% separate(.data$comp, sep="-", into=c("g1", "g2")) %>% as.matrix()
-  rownames(comps) <- x$comp$comp
+cld.ss <- function(object, ..., level=.05){
+  ord <- object$est %>% arrange(.data$slope) %>% select("group") %>% pull
+  signif <- object$comp$p < level
+  comps <- object$comp %>% select("comp") %>% separate(.data$comp, sep="-", into=c("g1", "g2")) %>% as.matrix()
+  rownames(comps) <- object$comp$comp
   ia <- getFromNamespace("insert_absorb", "multcomp")
   ia(signif, comps=comps, lvl_order = ord)$LetterMatrix
 }
