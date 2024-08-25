@@ -449,6 +449,10 @@ assocfun <- function(xind,yind, data){
 #' Produces a linear scatterplot array with marginal histograms
 #'
 #' @param formula Formula giving the variables to be plotted.
+#' @param linear Logical indicating whether linear regression line is included. 
+#' @param loess Logical indicating whether loess smooth should be included.
+#' @param lm_args A list of arguments passed to `geom_smooth()` for the linear regression line. 
+#' @param lo_args A list or arguments passed to `geom_smooth()` for the loess smooth.
 #' @param xlabels Vector of character strings giving the labs of
 #' variables to be used in place of the variable names.
 #' @param ylab Character string giving y-variable label to be
@@ -457,6 +461,8 @@ assocfun <- function(xind,yind, data){
 #' @param ptsize Size of points. 
 #' @param ptshape Shape of points.
 #' @param ptcol Color of points.
+#' @param ptalpha Alpha of points. 
+#' @param ... Other arguments passed down, currently not implemented.
 
 #'
 #' @importFrom ggplot2 geom_smooth facet_wrap theme_bw theme
@@ -479,12 +485,28 @@ assocfun <- function(xind,yind, data){
 #'   ylab = "Secular Values", 
 #'   data=wvs)
 lsa <- function(formula, xlabels=NULL, ylab = NULL, data,
-                ptsize=1, ptshape=1, ptcol="gray65"){
+                ptsize=1, ptshape=1, ptcol="gray65", 
+                linear = TRUE, loess = TRUE, 
+                lm_args = linear_args(), 
+                lo_args = loess_args(), 
+                ptalpha = 1, 
+                ...){
   if (!attr(terms(as.formula(formula)), which = 'response'))
     stop("No DV in formula.\n")
+  if(linear){
+    linear_smooth <- geom_smooth
+  }else{
+    linear_smooth <- function(...)NULL
+  }
+  if(loess){
+    loess_smooth <- geom_smooth
+  }else{
+    loess_smooth <- function(...)NULL
+  }
+  
   avf <- all.vars(formula)
   tmp <- data %>%
-    select(avf)
+    select(all_of(avf))
   dv <- avf[1]
   ivs <- avf[-1]
   if(is.null(ylab))ylab <- dv
@@ -494,8 +516,9 @@ lsa <- function(formula, xlabels=NULL, ylab = NULL, data,
   for(i in 1:length(ivs)){
     if(i == 1){
       slist[[i]] <- ggplot(tmp, aes_string(y=dv, x=ivs[i])) +
-      geom_point(size=ptsize, shape=ptshape, col=ptcol) +
-      geom_smooth(method="loess", size=.5, se=FALSE, col="black") +
+      geom_point(size=ptsize, shape=ptshape, col=ptcol, alpha=ptalpha) +
+      do.call(linear_smooth, lm_args) + 
+      do.call(loess_smooth, lo_args) + 
       facet_wrap(as.formula(paste0('~"', xlabels[i], '"')))+
       theme_bw() +
       theme(panel.grid=element_blank()) +
@@ -514,8 +537,9 @@ lsa <- function(formula, xlabels=NULL, ylab = NULL, data,
       labs(y="Histogram")
     }else{
       slist[[i]] <- ggplot(tmp, aes_string(y=dv, x=ivs[i])) +
-        geom_point(size=ptsize, shape=ptshape, col=ptcol) +
-        geom_smooth(method="loess", size=.5, se=FALSE, col="black") +
+        geom_point(size=ptsize, shape=ptshape, col=ptcol, alpha=ptalpha) +
+        do.call(linear_smooth, lm_args) + 
+        do.call(loess_smooth, lo_args) + 
         facet_wrap(as.formula(paste0('~"', xlabels[i], '"')))+
         theme_bw() +
         theme(panel.grid=element_blank(),
@@ -557,6 +581,69 @@ lsa <- function(formula, xlabels=NULL, ylab = NULL, data,
   l[["rel_widths"]] = rel_widths=c(1.25, rep(1, length(ivs)-1), .5)
   do.call(plot_grid, l)
 }
+
+#' Make Arguments for LOESS Smooth
+#' 
+#' Makes arguments that serve as input to `ggplot2::geom_smooth()`.
+#' @param method Method used for the smooth, should be "loess". 
+#' @param formula Alternative formula argument
+#' @param se Should standard error envelopes be plotted. 
+#' @param na.rm Should data be listwise deleted before calculating smooth.
+#' @param orientation Orientation of the level
+#' @param show.legend Should the legend be shown, included by default if aesthetics are mapped. 
+#' @param inherit.aes Should aesthetics from previous calls be inherited by the function.
+#' @param span The span of the smoother.
+#' @param color Color of the line.
+#' @param linetype Line type of the line. 
+#' @param ... Other arguments to be passed down. 
+#' @export
+loess_args <- function(method = "loess", formula = NULL, se = FALSE, na.rm = TRUE, 
+                       orientation = NA, show.legend = NA, inherit.aes = TRUE, 
+                       span = .75, color = "black", linetype=2, ...){
+  list(method = method, 
+       formula = formula, 
+       se = se, 
+       na.rm = na.rm, 
+       orientation = orientation, 
+       show.legend = show.legend, 
+       inherit.aes = TRUE, 
+       span = span, 
+       color = color, 
+       linetype = linetype,
+       ...)
+}
+
+
+#' Make Arguments for Linear Smooth
+#' 
+#' Makes arguments that serve as input to `ggplot2::geom_smooth()`.
+#' @param method Method used for the smooth, should be "lm". 
+#' @param formula Alternative formula argument
+#' @param se Should standard error envelopes be plotted. 
+#' @param na.rm Should data be listwise deleted before calculating smooth.
+#' @param orientation Orientation of the level
+#' @param show.legend Should the legend be shown, included by default if aesthetics are mapped. 
+#' @param inherit.aes Should aesthetics from previous calls be inherited by the function.
+#' @param color Color of the line.
+#' @param linetype Line type of the line. 
+#' @param ... Other arguments to be passed down. 
+#' @export
+linear_args <- function(method = "lm", formula = NULL, se = FALSE, na.rm = TRUE, 
+                       orientation = NA, show.legend = NA, inherit.aes = TRUE, 
+                       color = "black", linetype = 1, 
+                       ...){
+  list(method = method, 
+       formula = formula, 
+       se = se, 
+       na.rm = na.rm, 
+       orientation = orientation, 
+       show.legend = show.legend, 
+       inherit.aes = TRUE, 
+       color = color, 
+       linetype = linetype, 
+       ...)
+}
+
 
 
 #' Residual-Residual Plot

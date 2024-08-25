@@ -11,7 +11,13 @@ lsa(
   data,
   ptsize = 1,
   ptshape = 1,
-  ptcol = "gray65"
+  ptcol = "gray65",
+  linear = TRUE,
+  loess = TRUE,
+  lm_args = linear_args(),
+  lo_args = loess_args(),
+  ptalpha = 1,
+  ...
 )
 }
 \arguments{
@@ -30,6 +36,18 @@ used instead of variable name.}
 \item{ptshape}{Shape of points.}
 
 \item{ptcol}{Color of points.}
+
+\item{linear}{Logical indicating whether linear regression line is included.}
+
+\item{loess}{Logical indicating whether loess smooth should be included.}
+
+\item{lm_args}{A list of arguments passed to `geom_smooth()` for the linear regression line.}
+
+\item{lo_args}{A list or arguments passed to `geom_smooth()` for the loess smooth.}
+
+\item{ptalpha}{Alpha of points.}
+
+\item{...}{Other arguments passed down, currently not implemented.}
 }
 \value{
 A \code{cowplot} object.
