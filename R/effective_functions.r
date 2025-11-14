@@ -213,6 +213,8 @@ transNorm <- function(x, start = .01, family=c("bc", "yj"), lams,
 #' @param letters A matrix of character strings giving the letters from a
 #' compact letter display.  This is most often from a call to \code{cld} from the
 #' \pkg{multcomp} package.
+#' @param xlim Optional vector of length 2 giving the limits of the numeric part of the x-axis. This 
+#' argument will be ignored if the existing data range is wider. 
 #' 
 #' @return A ggplot.
 #'
@@ -257,7 +259,7 @@ transNorm <- function(x, start = .01, family=c("bc", "yj"), lams,
 #' eff$x <- reorder(eff$x, eff$predicted, mean)
 #' letter_plot(eff, lmat) + 
 #'   labs(x="Predicted Emancipative Values\n(95% Confidence Interval)")
-letter_plot <- function(fits, letters){
+letter_plot <- function(fits, letters, xlim = NULL){
   if(!(all(c("x", "predicted", "conf.low", "conf.high") %in% names(fits))))stop("x, predicted, conf.low and conf.high need to be variables in the 'fits' data frame.")
   lmat <- letters
   g1 <- ggplot(fits, aes_string(y="x")) +
@@ -266,6 +268,18 @@ letter_plot <- function(fits, letters){
     geom_point(aes_string(x="predicted"))
   p <- ggplot_build(g1)
   rgx <- p$layout$panel_params[[1]]$x.range
+  if(!is.null(xlim)){
+    if(length(xlim) == 2){
+      if(rgx[1] < xlim[1] & rgx[2] > xlim[2]){
+        message("xlim narrower than range of data, ignoring xlim.\n")
+      }
+      rgx[1] <- min(xlim[1], rgx[1])
+      rgx[2] <- max(xlim[2], rgx[2])
+    }
+    else{
+      stop("xlim mis-specified, must be a vector of length 2.\n")
+    }
+  }
   diffrg <- diff(rgx)
   prty <- pretty(rgx, 4)
   if(prty[length(prty)] > rgx[2]){
@@ -467,6 +481,7 @@ assocfun <- function(xind,yind, data){
 #'
 #' @importFrom ggplot2 geom_smooth facet_wrap theme_bw theme
 #' element_blank element_text geom_histogram element_line coord_flip
+#' @importFrom dplyr select all_of
 #' @importFrom grid rectGrob gpar
 #' @importFrom cowplot plot_grid
 #' @importFrom stats as.formula terms
@@ -949,16 +964,16 @@ print.srr <- function(x, ...){
 #' @param data A data frame used to estiamte the model.
 #' @param varname Character string giving the name of the variable whose importance
 #' will be calculated.
-#' @param level Cofidence level used for the confidence interval.
+#' @param level Confidence level used for the confidence interval.
 #' @param ci_method Character string giving the method for calculating the
 #' confidence interval - normal or percentile.
-#' @param ... Other arguments being passed down to \code{aveEffPlot} from the \pkg{\link{DAMisc}} package.
+#' @param ... Other arguments being passed down to `avg_predictions()` from the \CRANpkg{marginaleffects} package.
 #'
 #' @return A data frame of importance measures with optimal bootstrapped confidence intervals.
 #'
 #' @references Greenwell, Brandon M., Bradley C. Boehmke and Andrew J. McCarthy.  (2018). “A Simple and Effective Model-Based Variable Importance Measure.”  arXiv1805.04755 [stat.ML]
 #'
-#' @importFrom DAMisc aveEffPlot
+#' @importFrom marginaleffects avg_predictions datagrid
 #'
 #' @export
 #' 
@@ -978,9 +993,17 @@ glmImp <- function(obj,
   cit <- match.arg(ci_method)
   a <- (1-level)/2
   fac <- is.factor(data[[varname]])
-  eff <- aveEffPlot(obj, varname, data, returnSim = TRUE, ...)
-  re <- apply(eff$sim, 1, sd)
-  ce <- colMeans(eff$sim)
+  levs <- unique(data[[varname]])
+  levs <- seq(min(levs, na.rm=TRUE), max(levs, na.rm=TRUE), length.out=25)
+  vl <- list(levs)
+  names(vl) <- varname
+  vl$model <- obj
+  vl$grid_type = "counterfactual"
+  eff <- avg_predictions(obj, newdata= do.call(datagrid, vl), by = varname, type="link", ...)
+  sim <- MASS::mvrnorm(2500, coef(eff), vcov(eff))
+  sim <- obj$family$linkinv(sim)
+  re <- apply(sim, 1, sd)
+  ce <- colMeans(sim)
   if(!fac){
     e <- sd(ce)
   }else{

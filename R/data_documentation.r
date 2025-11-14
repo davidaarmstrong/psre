@@ -83,13 +83,13 @@
 #'
 #' Henderson, Errol A. and Richard Tucker. 2001. "Clear and Present Strangers: The Clash of Civilizations and International Conflict." International Studies Quarterly, 45(2):317–338.
 #'
-#' Inglehart, R., C. Haerpfer, A. Moreno, C. Welzel, K. Kizilova, J. Diez-Medrano, M. Lagos, P. Norris, E. Ponarin & B. Puranen et al. (eds.). 2014a. World Values Survey: Round Two - Country-Pooled Datafile Version: \url{https://www.worldvaluessurvey.org/WVSDocumentationWV2.jsp}. Madrid: JD Systems Institute.
+#' Inglehart, R., C. Haerpfer, A. Moreno, C. Welzel, K. Kizilova, J. Diez-Medrano, M. Lagos, P. Norris, E. Ponarin & B. Puranen et al. (eds.). 2014a. World Values Survey: Round Two - Country-Pooled Datafile Version. Madrid: JD Systems Institute.
 #'
-#' Inglehart, R., C. Haerpfer, A. Moreno, C. Welzel, K. Kizilova, J. Diez-Medrano, M. Lagos, P. Norris, E. Ponarin & B. Puranen et al. (eds.). 2014b. World Values Survey: Round Three - Country-Pooled Datafile Version: \url{https://www.worldvaluessurvey.org/WVSDocumentationWV3.jsp}. Madrid: JD Systems Institute.
+#' Inglehart, R., C. Haerpfer, A. Moreno, C. Welzel, K. Kizilova, J. Diez-Medrano, M. Lagos, P. Norris, E. Ponarin & B. Puranen et al. (eds.). 2014b. World Values Survey: Round Three - Country-Pooled Datafile Version. Madrid: JD Systems Institute.
 #'
-#' Inglehart, R., C. Haerpfer, A. Moreno, C. Welzel, K. Kizilova, J. Diez-Medrano, M. Lagos, P. Norris, E. Ponarin & B. Puranen et al. (eds.). 2014c. World Values Survey: Round Four - Country-Pooled Datafile Version: \url{https://www.worldvaluessurvey.org/WVSDocumentationWV4.jsp}. Madrid: JD Systems Institute.
+#' Inglehart, R., C. Haerpfer, A. Moreno, C. Welzel, K. Kizilova, J. Diez-Medrano, M. Lagos, P. Norris, E. Ponarin & B. Puranen et al. (eds.). 2014c. World Values Survey: Round Four - Country-Pooled Datafile Version. Madrid: JD Systems Institute.
 #'
-#' Inglehart, R., C. Haerpfer, A. Moreno, C. Welzel, K. Kizilova, J. Diez-Medrano, M. Lagos, P. Norris, E. Ponarin & B. Puranen et al. (eds.). 2014d. World Values Survey: Round Five - Country-Pooled Datafile Version: \url{https://www.worldvaluessurvey.org/WVSDocumentationWV5.jsp}. Madrid: JD Systems Institute.
+#' Inglehart, R., C. Haerpfer, A. Moreno, C. Welzel, K. Kizilova, J. Diez-Medrano, M. Lagos, P. Norris, E. Ponarin & B. Puranen et al. (eds.). 2014d. World Values Survey: Round Five - Country-Pooled Datafile Version. Madrid: JD Systems Institute.
 #'
 #' Solt, Frederick. 2020. "Measuring Income Inequality Across Countries and Over Time: The Standardized World Income Inequality Database." Social Science Quarterly 101(3):1183-1199. SWIID Version 9.0, October 2020.
 #'
@@ -217,7 +217,7 @@ NULL
 #' Tom W. Smith; Co-Principal Investigator, Peter V. Marsden; Co-Principal Investigator,
 #' Michael Hout; Sponsored by National Science Foundation. -NORC ed.- Chicago:
 #' NORC at the University of Chicago [producer and distributor]. Data accessed from the
-#' GSS Data Explorer website at \url{https://gss.norc.org/get-the-data}.
+#' GSS Data Explorer website at \url{https://gss.norc.org/get-the-data.html}.
 #'
 #' @keywords datasets
 NULL
@@ -379,13 +379,13 @@ NULL
 #'}
 #'
 #' @references
-#' Inglehart, R., C. Haerpfer, A. Moreno, C. Welzel, K. Kizilova, J. Diez-Medrano, M. Lagos, P. Norris, E. Ponarin & B. Puranen et al. (eds.). 2014a. World Values Survey: Round Two - Country-Pooled Datafile Version: \url{https://www.worldvaluessurvey.org/WVSDocumentationWV2.jsp}. Madrid: JD Systems Institute.
+#' Inglehart, R., C. Haerpfer, A. Moreno, C. Welzel, K. Kizilova, J. Diez-Medrano, M. Lagos, P. Norris, E. Ponarin & B. Puranen et al. (eds.). 2014a. World Values Survey: Round Two - Country-Pooled Datafile Version. Madrid: JD Systems Institute.
 #'
-#' Inglehart, R., C. Haerpfer, A. Moreno, C. Welzel, K. Kizilova, J. Diez-Medrano, M. Lagos, P. Norris, E. Ponarin & B. Puranen et al. (eds.). 2014b. World Values Survey: Round Three - Country-Pooled Datafile Version: \url{https://www.worldvaluessurvey.org/WVSDocumentationWV3.jsp}. Madrid: JD Systems Institute.
+#' Inglehart, R., C. Haerpfer, A. Moreno, C. Welzel, K. Kizilova, J. Diez-Medrano, M. Lagos, P. Norris, E. Ponarin & B. Puranen et al. (eds.). 2014b. World Values Survey: Round Three - Country-Pooled Datafile Version. Madrid: JD Systems Institute.
 #'
-#' Inglehart, R., C. Haerpfer, A. Moreno, C. Welzel, K. Kizilova, J. Diez-Medrano, M. Lagos, P. Norris, E. Ponarin & B. Puranen et al. (eds.). 2014c. World Values Survey: Round Four - Country-Pooled Datafile Version: \url{https://www.worldvaluessurvey.org/WVSDocumentationWV4.jsp}. Madrid: JD Systems Institute.
+#' Inglehart, R., C. Haerpfer, A. Moreno, C. Welzel, K. Kizilova, J. Diez-Medrano, M. Lagos, P. Norris, E. Ponarin & B. Puranen et al. (eds.). 2014c. World Values Survey: Round Four - Country-Pooled Datafile Version. Madrid: JD Systems Institute.
 #'
-#' Inglehart, R., C. Haerpfer, A. Moreno, C. Welzel, K. Kizilova, J. Diez-Medrano, M. Lagos, P. Norris, E. Ponarin & B. Puranen et al. (eds.). 2014d. World Values Survey: Round Five - Country-Pooled Datafile Version: \url{https://www.worldvaluessurvey.org/WVSDocumentationWV5.jsp}. Madrid: JD Systems Institute.
+#' Inglehart, R., C. Haerpfer, A. Moreno, C. Welzel, K. Kizilova, J. Diez-Medrano, M. Lagos, P. Norris, E. Ponarin & B. Puranen et al. (eds.). 2014d. World Values Survey: Round Five - Country-Pooled Datafile Version. Madrid: JD Systems Institute.
 #'
 #' @keywords datasets
 NULL

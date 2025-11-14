@@ -4,7 +4,7 @@
 \alias{letter_plot}
 \title{Dot Plot with Letter Display}
 \usage{
-letter_plot(fits, letters)
+letter_plot(fits, letters, xlim = NULL)
 }
 \arguments{
 \item{fits}{Output from \code{ggpredict} from the \pkg{ggeffects}}
@@ -12,6 +12,9 @@ letter_plot(fits, letters)
 \item{letters}{A matrix of character strings giving the letters from a
 compact letter display.  This is most often from a call to \code{cld} from the
 \pkg{multcomp} package.}
+
+\item{xlim}{Optional vector of length 2 giving the limits of the numeric part of the x-axis. This 
+argument will be ignored if the existing data range is wider.}
 }
 \value{
 A ggplot.

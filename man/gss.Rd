@@ -47,6 +47,6 @@ General Social Surveys, 1972-2016 [machine-readable data file] Principal Investi
 Tom W. Smith; Co-Principal Investigator, Peter V. Marsden; Co-Principal Investigator,
 Michael Hout; Sponsored by National Science Foundation. -NORC ed.- Chicago:
 NORC at the University of Chicago [producer and distributor]. Data accessed from the
-GSS Data Explorer website at \url{https://gss.norc.org/get-the-data}.
+GSS Data Explorer website at \url{https://gss.norc.org/get-the-data.html}.
 }
 \keyword{datasets}

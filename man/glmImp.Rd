@@ -14,12 +14,12 @@ will be calculated.}
 
 \item{data}{A data frame used to estiamte the model.}
 
-\item{level}{Cofidence level used for the confidence interval.}
+\item{level}{Confidence level used for the confidence interval.}
 
 \item{ci_method}{Character string giving the method for calculating the
 confidence interval - normal or percentile.}
 
-\item{...}{Other arguments being passed down to \code{aveEffPlot} from the \pkg{\link{DAMisc}} package.}
+\item{...}{Other arguments being passed down to `avg_predictions()` from the \CRANpkg{marginaleffects} package.}
 }
 \value{
 A data frame of importance measures with optimal bootstrapped confidence intervals.
