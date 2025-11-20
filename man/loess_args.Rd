@@ -41,6 +41,9 @@ loess_args(
 
 \item{...}{Other arguments to be passed down.}
 }
+\value{
+A list with arguments that can be used as input to `ggplot2::geom_smooth()`.
+}
 \description{
 Makes arguments that serve as input to `ggplot2::geom_smooth()`.
 }

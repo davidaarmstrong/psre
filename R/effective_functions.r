@@ -611,6 +611,7 @@ lsa <- function(formula, xlabels=NULL, ylab = NULL, data,
 #' @param color Color of the line.
 #' @param linetype Line type of the line. 
 #' @param ... Other arguments to be passed down. 
+#' @returns A list with arguments that can be used as input to `ggplot2::geom_smooth()`.  
 #' @export
 loess_args <- function(method = "loess", formula = NULL, se = FALSE, na.rm = TRUE, 
                        orientation = NA, show.legend = NA, inherit.aes = TRUE, 
@@ -642,6 +643,7 @@ loess_args <- function(method = "loess", formula = NULL, se = FALSE, na.rm = TRU
 #' @param color Color of the line.
 #' @param linetype Line type of the line. 
 #' @param ... Other arguments to be passed down. 
+#' @returns A list with arguments that can be used as input to `ggplot2::geom_smooth()`.  
 #' @export
 linear_args <- function(method = "lm", formula = NULL, se = FALSE, na.rm = TRUE, 
                        orientation = NA, show.legend = NA, inherit.aes = TRUE, 
@@ -681,7 +683,7 @@ linear_args <- function(method = "lm", formula = NULL, se = FALSE, na.rm = TRUE,
 #' @param ptcol Color of points.
 #'
 #' @importFrom ggplot2 geom_smooth facet_wrap theme_bw theme
-#' element_blank element_text geom_histogram element_line coord_flip
+#' element_blank element_text geom_histogram element_line coord_flip geom_abline
 #' @importFrom grid rectGrob gpar
 #' @importFrom cowplot plot_grid
 #' @importFrom stats as.formula terms
@@ -858,7 +860,7 @@ boot_imp <- function(data, inds, obj){
 #'
 #' @importFrom boot boot boot.ci
 #' @importFrom MASS mvrnorm
-#' @importFrom stats loess.control optimize p.adjust p.adjust.methods runif
+#' @importFrom stats loess.control optimize p.adjust p.adjust.methods runif model.matrix
 #'
 #' @references Silber, J. H., Rosenbaum, P. R. and Ross, R N (1995) Comparing the Contributions of Groups of Predictors: Which Outcomes Vary with Hospital Rather than Patient Characteristics? JASA 90, 7–18.
 #'
@@ -1018,70 +1020,6 @@ glmImp <- function(obj,
   res
 }
 
-#'  Internal function to be used by optCL
-#'  
-#'  This is an internal function to be used with optCL, 
-#'  but is documented here for completeness. 
-#'  
-#'  @param b A vector of coefficients to be tested. 
-#'  @param v A variance-covariance matrix for \code{b}. 
-#'  @param vt An optional vector of variances (like quasi-variances)
-#'  that can be used to make the confidence intervals. 
-#'  @param eg A two-column matrix giving the index numbers of the 
-#'  simple contrasts.  It should be that \code{eg[,1]} is smaller than 
-#'  \code{eg[,2]}.  
-#'  @param resdf Residual degrees of freedom to be used to make t-statistics. 
-#'  @param alpha p-value used to reject the null hypothesis. 
-#'  @param clev Candidate confidence level for the optimised visual testing
-#'  search. 
-#'  @param adjust String giving the multiplicity adjustment method, all values of \code{p.adjust.methods} 
-#'  are acceptable.  None is the default. 
-#'  
-#' @noRd
-#' 
-#' @importFrom dplyr filter 
-#' @importFrom stats model.matrix qt
-#' @importFrom ggplot2 geom_abline
-make_fdat <- function(b, v, vt, eg, resdf=Inf, alpha=.05, clev, adjust){
-  vi <- diag(v)
-  fdat <- tibble(
-    cat1 = eg[,1], 
-    cat2 = eg[,2], 
-    b1 = b[eg[,1]], 
-    b2 = b[eg[,2]], 
-    v1 = vi[eg[,1]], 
-    v2 = vi[eg[,2]], 
-    vt1 = vt[eg[,1]], 
-    vt2 = vt[eg[,2]], 
-    cov12 = v[cbind(eg[,1], eg[,2])])
-  fdat <- fdat %>% 
-    mutate( 
-      comp_var = .data$v1 + .data$v2 - 2*.data$cov12, 
-      diff = .data$b1-.data$b2) %>% 
-    mutate(
-    t = .data$diff/sqrt(.data$comp_var),
-    p = 2*pt(abs(.data$t), resdf, lower.tail=FALSE), 
-    lb1 = .data$b1-qt(1-((1-clev)/2), resdf)*sqrt(.data$vt1), 
-    ub1 = .data$b1+qt(1-((1-clev)/2), resdf)*sqrt(.data$vt1), 
-    lb2 = .data$b2-qt(1-((1-clev)/2), resdf)*sqrt(.data$vt2), 
-    ub2 = .data$b2+qt(1-((1-clev)/2), resdf)*sqrt(.data$vt2)) %>% 
-    mutate(p = p.adjust(.data$p, method=adjust), 
-           sig = as.numeric(.data$p < alpha))
-  fdat <- fdat %>% 
-    rowwise %>% mutate(
-      olap = case_when(
-        .data$diff > 0 ~ as.numeric(.data$lb1 < .data$ub2), 
-        .data$diff < 0 ~ as.numeric(.data$ub1 > .data$lb2), 
-        TRUE ~ 0), 
-      crit = case_when(
-        .data$olap == 1 & .data$diff > 0 ~ (.data$ub2 - .data$lb1)^2, 
-        .data$olap == 1 & .data$diff < 0 ~ (.data$ub1 - .data$lb2)^2, 
-        .data$olap == 0 & .data$diff > 0 ~ (.data$lb1 - .data$ub2)^2, 
-        .data$olap == 0 & .data$diff < 0 ~ (.data$lb2 - .data$ub1)^2, 
-      ))
-  na.omit(fdat)
-}  
-
 #' Calculate the Optimal Visual Testing Confidence Level
 #' 
 #' Calculates the Optimal Visual Testing (OVT) confidence level.  The
@@ -1095,49 +1033,36 @@ make_fdat <- function(b, v, vt, eg, resdf=Inf, alpha=.05, clev, adjust){
 #' 
 #' @param obj A model object, on which \code{coef} and \code{vcov} can be called. 
 #' Either \code{obj} and \code{varname} or \code{b} and \code{v} must be specified.
-#' @param varname The name of a variable whose coefficients will be used. 
 #' @param b Optional vector of coefficients to be passed into the function.  
-#' it overrides the coefficients in \code{obj}. Either \code{obj} and 
-#' \code{varname} or \code{b} and \code{v} must be specified.
+#' it overrides the coefficients in \code{obj}. Either \code{obj} or \code{b} 
+#' and \code{v} must be specified.
 #' @param v Optional variance-covariance matrix.  This can be specified 
 #' even if \code{obj} and \code{varname} are specified.  It replaces the
 #' variance-covaraince matrix from the model. 
-#' @param resdf If only \code{b} and \code{v} are passed in, this gives 
-#' the residual degrees of freedom for the t-statistics. 
 #' @param level The confidence level to use for testing. 
-#' @param quasi_vars An optional vector of quasi-variances that will be
-#' used to make the confidence intervals. 
-#' @param add_ref If \code{obj} and \code{varname} are passed in, 
-#' an optional 0 is added to the front of the vector of coefficients, 
-#' along with a leading row and column of zeros on the variance-covariance
-#' matrix to represent the reference category. 
 #' @param grid_range The range of values over which to do the grid search. 
 #' @param grid_length The number of values in the grid.  
 #' @param adjust String giving the method used to adjust the p-values for 
 #' multiplicity.  All methods allowed in \code{p.adjust.methods} are 
 #' permitted.  None is the default. 
+#' @param print_message Logical indicating whether the startup message directing
+#' users to a newer version of this function and package 
+#' @param ... Other arguments to be passed down to `VizTest::viztest()`. 
 #' 
-#' @return A list with the following elements: 
-#' \describe{
-#'   \item{opt_levels}{The optimal confidence levels that all have 
-#'   identical minimal error rates. }
-#'   \item{opt_diffs}{The sum of differences between upper and lower bounds that 
-#'   characterize the appropriate visual tests.  Larger numbers are better.}
-#'   \item{opt_errors}{The proportion of errors across all simple contrasts.}
-#'   \item{lev_errors}{The proportion of errors made at the nominal 
-#'   significance level.}
-#'   \item{tot_comps}{The total number of comparisons}
-#'   \item{lev_dat}{If there are inferential errors at the nominal level, 
-#'   this is a data frame that has all of the information about which 
-#'   comparisons are not appropriately represented by the overlaps in 
-#'   confidence intervals.}
-#'   \item{err_dat}{If there are inferential errors at the optimal level, 
-#'   this is a data frame that has all of the information about which 
-#'   comparisons remain not appropriately represented by the overlaps in 
-#'   optimized confidence intervals.}
-#' }
-#' 
-#' @importFrom dplyr rowwise case_when ungroup summarise
+#' @returns A list (of class "viztest") with the following elements: 
+#' 1. tab: a data frame with results from the grid search.  The data frame has four variables: `level` - is the confidence level used in the grid search; `psame` - the proportion of (non-)overlaps that match the 
+#' normal theory tests; `pdiff` - the proportion of pairwise tests that are statistically significant; `easy` - the ease with which the comparisons are made. 
+#' 2. pw_tests: A logical vector indicating which tests are significantly significant. 
+#' 3. ci_tests: A logical vector indicating whether the confidence intervals are disjoint (`TRUE`) or overlap (`FALSE`). 
+#' 4. combs: The pairwise combinations of stimuli used in the test.  Note, the stimuli are reordered from largest to smallest, so the numbers do not represent the position in the original ordering. 
+#' 5. param_names: A vector of the names of the parameters reordered by size - largest to smallest. 
+#' 6. L: The lower confidence bounds from the grid search. 
+#' 7. U: The upper confidence bounds from the grid search. 
+#' 8. est: A data frame with the variables `vbl` - the parameter name; `est` - the parameter estimate; `se` - the parameter standard error. 
+#' 9. call: model call
+#'  
+#' @importFrom dplyr case_when 
+#' @importFrom VizTest viztest make_vt_data
 #' @export
 #' 
 #' @examples 
@@ -1158,104 +1083,33 @@ make_fdat <- function(b, v, vt, eg, resdf=Inf, alpha=.05, clev, adjust){
 #'                      "pct_secondary", 
 #'                      "civ2")
 #' o2 <- optCL(b=ss2$est$slope, v=ss2$v)
-optCL <- function(obj=NULL, varname=NULL, b=NULL, v=NULL, 
-                  resdf = Inf, level=.95, 
-                  quasi_vars = NULL, 
-                  add_ref = TRUE, 
+optCL <- function(obj=NULL, b=NULL, v=NULL, 
+                  level=.95, 
                   grid_range = c(.75, .99), 
                   grid_length=100, 
-                  adjust= p.adjust.methods[c(8,1:7)]){
-  adj <- match.arg(adjust)
-  if(is.null(obj) & is.null(varname)){
-    if(is.null(b) | is.null(v))stop("Both b and v must be provided if obj and varname are NULL.\n")
-  }
-  if(is.null(b) | is.null(v)){
-    if(is.null(obj) | is.null(varname))stop("Both obj and varname must be provided if b or v is NULL.\n")
-  }
-  resdf <- ifelse(is.null(obj), resdf, obj$df.residual)
-  res <- crit <- diffs <- rep(NA, length=grid_length)
-  alpha <- 1-level
-  grid_pts <- seq(grid_range[1], grid_range[2], length=grid_length)
-  grid_pts <- sort(unique(c(level, grid_pts)))
-  if(is.null(b)){
-    X <- model.matrix(obj)
-    assgn <- attr(X, "assign")
-    tl <- attr(terms(obj), "term.labels")
-    varind <- which(tl == varname)
-    inds <- which(assgn == varind)
-    if(length(inds) == 0){
-      stop("varname not a term label in model matrix.\n")
+                  adjust= p.adjust.methods[c(8,1:7)], 
+                  print_message=TRUE, 
+                  ...){
+  if(print_message)message("This function now uses a new version of this idea and related methods that are available in the VizTest package on CRAN.\n")
+  if(is.null(obj)){
+    if(!is.null(b) & is.null(v)){
+      obj <- make_vt_data(b, type="sim")
     }
-    if(add_ref){
-      b <- c(0, coef(obj)[inds])
+    if(!is.null(b) & !is.null(v)){
+      obj <- make_vt_data(b, v, type="est")
     }
-    if(is.null(v)){
-      v <- vcov(obj)[inds, inds]
-      if(add_ref){
-        v <- cbind(0, rbind(0, v))  
-      }
+    if(is.null(b) & is.null(v)){
+      stop("Either obj or b (if b is simulation output) or b and v (if b is a vector of estimates) must be provided.\n")
     }
   }
-  if(length(b) != ncol(v))stop("Length of b and dimension of v must be the same.\n")
-  if(nrow(v) != ncol(v))stop("v must be square.\n")
-  if(is.null(b) & !is.null(v))stop("If getting v from the model, you must also get v from the model.\n")
-  eg <- expand.grid(b1 = 1:length(b), b2 = 1:length(b))
-  eg <- eg %>% filter(.data$b1 < .data$b2)
-  vi <- diag(v)
-  vt <- {if(is.null(quasi_vars)){
-    vi
-  }else{
-    quasi_vars
-  }}
-  for(i in 1:length(grid_pts)){
-    fd <- make_fdat(b,v,vt, eg, resdf, alpha, grid_pts[i], adjust=adj)  
-    fd <- fd %>% na.omit()
-    res[i] <- fd %>% 
-      ungroup %>% 
-      summarise(err = mean(.data$olap == .data$sig)) %>% 
-      pull()
-    crit[i] <- fd %>% 
-      ungroup %>% 
-      summarise(err = sum(.data$crit)) %>% 
-      pull()
-    diffs[i] <- fd %>% 
-      ungroup %>% 
-      mutate(diff = case_when(
-        b1 > b2 & sig == 1  ~ lb1-ub2, 
-        b1 < b2 & sig == 1  ~ lb2-ub1, 
-        b1 >= b2 & sig == 0 ~ ub2 - lb1, 
-        b1 < b2 & sig == 0 ~ ub1 - lb2, 
-        TRUE ~ NA_real_
-      )) %>% 
-      summarise(diff = sum(diff)) %>% 
-      select(diff) %>% 
-      pull()
-  }
-  w <- which(res == min(res))
-  if(min(res) > 0){
-    ret_dat <- make_fdat(b,v,vt, eg, resdf, alpha, grid_pts[w[1]], adjust=adj)  
-    ret_dat <- ret_dat %>% 
-      filter(.data$olap == .data$sig)
-  }
-  else{
-    ret_dat <- NULL
-  }
-  if(res[which(grid_pts == level)] > 0){
-    lev_dat <- make_fdat(b,v,vt, eg, resdf, alpha, level, adjust=adj)  
-    lev_dat <- lev_dat %>% 
-      filter(.data$olap == .data$sig)
-  }
-  else{
-    lev_dat <- NULL
-  }
-  return(list(opt_levels = grid_pts[w], 
-              opt_diffs = diffs[w], 
-              crit = crit[w], 
-              opt_errors = min(res), 
-              lev_errors = res[which(grid_pts == level)], 
-              tot_comps = nrow(fd), 
-              lev_dat = lev_dat, 
-              err_dat = ret_dat))
+  incr <- diff(grid_range)/grid_length
+  viztest(obj, 
+          test_level = 1-level, 
+          range_levels = grid_range, 
+          level_increment = incr, 
+          adjust = adjust, 
+          ...
+          )  
 }
 
 
@@ -1297,6 +1151,8 @@ loess.aic <- function (x) {
 #' @param method Method for making the line - LOESS or GAM (from the \code{mgcv} package.)
 #' @param nbin Number of bins for the histogram. 
 #' @param R Number of boostrap resamples
+#' @param verbose Logical indicating whether progress messages should be printed.
+#' @param progress Logical indicating whether a progress bar should be printed during the bootstrapping.
 #' @param ... Currently unimplemented. 
 #' 
 #' @return Two ggplots - the main heatmap Fit plot and a 
@@ -1320,7 +1176,7 @@ loess.aic <- function (x) {
 #'               method="loess")
 #' }
 gg_hmf <- function(observed, prob, method = c("loess", "gam"), 
-                   span=NULL, nbin=20, R=1000, ...){
+                   span=NULL, nbin=20, R=1000,  verbose=TRUE, progress=TRUE, ...){
 ## TODO: Make consistent with heatmap.fit
   
     method <- match.arg(method)
@@ -1344,7 +1200,7 @@ gg_hmf <- function(observed, prob, method = c("loess", "gam"),
     }else{
       spn <- span
     }
-  message(paste0("LOESS span = ", round(spn, 3), "\n\n"))
+  if(verbose)message(paste0("LOESS span = ", round(spn, 3), "\n\n"))
   lo <- loess(yobs ~ prob, degree=1, data=tmp, span=spn)
   pred <- predict(lo)
   }else{
@@ -1360,10 +1216,10 @@ gg_hmf <- function(observed, prob, method = c("loess", "gam"),
     prob = unx
   )
   pred.y <- pred.y.obs <- NULL
-  cat("Generating Bootstrap Predictions ...\n")
-  pb <- txtProgressBar(min = 0, max = R, style = 3)
+  if(verbose)message("Generating Bootstrap Predictions ...\n")
+  if(progress)pb <- txtProgressBar(min = 0, max = R, style = 3)
   for(i in 1:R){
-    setTxtProgressBar(pb, i)
+    if(progress)setTxtProgressBar(pb, i)
     est.dat$y <- ifelse(runif(nrow(tmp), min = 0, max = 1) < pred, 1, 0)  
     if(method == "loess"){
       lo <- loess(y ~ prob, data=est.dat, degree=1, span=spn)  
@@ -1392,12 +1248,6 @@ gg_hmf <- function(observed, prob, method = c("loess", "gam"),
     lwr = ci1[,1], 
     upr = ci1[,2], 
   )
-  
-  # pct_out <- plot.hm %>% 
-  #   mutate(tot = sum(.data$n)) %>% 
-  #   filter(.data$x < .data$lwr | .data$x > .data$upr) %>% 
-  #   summarise(pct = sum(.data$n)/mean(.data$tot)) %>% 
-  #   pull()
   
   if(!is.finite(pct_out))pct_out <- 0
   
@@ -1443,7 +1293,8 @@ gg_hmf <- function(observed, prob, method = c("loess", "gam"),
 #' @param nudge_x Vector of values to nudge labels horizontally.
 #' @param nudge_y Vector of values to nudge labels vertically.
 #' 
-#' @importFrom stats dfbetas
+#' @importFrom stats dfbetas 
+#' @importFrom dplyr filter
 #' @importFrom ggrepel geom_text_repel
 #' @importFrom ggplot2 coord_cartesian
 #' 

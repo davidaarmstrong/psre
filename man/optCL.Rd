@@ -6,44 +6,29 @@
 \usage{
 optCL(
   obj = NULL,
-  varname = NULL,
   b = NULL,
   v = NULL,
-  resdf = Inf,
   level = 0.95,
-  quasi_vars = NULL,
-  add_ref = TRUE,
   grid_range = c(0.75, 0.99),
   grid_length = 100,
-  adjust = p.adjust.methods[c(8, 1:7)]
+  adjust = p.adjust.methods[c(8, 1:7)],
+  print_message = TRUE,
+  ...
 )
 }
 \arguments{
 \item{obj}{A model object, on which \code{coef} and \code{vcov} can be called. 
 Either \code{obj} and \code{varname} or \code{b} and \code{v} must be specified.}
 
-\item{varname}{The name of a variable whose coefficients will be used.}
-
 \item{b}{Optional vector of coefficients to be passed into the function.
-it overrides the coefficients in \code{obj}. Either \code{obj} and 
-\code{varname} or \code{b} and \code{v} must be specified.}
+it overrides the coefficients in \code{obj}. Either \code{obj} or \code{b} 
+and \code{v} must be specified.}
 
 \item{v}{Optional variance-covariance matrix.  This can be specified 
 even if \code{obj} and \code{varname} are specified.  It replaces the
 variance-covaraince matrix from the model.}
 
-\item{resdf}{If only \code{b} and \code{v} are passed in, this gives 
-the residual degrees of freedom for the t-statistics.}
-
 \item{level}{The confidence level to use for testing.}
-
-\item{quasi_vars}{An optional vector of quasi-variances that will be
-used to make the confidence intervals.}
-
-\item{add_ref}{If \code{obj} and \code{varname} are passed in, 
-an optional 0 is added to the front of the vector of coefficients, 
-along with a leading row and column of zeros on the variance-covariance
-matrix to represent the reference category.}
 
 \item{grid_range}{The range of values over which to do the grid search.}
 
@@ -52,27 +37,24 @@ matrix to represent the reference category.}
 \item{adjust}{String giving the method used to adjust the p-values for 
 multiplicity.  All methods allowed in \code{p.adjust.methods} are 
 permitted.  None is the default.}
+
+\item{print_message}{Logical indicating whether the startup message directing
+users to a newer version of this function and package}
+
+\item{...}{Other arguments to be passed down to `VizTest::viztest()`.}
 }
 \value{
-A list with the following elements: 
-\describe{
-  \item{opt_levels}{The optimal confidence levels that all have 
-  identical minimal error rates. }
-  \item{opt_diffs}{The sum of differences between upper and lower bounds that 
-  characterize the appropriate visual tests.  Larger numbers are better.}
-  \item{opt_errors}{The proportion of errors across all simple contrasts.}
-  \item{lev_errors}{The proportion of errors made at the nominal 
-  significance level.}
-  \item{tot_comps}{The total number of comparisons}
-  \item{lev_dat}{If there are inferential errors at the nominal level, 
-  this is a data frame that has all of the information about which 
-  comparisons are not appropriately represented by the overlaps in 
-  confidence intervals.}
-  \item{err_dat}{If there are inferential errors at the optimal level, 
-  this is a data frame that has all of the information about which 
-  comparisons remain not appropriately represented by the overlaps in 
-  optimized confidence intervals.}
-}
+A list (of class "viztest") with the following elements: 
+1. tab: a data frame with results from the grid search.  The data frame has four variables: `level` - is the confidence level used in the grid search; `psame` - the proportion of (non-)overlaps that match the 
+normal theory tests; `pdiff` - the proportion of pairwise tests that are statistically significant; `easy` - the ease with which the comparisons are made. 
+2. pw_tests: A logical vector indicating which tests are significantly significant. 
+3. ci_tests: A logical vector indicating whether the confidence intervals are disjoint (`TRUE`) or overlap (`FALSE`). 
+4. combs: The pairwise combinations of stimuli used in the test.  Note, the stimuli are reordered from largest to smallest, so the numbers do not represent the position in the original ordering. 
+5. param_names: A vector of the names of the parameters reordered by size - largest to smallest. 
+6. L: The lower confidence bounds from the grid search. 
+7. U: The upper confidence bounds from the grid search. 
+8. est: A data frame with the variables `vbl` - the parameter name; `est` - the parameter estimate; `se` - the parameter standard error. 
+9. call: model call
 }
 \description{
 Calculates the Optimal Visual Testing (OVT) confidence level.  The

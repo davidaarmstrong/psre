@@ -11,6 +11,8 @@ gg_hmf(
   span = NULL,
   nbin = 20,
   R = 1000,
+  verbose = TRUE,
+  progress = TRUE,
   ...
 )
 }
@@ -30,6 +32,10 @@ span for the loess smooth.}
 \item{nbin}{Number of bins for the histogram.}
 
 \item{R}{Number of boostrap resamples}
+
+\item{verbose}{Logical indicating whether progress messages should be printed.}
+
+\item{progress}{Logical indicating whether a progress bar should be printed during the bootstrapping.}
 
 \item{...}{Currently unimplemented.}
 }

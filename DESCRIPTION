@@ -9,7 +9,7 @@ Authors@R: c(person("Dave", "Armstrong", role=c("aut", "cre"), email="davearmstr
              person("Michael", "Friendly", role="cph"), 
              person("Adrian", "Bowman", role="cph"), 
              person("Adelchi", "Azzalini", role="cph"))
-Description: Includes functions and data used in the book "Presenting Statistical Results Effectively", Andersen and Armstrong (2022, 978-1446269800).  
+Description: Includes functions and data used in the book "Presenting Statistical Results Effectively", Andersen and Armstrong (2022, ISBN: 978-1446269800).  Several functions aid in data visualization - creating compact letter displays for simple slopes, kernel density estimates with normal density overlay.  Other functions aid in post-model evaluation heatmap fit statistics for binary predictors, several variable importance measures, compact letter displays and simple-slope calculation. Finally, the package makes available the example datasets used in the book. 
 biocViews: 
 Imports: 
     stats, 
@@ -33,7 +33,8 @@ Imports:
     multcomp, 
     rlang, 
     ggrepel, 
-    mgcv
+    mgcv, 
+    VizTest
 Suggests:
     ggeffects,
     nnet
