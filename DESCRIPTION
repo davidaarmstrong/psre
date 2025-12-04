@@ -1,7 +1,7 @@
 Package: psre
 Type: Package
 Title: Presenting Statistical Results Effectively
-Version: 0.2
+Version: 0.3
 Authors@R: c(person("Dave", "Armstrong", role=c("aut", "cre"), email="davearmstrong.ps@gmail.com"), 
              person("Robert", "Andersen", role="aut"), 
              person("Justin", "Esarey", role="cph"), 
@@ -17,7 +17,6 @@ Imports:
     metap, 
     car, 
     nortest, 
-    lawstat, 
     marginaleffects, 
     ggplot2, 
     boot, 
