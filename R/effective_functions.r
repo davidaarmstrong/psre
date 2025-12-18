@@ -196,7 +196,7 @@ transNorm <- function(x, start = .01, family=c("bc", "yj"), lams,
   p4 <- sapply(1:ncol(trans_vals), function(i)shapiro.test(trans_vals[,i])$p.value)
   p5 <- sapply(1:ncol(trans_vals), function(i)rjb.test(trans_vals[,i])$p.value)
   allp <- cbind(p1, p2, p3, p4, p5)
-  pcfun <- switch(cm, Stouffer = metap::sumz, Fisher = metap::sumlog, Average = metap::meanp)
+  pcfun <- switch(cm, Stouffer = sumz, Fisher = sumlog, Average = meanp)
   if(any(allp < 0.0000001)){
     allp[which(allp < 0.0000001, arr.ind= TRUE)] <- 0.0000001
   }
@@ -1562,4 +1562,120 @@ rjb.test <- function (x, option = c("RJB", "JB"), crit.values = c("chisq.approxi
   structure(list(statistic = STATISTIC, parameter = PARAMETER, 
                  p.value = p.value, method = METHOD, data.name = DNAME), 
             class = "htest")
+}
+
+
+#' Taken from metap package to avoid dependency and potential archival
+#' Function written by Michael Dewey <@dewey.myzen.co.uk>
+#' @importFrom stats na.fail pnorm
+#' @keywords internal
+#' @noRd
+sumz <- function (p, weights = NULL, data = NULL, subset = NULL, na.action = na.fail, 
+                  log.p = FALSE, log.input = FALSE) 
+{
+  if (is.null(data)) 
+    data <- sys.frame(sys.parent())
+  mf <- match.call()
+  mf$data <- NULL
+  mf$subset <- NULL
+  mf$na.action <- NULL
+  mf[[1]] <- as.name("data.frame")
+  mf <- eval(mf, data)
+  if (!is.null(subset)) 
+    mf <- mf[subset, ]
+  mf <- na.action(mf)
+  p <- as.numeric(mf$p)
+  weights <- mf$weights
+  noweights <- is.null(weights)
+  if (noweights) 
+    weights <- rep(1, length(p))
+  if (length(p) != length(weights)) 
+    warning("Length of p and weights differ")
+  if (log.input) {
+    keep <- p < 0
+  }
+  else {
+    keep <- (p > 0) & (p < 1)
+  }
+  invalid <- sum(1L * keep) < 2
+  if (invalid) {
+    warning("Must have at least two valid p values")
+    res <- list(z = NA_real_, p = NA_real_, validp = p[keep], 
+                weights = weights)
+  }
+  else {
+    if (sum(1L * keep) != length(p)) {
+      warning("Some studies omitted")
+      omitw <- weights[!keep]
+      if ((sum(1L * omitw) > 0) & !noweights) 
+        warning("Weights omitted too")
+    }
+    zp <- (qnorm(p[keep], lower.tail = FALSE, log.p = log.input) %*% 
+             weights[keep])/sqrt(sum(weights[keep]^2))
+    res <- list(z = zp, p = pnorm(zp, lower.tail = FALSE, 
+                                  log.p = log.p), validp = p[keep], weights = weights)
+  }
+  res
+}
+
+
+#' Taken from metap package to avoid dependency and potential archival
+#' Function written by Michael Dewey <@dewey.myzen.co.uk>
+#' @keywords internal
+#' @noRd
+sumlog <- function (p, log.p = FALSE, log.input = FALSE) 
+{
+  if (log.input) {
+    keep <- p <= 0
+  }
+  else {
+    keep <- (p > 0) & (p <= 1)
+  }
+  invalid <- sum(1L * keep) < 2
+  if (invalid) {
+    warning("Must have at least two valid p values")
+    res <- list(chisq = NA_real_, df = NA_integer_, p = NA_real_, 
+                validp = p[keep])
+  }
+  else {
+    if (log.input) {
+      lnp <- p[keep]
+    }
+    else {
+      lnp <- log(p[keep])
+    }
+    chisq <- (-2) * sum(lnp)
+    df <- 2 * length(lnp)
+    if (length(lnp) != length(p)) {
+      warning("Some studies omitted")
+    }
+    res <- list(chisq = chisq, df = df, p = pchisq(chisq, 
+                                                   df, lower.tail = FALSE, log.p = log.p), validp = p[keep])
+  }
+  res
+}
+
+
+#' Taken from metap package to avoid dependency and potential archival
+#' Function written by Michael Dewey <@dewey.myzen.co.uk>
+#' @keywords internal
+#' @noRd
+meanp <- function (p) {
+  keep <- (p >= 0) & (p <= 1)
+  invalid <- sum(1L * keep) < 4
+  if (invalid) {
+    warning("Must have at least four valid p values")
+    res <- list(z = NA_real_, p = NA_real_, validp = p[keep])
+  }
+  else {
+    pi <- mean(p[keep])
+    k <- length(p[keep])
+    z <- (0.5 - pi) * sqrt(12 * k)
+    if (k != length(p)) {
+      warning("Some studies omitted")
+    }
+    res <- list(z = z, p = pnorm(z, lower.tail = FALSE), 
+                validp = p[keep])
+  }
+  res
 }

@@ -1,20 +1,20 @@
 Package: psre
 Type: Package
 Title: Presenting Statistical Results Effectively
-Version: 0.3
+Version: 0.4
 Authors@R: c(person("Dave", "Armstrong", role=c("aut", "cre"), email="davearmstrong.ps@gmail.com"), 
              person("Robert", "Andersen", role="aut"), 
              person("Justin", "Esarey", role="cph"), 
              person("John", "Fox", role="cph"), 
              person("Michael", "Friendly", role="cph"), 
              person("Adrian", "Bowman", role="cph"), 
-             person("Adelchi", "Azzalini", role="cph"))
+             person("Adelchi", "Azzalini", role="cph"), 
+             person("Dewey", "Michael", role="cph"))
 Description: Includes functions and data used in the book "Presenting Statistical Results Effectively", Andersen and Armstrong (2022, ISBN: 978-1446269800).  Several functions aid in data visualization - creating compact letter displays for simple slopes, kernel density estimates with normal density overlay.  Other functions aid in post-model evaluation heatmap fit statistics for binary predictors, several variable importance measures, compact letter displays and simple-slope calculation. Finally, the package makes available the example datasets used in the book. 
 biocViews: 
 Imports: 
     stats, 
     MASS, 
-    metap, 
     car, 
     nortest, 
     marginaleffects, 
