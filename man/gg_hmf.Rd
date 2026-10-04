@@ -44,9 +44,14 @@ Two ggplots - the main heatmap Fit plot and a
 histogram that can be included as a marginal density.
 }
 \description{
-Makes a Heatmap Fit plot (Esary and Pierce, 2012) using
+Makes a Heatmap Fit plot (Esarey and Pierce, 2012) using
 GGPlot rather than lattice that the \code{heatmapFit} package
-uses.
+uses. The ribbon is the 80\% bootstrap interval of the smoothed
+empirical probability generated under the null that the model is
+correctly specified.  The x-axis label reports the percentage of
+observations with a one-tailed bootstrap p-value of .1 or less
+(i.e., outside the interval). Esarey and Pierce suggest that values
+above 20\% indicate misspecification.
 }
 \examples{
 \donttest{

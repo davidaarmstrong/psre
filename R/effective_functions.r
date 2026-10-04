@@ -1136,9 +1136,14 @@ loess.aic <- function (x) {
 
 #' Heatmap Fit Plot using GGplot
 #' 
-#' Makes a Heatmap Fit plot (Esary and Pierce, 2012) using
+#' Makes a Heatmap Fit plot (Esarey and Pierce, 2012) using
 #' GGPlot rather than lattice that the \code{heatmapFit} package
-#' uses. 
+#' uses. The ribbon is the 80\% bootstrap interval of the smoothed
+#' empirical probability generated under the null that the model is
+#' correctly specified.  The x-axis label reports the percentage of
+#' observations with a one-tailed bootstrap p-value of .1 or less
+#' (i.e., outside the interval). Esarey and Pierce suggest that values
+#' above 20\% indicate misspecification. 
 #' 
 #' @param observed Vector of observe (0/1) values used in a 
 #' binary regression model. 
@@ -1206,7 +1211,7 @@ gg_hmf <- function(observed, prob, method = c("loess", "gam"),
     gm <- gam(yobs ~ s(prob), data=tmp)
     pred <- predict(gm)
   }
-  unx <- seq(from=min(pred), to=max(pred), length=250)
+  unx <- seq(from=min(tmp$prob), to=max(tmp$prob), length=250)
   est.dat <- data.frame(
     y=NA, 
     prob=tmp$prob) ## or tmp$prob
@@ -1219,7 +1224,8 @@ gg_hmf <- function(observed, prob, method = c("loess", "gam"),
   if(progress)pb <- txtProgressBar(min = 0, max = R, style = 3)
   for(i in 1:R){
     if(progress)setTxtProgressBar(pb, i)
-    est.dat$y <- ifelse(runif(nrow(tmp), min = 0, max = 1) < pred, 1, 0)  
+    ## simulate under the null that the model is correct
+    est.dat$y <- ifelse(runif(nrow(tmp), min = 0, max = 1) < tmp$prob, 1, 0)  
     if(method == "loess"){
       lo <- loess(y ~ prob, data=est.dat, degree=1, span=spn)  
     }else{
@@ -1234,7 +1240,8 @@ gg_hmf <- function(observed, prob, method = c("loess", "gam"),
   }
   ap <- apply(pred.y.obs, 2, function(x)(2*(x < pred) + (x == pred)))
   pvals <- apply(ap, 1, function(x)(sum(x)/2)/R)
-  pct_out <- sum(pvals < .1 | pvals > .9)/R
+  ## proportion of observations with one-tailed bootstrap p-value <= .1
+  pct_out <- mean(pvals <= .1 | pvals >= .9)
   ci1 <- t(apply(pred.y, 1, function(x)quantile(x, c(.1,.9), na.rm=TRUE)))
   if(method=="loess"){
     lo <- loess(yobs ~ prob, data=tmp, degree=1, span=spn)  
